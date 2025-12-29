@@ -1,165 +1,23 @@
-/* PAGE */
-.page {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #FAF6F9, #CFE7F5, #D8CFF0);
+.chat-info-page {
+    height: 100vh;
     display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-    padding: 24px;
-    font-family: system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #faf6f9, #cfe7f5);
+    font-family: system-ui, sans-serif;
 }
 
-.container {
-    width: 100%;
-    max-width: 420px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+.info-card {
+    background: white;
+    padding: 40px 60px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* CARDS */
-.card {
-    border-radius: 24px;
-    padding: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-}
-
-/* HEADERS */
-.card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.6;
-    margin-bottom: 10px;
-}
-
-/* TOPIC */
-.topic-card {
-    background: rgba(255, 255, 255, 0.85);
-}
-
-.topic-card h2 {
-    font-size: 26px;
-    font-weight: 700;
-}
-
-/* ROLE */
-.role-card.imposter {
-    background: linear-gradient(135deg, #E7B6D1, #F6C1D1);
-}
-
-.role-card.innocent {
-    background: linear-gradient(135deg, #CFE7F5, #BFD6E6);
-}
-
-.role-card h2 {
-    font-size: 34px;
-    margin: 6px 0;
-}
-
-.role-desc {
-    opacity: 0.7;
-}
-
-.divider {
-    height: 1px;
-    background: rgba(0, 0, 0, 0.1);
-    margin: 16px 0;
-}
-
-/* SECRET WORDS */
-.secret-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 12px;
-}
-
-.chips {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.chip {
-    background: #1a2744;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 14px;
-}
-
-/* TIMER */
-.timer-card {
-    background: #1a2744;
-    color: white;
-}
-
-.timer-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.timer-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    opacity: 0.7;
-}
-
-.timer-num {
+.countdown {
     font-size: 48px;
-    font-weight: 700;
-}
-
-/* PROGRESS BAR */
-.progress {
-    height: 6px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 999px;
-    margin-top: 14px;
-    overflow: hidden;
-}
-
-.progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #F6C1D1, #D8CFF0, #CFE7F5);
-    transition: width 1s linear;
-}
-
-/* OVERLAY */
-.overlay {
-    position: fixed;
-    inset: 0;
-    background: #1a2744;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    animation: fadeIn 0.4s ease-in;
-}
-
-.overlay h1 {
-    color: white;
-    font-size: 40px;
-    font-weight: 800;
-}
-
-/* ANIMATION */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+    font-weight: bold;
+    margin-top: 10px;
+    color: #7a5fb8;
 }
