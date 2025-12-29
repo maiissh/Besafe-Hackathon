@@ -1,0 +1,23 @@
+.chat-info-page {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #faf6f9, #cfe7f5);
+    font-family: system-ui, sans-serif;
+}
+
+.info-card {
+    background: white;
+    padding: 40px 60px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.countdown {
+    font-size: 48px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #7a5fb8;
+}
