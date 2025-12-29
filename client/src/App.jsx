@@ -10,8 +10,9 @@ import styles from './styles/App.module.css';
 
 // import projectLogo from './assets/project-logo.png'
 import { Routes, Route } from "react-router-dom";
-import ChatInfoPage from "./pages/HomePage/spotImposterGame/ChatInfoPage.jsx";
-import ChatPage from "./pages/HomePage/spotImposterGame/ChatPage.jsx";
+import ChatInfoPage from "./pages/spotImposterGame/ChatInfoPage.jsx";
+import ChatPage from "./pages/spotImposterGame/ChatPage.jsx";
+import SpotGameHomePage from './pages/spotImposterGame/SpotGameHomePage';
 
 function App() {
 
