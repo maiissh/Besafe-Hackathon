@@ -16,7 +16,6 @@ import ChatPage from "./pages/HomePage/spotImposterGame/ChatPage.jsx";
 function App() {
 
   return (
-<<<<<<< HEAD
     <BrowserRouter>
       <div className={styles.app}>
         <main className={styles.main}>
