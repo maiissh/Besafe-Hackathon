@@ -1,10 +1,48 @@
-.home {
-  text-align: center;
-  padding: 20px;
+.container {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background-color: #FAF6F9;
 }
 
-.headline {
-  font-size: 2em;
-  margin-bottom: 20px;
-  color: #53474F;
+.magicBackground {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.lightBlob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: floatLight 12s infinite alternate ease-in-out;
+}
+
+.pinkBlob { top: -5%; left: -5%; width: 400px; height: 400px; background: #F6C1D1; }
+.purpleBlob { bottom: -5%; right: -5%; width: 500px; height: 500px; background: #D8CFF0; animation-delay: 2s; }
+.skyBlob { top: 30%; left: 15%; width: 350px; height: 350px; background: #CFE7F5; animation-delay: 4s; }
+
+.floatingIcon { position: absolute; }
+
+.glassCard {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 8px;
+}
+
+.actionSection {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  border-radius: 1.5rem;
+  padding: 1rem;
+  border: 1px solid white;
+}
+
+@keyframes floatLight {
+  from { transform: translate(0, 0); }
+  to { transform: translate(40px, 60px); }
 }
