@@ -241,7 +241,7 @@
   z-index: 10;
   max-width: 80rem;
   margin: 0 auto;
-  padding: 7rem 1rem 8rem;  /* 7rem للـ Header الثابت، 8rem للـ Footer الثابت */
+  padding: 9rem 1rem 8rem;  /* 7rem للـ Header الثابت، 8rem للـ Footer الثابت */
 }
 
 /* ===== Welcome Card ===== */
@@ -684,7 +684,7 @@
   }
 
   .main {
-    padding: 6rem 1rem 6.5rem;
+    padding: 7.5rem 1rem 6.5rem;
   }
 
   .safetyTipMessage {
