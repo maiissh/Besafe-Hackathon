@@ -1,0 +1,66 @@
+/* ===== Bottom Navigation - FIXED AT BOTTOM ===== */
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(250, 246, 249, 0.95);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(201, 183, 226, 0.15);
+  box-shadow: 0 -4px 6px -1px rgba(201, 183, 226, 0.1);
+}
+
+.navContainer {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0.875rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0.5rem;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 1.125rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.3s ease;
+  flex: 1;
+  max-width: 8rem;
+}
+
+.navItem:hover {
+  background: rgba(201, 183, 226, 0.08);
+  color: #C9B7E2;
+}
+
+.navItemActive {
+  background: linear-gradient(135deg, #E7B6D1, #C9B7E2);
+  color: white;
+  box-shadow: 0 4px 12px rgba(201, 183, 226, 0.35);
+}
+
+.navLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 480px) {
+  .navLabel {
+    display: none;
+  }
+
+  .navItem {
+    padding: 0.625rem 0.75rem;
+  }
+}

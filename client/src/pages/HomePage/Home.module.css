@@ -31,7 +31,7 @@
 /* ===== Safety Tip Message - Top Right ===== */
 .safetyTipMessage {
   position: fixed;
-  top: 5rem;
+  top: 6.5rem;
   right: 1.5rem;
   width: 18rem;
   max-width: calc(100vw - 3rem);
@@ -165,7 +165,7 @@
   animation: floatSlow 14s ease-in-out infinite;
 }
 
-/* More Floating Icons - VERY LARGE & Visible Emojis */
+/* More Floating Icons */
 .floatingIcon {
   position: absolute;
   opacity: 0.65;
@@ -177,12 +177,6 @@
 
 .floatingIcon:hover {
   transform: scale(1.2);
-}
-
-.iconEmoji {
-  font-size: 4.5rem;
-  filter: drop-shadow(0 6px 20px rgba(139, 91, 168, 0.7));
-  text-shadow: 0 4px 12px rgba(255, 255, 255, 0.8);
 }
 
 .icon1 {
@@ -241,233 +235,16 @@
   animation-duration: 9s;
 }
 
-.icon9 {
-  top: 25%;
-  left: 25%;
-  animation-delay: 2.2s;
-  animation-duration: 11s;
-}
-
-.icon10 {
-  top: 45%;
-  right: 22%;
-  animation-delay: 3.8s;
-  animation-duration: 10s;
-}
-
-.icon11 {
-  bottom: 50%;
-  left: 8%;
-  animation-delay: 1.3s;
-  animation-duration: 12s;
-}
-
-.icon12 {
-  top: 60%;
-  right: 28%;
-  animation-delay: 4.2s;
-  animation-duration: 9s;
-}
-
-.icon13 {
-  bottom: 35%;
-  left: 20%;
-  animation-delay: 0.8s;
-  animation-duration: 13s;
-}
-
-.icon14 {
-  top: 20%;
-  right: 35%;
-  animation-delay: 3.2s;
-  animation-duration: 10s;
-}
-
-.icon15 {
-  bottom: 60%;
-  right: 15%;
-  animation-delay: 2.8s;
-  animation-duration: 11s;
-}
-
-.icon17 {
-  top: 12%;
-  left: 50%;
-  animation-delay: 0.5s;
-  animation-duration: 11s;
-}
-
-.icon18 {
-  top: 38%;
-  right: 10%;
-  animation-delay: 3.5s;
-  animation-duration: 10s;
-}
-
-.icon19 {
-  bottom: 28%;
-  left: 25%;
-  animation-delay: 1.8s;
-  animation-duration: 12s;
-}
-
-.icon20 {
-  top: 65%;
-  right: 25%;
-  animation-delay: 4s;
-  animation-duration: 9s;
-}
-
-.icon21 {
-  top: 22%;
-  left: 40%;
-  animation-delay: 2.3s;
-  animation-duration: 13s;
-}
-
-.icon22 {
-  bottom: 45%;
-  right: 8%;
-  animation-delay: 3.8s;
-  animation-duration: 10s;
-}
-
-.icon23 {
-  top: 50%;
-  left: 12%;
-  animation-delay: 1.2s;
-  animation-duration: 11s;
-}
-
-.icon24 {
-  bottom: 20%;
-  right: 35%;
-  animation-delay: 4.5s;
-  animation-duration: 12s;
-}
-
-/* ===== Main Content ===== */
+/* ===== Main Content - WITH PADDING FOR FIXED HEADER & FOOTER ===== */
 .main {
   position: relative;
   z-index: 10;
   max-width: 80rem;
   margin: 0 auto;
-  padding: 2rem 1rem 8rem;
+  padding: 7rem 1rem 8rem;  /* 7rem للـ Header الثابت، 8rem للـ Footer الثابت */
 }
 
-/* ===== Header ===== */
-.header {
-  margin-bottom: 2.5rem;
-}
-
-.headerTop {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  padding: 0 0.5rem;
-}
-
-.branding {
-  flex: 1;
-  padding-left: 2.5rem;
-}
-
-.brandTitle {
-  font-size: 2.5rem;
-  font-weight: 900;
-  background: linear-gradient(135deg, #C9377D 0%, #8B5BA8 50%, #5C9AC9 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 0;
-  letter-spacing: -0.04em;
-  filter: drop-shadow(0 2px 8px rgba(139, 91, 168, 0.3));
-  position: relative;
-}
-
-.brandTitle::after {
-  content: 'BeSafe';
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -1;
-  background: linear-gradient(135deg, #C9377D 0%, #8B5BA8 50%, #5C9AC9 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: blur(8px);
-  opacity: 0.4;
-}
-
-.brandSubtitle {
-  font-size: 1rem;
-  color: #4a5568;
-  margin-top: 0.5rem;
-  font-weight: 700;
-  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
-}
-
-/* Badges Group - Streak & Points */
-.badgesGroup {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.streakBadge,
-.pointsBadge {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 1rem;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(139, 91, 168, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.streakBadge:hover,
-.pointsBadge:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(139, 91, 168, 0.2);
-}
-
-.streakBadge {
-  background: rgba(246, 193, 209, 0.35);
-  color: #8B2F5F;
-  border: 1.5px solid rgba(201, 55, 125, 0.3);
-}
-
-.pointsBadge {
-  background: rgba(207, 231, 245, 0.35);
-  color: #2D5A7B;
-  border: 1.5px solid rgba(92, 154, 201, 0.3);
-}
-
-.flameIcon {
-  color: #C9377D;
-  flex-shrink: 0;
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.coinsIcon {
-  color: #5C9AC9;
-  flex-shrink: 0;
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.badgeValue {
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1;
-}
-
-/* ===== Welcome Card - Ultra Beautiful & Elegant ===== */
+/* ===== Welcome Card ===== */
 .welcomeCard {
   background: rgba(255, 255, 255, 0.85);
   border-radius: 2rem;
@@ -479,6 +256,7 @@
   border: 1px solid rgba(250, 246, 249, 0.8);
   position: relative;
   backdrop-filter: blur(10px);
+  margin-bottom: 2.5rem;
 }
 
 .welcomeGradientBg {
@@ -574,7 +352,7 @@
   max-width: 28rem;
 }
 
-/* Level Badge Box - Elegant */
+/* Level Badge Box */
 .levelBadgeBox {
   margin-top: 0.5rem;
 }
@@ -876,62 +654,6 @@
   color: #9ca3af;
 }
 
-/* ===== Bottom Navigation ===== */
-.bottomNav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  background: rgba(250, 246, 249, 0.95);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(201, 183, 226, 0.15);
-  box-shadow: 0 -4px 6px -1px rgba(201, 183, 226, 0.1);
-}
-
-.navContainer {
-  max-width: 80rem;
-  margin: 0 auto;
-  padding: 0.875rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: 0.5rem;
-}
-
-.navItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 1.125rem;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #6b7280;
-  transition: all 0.3s ease;
-  flex: 1;
-  max-width: 8rem;
-}
-
-.navItem:hover {
-  background: rgba(201, 183, 226, 0.08);
-  color: #C9B7E2;
-}
-
-.navItemActive {
-  background: linear-gradient(135deg, #E7B6D1, #C9B7E2);
-  color: white;
-  box-shadow: 0 4px 12px rgba(201, 183, 226, 0.35);
-}
-
-.navLabel {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-}
-
 /* ===== Responsive Design ===== */
 @media (max-width: 768px) {
   .journeyLine {
@@ -962,11 +684,11 @@
   }
 
   .main {
-    padding: 1.5rem 1rem 6.5rem;
+    padding: 6rem 1rem 6.5rem;
   }
 
   .safetyTipMessage {
-    top: 4rem;
+    top: 5.5rem;
     right: 1rem;
     width: calc(100vw - 2rem);
   }
@@ -975,14 +697,6 @@
 @media (max-width: 480px) {
   .welcomeTitle {
     font-size: 1.625rem;
-  }
-
-  .navLabel {
-    display: none;
-  }
-
-  .navItem {
-    padding: 0.625rem 0.75rem;
   }
 }
 

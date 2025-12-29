@@ -1,27 +1,21 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Loader2,
   ShieldCheck,
   MessageCircle,
   Users,
   ArrowRight,
-  Home,
-  Gamepad2,
-  HelpCircle,
   X,
   Shield,
-  Flame,
-  Coins,
   Star,
   Lock,
   Heart,
-  Zap,
   Award,
-  CheckCircle,
   HelpCircle as Help,
-  Target,
 } from "lucide-react";
+import Header from "../../components/Header/Header";
+import BottomNav from "../../components/BottomNav/BottomNav.jsx";
 import styles from "./Home.module.css";
 
 // Configuration constants
@@ -49,16 +43,8 @@ const LEVELS_CONFIG = [
   },
 ];
 
-const NAV_ITEMS = [
-  { to: "/", label: "Home", Icon: Home },
-  { to: "/chat", label: "Chat", Icon: MessageCircle },
-  { to: "/stories", label: "Stories", Icon: Users },
-  { to: "/help", label: "Help", Icon: HelpCircle },
-];
-
 export default function HomePage() {
   const navigate = useNavigate();
-  const location = useLocation();
   const [loading, setLoading] = useState(true);
   const [showSafetyTip, setShowSafetyTip] = useState(true);
 
@@ -87,14 +73,6 @@ export default function HomePage() {
     }
   }, [navigate, student.currentLevel]);
 
-  const progressPercent = useMemo(() => {
-    const total = MAX_LEVELS;
-    const completed = Math.min(student.completedLevels, total);
-    return Math.round((completed / total) * 100);
-  }, [student.completedLevels]);
-
-  const isActive = useCallback((to) => location.pathname === to, [location.pathname]);
-
   const closeSafetyTip = useCallback(() => {
     setShowSafetyTip(false);
   }, []);
@@ -110,6 +88,13 @@ export default function HomePage() {
 
   return (
     <div className={styles.container}>
+      {/* Fixed Header */}
+      <Header 
+        studentName={student.name}
+        points={student.points}
+        streak={student.streak}
+      />
+
       {/* Safety Tip Message - Top Right */}
       {showSafetyTip && (
         <div className={styles.safetyTipMessage}>
@@ -171,64 +156,42 @@ export default function HomePage() {
 
       {/* Main Content */}
       <main className={styles.main}>
-        {/* Header */}
-        <header className={styles.header}>
-          <div className={styles.headerTop}>
-            <div className={styles.branding}>
-              <h1 className={styles.brandTitle}>BeSafe</h1>
-              <p className={styles.brandSubtitle}>School Guided Online Safety</p>
+        {/* Welcome Card */}
+        <div className={styles.welcomeCard}>
+          <div className={styles.welcomeGradientBg}>
+            <div className={styles.welcomeDecorTop}>
+              <div className={styles.decorCircle1}></div>
+              <div className={styles.decorCircle2}></div>
             </div>
             
-            {/* Streak & Points Badges - Back on top, bigger */}
-            <div className={styles.badgesGroup}>
-              <div className={styles.streakBadge}>
-                <Flame className={styles.flameIcon} size={22} />
-                <span className={styles.badgeValue}>{student.streak}</span>
-              </div>
-              <div className={styles.pointsBadge}>
-                <Coins className={styles.coinsIcon} size={22} />
-                <span className={styles.badgeValue}>{student.points}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Welcome Card - More Beautiful & Elegant */}
-          <div className={styles.welcomeCard}>
-            <div className={styles.welcomeGradientBg}>
-              <div className={styles.welcomeDecorTop}>
-                <div className={styles.decorCircle1}></div>
-                <div className={styles.decorCircle2}></div>
+            <div className={styles.welcomeContent}>
+              <div className={styles.welcomeIconStatic}>
+                <Star size={32} className={styles.starMainIcon} />
               </div>
               
-              <div className={styles.welcomeContent}>
-                <div className={styles.welcomeIconStatic}>
-                  <Star size={32} className={styles.starMainIcon} />
-                </div>
-                
-                <h2 className={styles.welcomeTitle}>
-                  Welcome back, {student.name}! 💜
-                </h2>
-                
-                <p className={styles.welcomeSubtitle}>
-                  Keep doing amazing! Keep learning & stay safe online
-                </p>
+              <h2 className={styles.welcomeTitle}>
+                Welcome back, {student.name}! 💜
+              </h2>
+              
+              <p className={styles.welcomeSubtitle}>
+                Keep doing amazing! Keep learning & stay safe online
+              </p>
 
-                {/* Level Badge only */}
-                <div className={styles.levelBadgeBox}>
-                  <div className={styles.levelBadgeContent}>
-                    <div className={styles.levelIconWrapper}>
-                      <Award size={20} />
-                    </div>
-                    <div className={styles.levelTextInfo}>
-                      <span className={styles.levelNumber}>Level {student.currentLevel}</span>
-                      <span className={styles.levelStatus}>{student.completedLevels} lessons completed</span>
-                    </div>
+              {/* Level Badge only */}
+              <div className={styles.levelBadgeBox}>
+                <div className={styles.levelBadgeContent}>
+                  <div className={styles.levelIconWrapper}>
+                    <Award size={20} />
+                  </div>
+                  <div className={styles.levelTextInfo}>
+                    <span className={styles.levelNumber}>Level {student.currentLevel}</span>
+                    <span className={styles.levelStatus}>{student.completedLevels} lessons completed</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </header>
+        </div>
 
         {/* Journey Section */}
         <section className={styles.section}>
@@ -326,25 +289,8 @@ export default function HomePage() {
         </section>
       </main>
 
-      {/* Bottom Navigation */}
-      <nav className={styles.bottomNav}>
-        <div className={styles.navContainer}>
-          {NAV_ITEMS.map(({ to, label, Icon }) => {
-            const active = isActive(to);
-            return (
-              <button
-                key={to}
-                onClick={() => navigate(to)}
-                className={`${styles.navItem} ${active ? styles.navItemActive : ''}`}
-                type="button"
-              >
-                <Icon size={20} />
-                <span className={styles.navLabel}>{label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </nav>
+      {/* Fixed Bottom Navigation */}
+      <BottomNav />
     </div>
   );
 }

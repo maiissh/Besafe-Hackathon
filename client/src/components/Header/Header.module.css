@@ -1,0 +1,158 @@
+/* ===== Header - FIXED AT TOP ===== */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(250, 246, 249, 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(201, 183, 226, 0.15);
+  box-shadow: 0 4px 6px -1px rgba(201, 183, 226, 0.1);
+  padding: 1rem 0;
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 0 1rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.branding {
+  flex: 1;
+}
+
+.brandTitle {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #C9377D 0%, #8B5BA8 50%, #5C9AC9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  letter-spacing: -0.04em;
+  filter: drop-shadow(0 2px 8px rgba(139, 91, 168, 0.3));
+  position: relative;
+}
+
+.brandTitle::after {
+  content: 'BeSafe';
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  background: linear-gradient(135deg, #C9377D 0%, #8B5BA8 50%, #5C9AC9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: blur(8px);
+  opacity: 0.4;
+}
+
+.brandSubtitle {
+  font-size: 1rem;
+  color: #4a5568;
+  margin-top: 0.5rem;
+  font-weight: 700;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+}
+
+/* Badges Group - Streak & Points */
+.badgesGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.streakBadge,
+.pointsBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(139, 91, 168, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.streakBadge:hover,
+.pointsBadge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(139, 91, 168, 0.2);
+}
+
+.streakBadge {
+  background: rgba(246, 193, 209, 0.35);
+  color: #8B2F5F;
+  border: 1.5px solid rgba(201, 55, 125, 0.3);
+}
+
+.pointsBadge {
+  background: rgba(207, 231, 245, 0.35);
+  color: #2D5A7B;
+  border: 1.5px solid rgba(92, 154, 201, 0.3);
+}
+
+.flameIcon {
+  color: #C9377D;
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.coinsIcon {
+  color: #5C9AC9;
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.badgeValue {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .header {
+    padding: 0.75rem 0;
+  }
+  
+  .brandTitle {
+    font-size: 2rem;
+  }
+  
+  .headerTop {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .badgesGroup {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .brandTitle {
+    font-size: 1.75rem;
+  }
+  
+  .brandSubtitle {
+    font-size: 0.875rem;
+  }
+  
+  .streakBadge,
+  .pointsBadge {
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+  }
+}
