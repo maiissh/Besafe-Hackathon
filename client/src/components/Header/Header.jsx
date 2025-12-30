@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Flame, Coins } from "lucide-react";
 import styles from "./Header.module.css";
 
-export default function Header({ studentName, points, streak }) {
+export default function Header({ points, streak }) {
   return (
     <header className={styles.header}>
       <div className={styles.headerTop}>
