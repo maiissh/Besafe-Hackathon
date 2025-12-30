@@ -1,6 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/HomePage/HomePage';
+import Home from './page/Homepage/HomePage';
+import Register from './page/Register/Register';
+import './page/Register/Register.css';
 import styles from './styles/App.module.css';
+import StoriesSection from './page/Stories/StoriesSection';
+
 
 function App() {
   return (
@@ -8,7 +12,10 @@ function App() {
       <div className={styles.app}>
         <main className={styles.main}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/Homepage" element={<Home />} />
+            <Route path="/" element={<Register />} /> 
+            <Route path="/Stories" element={<StoriesSection />} /> 
+
           </Routes>
         </main>
       </div>

@@ -3,7 +3,7 @@ import { Home, MessageCircle, Users, HelpCircle } from "lucide-react";
 import styles from "./BottomNav.module.css";
 
 const NAV_ITEMS = [
-  { to: "/", label: "Home", Icon: Home },
+  { to: "/Homepage", label: "Home", Icon: Home },
   { to: "/chat", label: "Chat", Icon: MessageCircle },
   { to: "/stories", label: "Stories", Icon: Users },
   { to: "/help", label: "Help", Icon: HelpCircle },
