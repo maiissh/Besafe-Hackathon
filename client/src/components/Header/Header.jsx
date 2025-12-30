@@ -10,14 +10,14 @@ export default function Header({ studentName, points, streak }) {
           <p className={styles.brandSubtitle}>School Guided Online Safety</p>
         </div>
         
-        {/* Streak & Points Badges */}
+        {/* Streak & Points Badges - LARGER */}
         <div className={styles.badgesGroup}>
           <div className={styles.streakBadge}>
-            <Flame className={styles.flameIcon} size={22} />
+            <Flame className={styles.flameIcon} size={28} />
             <span className={styles.badgeValue}>{streak}</span>
           </div>
           <div className={styles.pointsBadge}>
-            <Coins className={styles.coinsIcon} size={22} />
+            <Coins className={styles.coinsIcon} size={28} />
             <span className={styles.badgeValue}>{points}</span>
           </div>
         </div>
