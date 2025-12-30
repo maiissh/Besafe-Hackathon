@@ -6,7 +6,7 @@
   right: 0;
   z-index: 100;
   background: rgba(250, 246, 249, 0.95);
-  backdrop-filter: blur(16px);
+backdrop-filter: blur(30px);
   border-bottom: 1px solid rgba(201, 183, 226, 0.15);
   box-shadow: 0 4px 6px -1px rgba(201, 183, 226, 0.1);
   padding: 1rem 0;
