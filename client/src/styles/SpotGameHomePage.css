@@ -1,0 +1,202 @@
+:root {
+    --gh-pastel-pink: #F6C1D1;
+    --gh-blush-pink: #E7B6D1;
+    --gh-light-lavender: #D8CFF0;
+    --gh-soft-purple: #C9B7E2;
+    --gh-baby-blue: #CFE7F5;
+    --gh-soft-blue-gray: #BFD6E6;
+    --gh-warm-white: #FAF6F9;
+    --gh-light-gray: #EDEDED;
+}
+
+.game-home-container {
+    min-height: 100vh;
+    background-color: var(--gh-warm-white); /* Warm White Background */
+    display: flex;
+    flex-direction: column;
+}
+
+.home-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    color: #5a4a6b; /* A dark purple/gray for contrast */
+    margin-bottom: 0.5rem;
+}
+
+/* Making the word "Imposter" pop with Blush Pink */
+.highlight-text {
+    color: var(--gh-blush-pink);
+    position: relative;
+    white-space: nowrap;
+}
+
+/* Adding a cute squiggle underline effect */
+.highlight-text::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background-color: var(--gh-light-lavender);
+    border-radius: 3px;
+    z-index: -1;
+    opacity: 0.7;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: #7a7a7a;
+}
+
+/* --- Rules Badges --- */
+.rules-badges-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.rule-badge {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(191, 214, 230, 0.3); /* Soft Blue Gray shadow */
+    transition: transform 0.2s ease;
+}
+
+.rule-badge:hover {
+    transform: translateY(-3px);
+}
+
+/* Varying the badge colors using the palette */
+.badge-purple { background-color: var(--gh-light-lavender); }
+.badge-blue { background-color: var(--gh-baby-blue); }
+.badge-pink { background-color: var(--gh-pastel-pink); }
+
+.badge-icon {
+    font-size: 1.8rem;
+    margin-right: 0.8rem;
+}
+
+.badge-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    color: #4a4a4a;
+}
+
+/* --- Action Card --- */
+.action-card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 25px;
+    width: 100%;
+    /* A border using Soft Purple */
+    border: 3px solid var(--gh-soft-purple);
+    /* A prominent, soft shadow using Blush Pink */
+    box-shadow: 0 8px 20px rgba(231, 182, 209, 0.25);
+    text-align: center;
+}
+
+.card-heading {
+    color: var(--gh-soft-purple);
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    border: 2px solid var(--gh-light-lavender);
+    border-radius: 12px;
+    background-color: var(--gh-warm-white);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+/* When clicking the input, it glows with Soft Purple */
+.input-group input:focus {
+    border-color: var(--gh-soft-purple);
+    box-shadow: 0 0 0 4px rgba(201, 183, 226, 0.2);
+}
+
+/* --- Start Button --- */
+.start-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    /* A beautiful gradient from Soft Purple to Blush Pink */
+    background: linear-gradient(135deg, var(--gh-soft-purple) 0%, var(--gh-blush-pink) 100%);
+    box-shadow: 0 4px 10px rgba(231, 182, 209, 0.4);
+    transition: all 0.3s ease;
+}
+
+.start-btn:hover:not(:disabled) {
+    filter: brightness(1.05);
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(231, 182, 209, 0.5);
+}
+
+.start-btn:disabled {
+    background: var(--gh-light-gray);
+    color: #999;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Simple loading dots animation */
+.loading .dots {
+    animation: ellipsis 1.5s infinite;
+}
+
+@keyframes ellipsis {
+    0% { content: ""; }
+    25% { content: "."; }
+    50% { content: ".."; }
+    75% { content: "..."; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .hero-title { font-size: 2rem; }
+    .rules-badges-container { flex-direction: column; }
+    .rule-badge { width: 100%; }
+}

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/HomePage/HomePage';
 import styles from './styles/App.module.css';
 
@@ -7,27 +7,36 @@ import styles from './styles/App.module.css';
 // import styles from './styles/App.module.css';
 
 // import projectLogo from './assets/project-logo.png'
-import { Routes, Route } from "react-router-dom";
-import ChatInfoPage from "./pages/HomePage/spotImposterGame/ChatInfoPage.jsx";
-import ChatPage from "./pages/HomePage/spotImposterGame/ChatPage.jsx";
+import ChatInfoPage from "src/pages/spotImposterGame/ChatInfoPage.jsx";
+import ChatPage from "src/pages/spotImposterGame/ChatPage.jsx";
+import SpotGameHomePage from 'src/pages/spotImposterGame/SpotGameHomePage.jsx';
 
 function App() {
-
   return (
     <BrowserRouter>
-      <div className={styles.app}>
-        <main className={styles.main}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Register />} />  
+      {/* ... header code ... */}
 
-            {/* <Route path="/" element={<ChatInfoPage />} />
-            <Route path="/chat" element={<ChatPage />} /> */}
-          </Routes>
-        </main>
-      </div>
+      <main className={styles.main}>
+        <Routes>
+          {/* 1. COMMENT OUT THE REAL HOME PAGE 
+             <Route path="/" element={<Home />} /> 
+          */}
+
+          {/* 2. ADD THIS TEMPORARY LINE */}
+          {/* Now, when you open http://localhost:5173/, you will see YOUR page immediately */}
+          <Route path="/" element={<SpotGameHomePage />} />
+
+          {/* Keep your other routes just in case */}
+          <Route path="/game" element={<SpotGameHomePage />} />
+          
+          {/* ... other routes ... */}
+        </Routes>
+      </main>
+
+      {/* ... footer code ... */}
     </BrowserRouter>
   );
+}
 
   // return (
   //   <BrowserRouter>
@@ -49,6 +58,6 @@ function App() {
   //     </div>
   //   </BrowserRouter>
   // );
-}
+
 
 export default App;
