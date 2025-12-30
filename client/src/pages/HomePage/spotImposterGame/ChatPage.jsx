@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Header from "../../../components/Header/Header";
 import "./ChatPage.css";
 
 export default function ChatPage() {
@@ -13,25 +14,25 @@ export default function ChatPage() {
 
     return (
         <div className="chat-page">
-            <header className="chat-header">
-                <h1>Chat Page</h1>
-            </header>
+            <Header points={120} streak={4} />
 
-            <div className="chat-body">
-                {messages.map((msg, i) => (
-                    <div key={i} className="chat-message">
-                        {msg}
-                    </div>
-                ))}
-            </div>
+            <div className="chat-container">
+                <div className="messages">
+                    {messages.map((msg, i) => (
+                        <div key={i} className="message">
+                            {msg}
+                        </div>
+                    ))}
+                </div>
 
-            <div className="chat-input">
-                <input
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="Type message..."
-                />
-                <button onClick={sendMessage}>Send</button>
+                <div className="chat-input">
+                    <input
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        placeholder="Type your message..."
+                    />
+                    <button onClick={sendMessage}>Send</button>
+                </div>
             </div>
         </div>
     );

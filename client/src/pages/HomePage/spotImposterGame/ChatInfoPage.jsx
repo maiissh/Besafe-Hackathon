@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../../../components/Header/Header";
 import "./ChatInfoPage.css";
 
 export default function ChatInfoPage() {
@@ -24,9 +25,10 @@ export default function ChatInfoPage() {
 
     return (
         <div className="chat-info-page">
+            <Header points={120} streak={4} />
+
             <div className="info-card">
-                <h1>Chat Info Page</h1>
-                <p>Game starts in:</p>
+                <h2>Game starts in</h2>
                 <div className="countdown">{countdown}</div>
             </div>
         </div>
