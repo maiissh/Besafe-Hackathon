@@ -14,9 +14,9 @@ import {
   Award,
   HelpCircle as Help,
 } from "lucide-react";
-import Header from "../../components/Header/Header";
+import Header from "../../components/Header/Header.jsx";
 import BottomNav from "../../components/BottomNav/BottomNav.jsx";
-import styles from "./Home.module.css";
+import styles from "./HomePage.module.css"
 
 // Loading duration before showing content
 const LOADING_DURATION = 650;
