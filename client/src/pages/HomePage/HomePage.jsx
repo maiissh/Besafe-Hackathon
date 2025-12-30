@@ -18,10 +18,10 @@ import Header from "../../components/Header/Header";
 import BottomNav from "../../components/BottomNav/BottomNav.jsx";
 import styles from "./Home.module.css";
 
-// Configuration constants
+// Loading duration before showing content
 const LOADING_DURATION = 650;
-const MAX_LEVELS = 3;
 
+// Game levels configuration
 const LEVELS_CONFIG = [
   { 
     level_number: 1, 
@@ -43,41 +43,80 @@ const LEVELS_CONFIG = [
   },
 ];
 
+// Random safety tips that change on each visit
+const SAFETY_TIPS = [
+  "If a conversation feels unsafe, stop and talk to a trusted adult.",
+  "Never share personal information like your address or phone number online.",
+  "Think before you post - once online, it's hard to take back.",
+  "Block and report anyone who makes you feel uncomfortable.",
+  "Use strong passwords and don't share them with anyone.",
+  "Be kind online - treat others how you want to be treated.",
+  "If someone asks to meet in person, always tell an adult first.",
+  "Keep your social media accounts private and only accept friend requests from people you know.",
+  "Screenshots can be saved forever - be careful what you share.",
+  "Trust your instincts - if something feels wrong, it probably is."
+];
+
+// Helper function to get random safety tip
+function getRandomSafetyTip() {
+  const randomIndex = Math.floor(Math.random() * SAFETY_TIPS.length);
+  return SAFETY_TIPS[randomIndex];
+}
+
+// Helper function to get initial student data
+function getInitialStudent() {
+  const savedStudent = localStorage.getItem('besafe_student');
+  
+  if (savedStudent) {
+    return JSON.parse(savedStudent);
+  }
+  
+  // Create default student
+  const defaultStudent = {
+    name: "Guest",
+    points: 0,
+    streak: 0,
+    coins: 0,
+    currentLevel: 1,
+    completedLevels: 0,
+  };
+  localStorage.setItem('besafe_student', JSON.stringify(defaultStudent));
+  return defaultStudent;
+}
+
 export default function HomePage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [showSafetyTip, setShowSafetyTip] = useState(true);
-
-  // Mock student data - replace with backend integration
-  const student = useMemo(
-    () => ({
-      name: "Mais",
-      points: 120,
-      streak: 5,
-      currentLevel: 2,
-      completedLevels: 1,
-    }),
-    []
-  );
+  
+  // Initialize student state with function to avoid effect warning
+  const [student] = useState(() => getInitialStudent());
+  
+  // Get random safety tip on component mount
+  const [safetyTip] = useState(() => getRandomSafetyTip());
 
   const levels = useMemo(() => LEVELS_CONFIG, []);
 
+  // Loading timer only
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), LOADING_DURATION);
     return () => clearTimeout(timer);
   }, []);
 
+  // Handle level click - navigate to game if unlocked
   const handleLevelClick = useCallback((level) => {
-    if (level.level_number <= student.currentLevel) {
+    if (level.level_number <= student?.currentLevel) {
       navigate(`/play?level=${level.level_number}`);
     }
-  }, [navigate, student.currentLevel]);
+  }, [navigate, student]);
 
+  // Close safety tip message
   const closeSafetyTip = useCallback(() => {
     setShowSafetyTip(false);
   }, []);
 
-  if (loading) {
+  // Show loading screen
+  if (loading || !student) {
     return (
       <div className={styles.loadingContainer}>
         <Loader2 className={styles.spinner} size={48} />
@@ -88,14 +127,13 @@ export default function HomePage() {
 
   return (
     <div className={styles.container}>
-      {/* Fixed Header */}
+      {/* Fixed Header with student stats */}
       <Header 
-        studentName={student.name}
         points={student.points}
         streak={student.streak}
       />
 
-      {/* Safety Tip Message - Top Right */}
+      {/* Safety Tip Message (dismissible) - with random tip */}
       {showSafetyTip && (
         <div className={styles.safetyTipMessage}>
           <button 
@@ -104,30 +142,30 @@ export default function HomePage() {
             type="button"
             aria-label="Close tip"
           >
-            <X size={16} />
+            <X size={20} />
           </button>
           <div className={styles.tipContent}>
             <div className={styles.tipIcon}>
-              <Shield size={18} />
+              <Shield size={24} />
             </div>
             <div className={styles.tipTextContent}>
               <span className={styles.tipTitle}>Safety Tip</span>
               <p className={styles.tipText}>
-                If a conversation feels unsafe, stop and talk to a trusted adult.
+                {safetyTip}
               </p>
             </div>
           </div>
         </div>
       )}
 
-      {/* Animated Background with Safety-Related Icons */}
+      {/* Animated Background */}
       <div className={styles.backgroundWrapper}>
         <div className={styles.gradientOverlay} />
         <div className={`${styles.floatingOrb} ${styles.orbPink}`} />
         <div className={`${styles.floatingOrb} ${styles.orbPurple}`} />
         <div className={`${styles.floatingOrb} ${styles.orbBlue}`} />
         
-        {/* Safety & Internet icons - spread apart */}
+        {/* Floating safety icons */}
         <div className={`${styles.floatingIcon} ${styles.icon1}`}>
           <ShieldCheck size={40} strokeWidth={1.5} />
         </div>
@@ -177,7 +215,7 @@ export default function HomePage() {
                 Keep doing amazing! Keep learning & stay safe online
               </p>
 
-              {/* Level Badge only */}
+              {/* Current level badge */}
               <div className={styles.levelBadgeBox}>
                 <div className={styles.levelBadgeContent}>
                   <div className={styles.levelIconWrapper}>
@@ -193,7 +231,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Journey Section */}
+        {/* Learning Journey Section */}
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <div>
@@ -204,12 +242,13 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Journey Path */}
+          {/* Journey Path with levels */}
           <div className={styles.journeyContainer}>
             <div className={styles.journeyLine} />
 
             <div className={styles.journeyList}>
               {levels.map((level, idx) => {
+                // Determine level status
                 const isCompleted = level.level_number < student.currentLevel;
                 const isCurrent = level.level_number === student.currentLevel;
                 const isLocked = level.level_number > student.currentLevel;
@@ -220,6 +259,7 @@ export default function HomePage() {
                     key={level.level_number}
                     className={`${styles.journeyRow} ${isLeft ? styles.rowLeft : styles.rowRight}`}
                   >
+                    {/* Level Card */}
                     <div className={styles.journeyCardWrapper}>
                       <button
                         onClick={() => handleLevelClick(level)}
@@ -267,7 +307,7 @@ export default function HomePage() {
                       </button>
                     </div>
 
-                    {/* Center Node */}
+                    {/* Center Node Circle */}
                     <div className={styles.journeyNodeWrapper}>
                       <div
                         className={`${styles.journeyNode} ${
