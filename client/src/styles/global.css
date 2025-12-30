@@ -8,4 +8,6 @@ body {
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   }
-  
+  :root {
+  font-size: 12.8px; /* 16px * 0.8 = 12.8px */
+}
