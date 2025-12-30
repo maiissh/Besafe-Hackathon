@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./ChatPage.css";
 
 export default function ChatPage() {
     const [messages, setMessages] = useState([]);
@@ -11,36 +12,24 @@ export default function ChatPage() {
     };
 
     return (
-        <div
-            style={{
-                height: "100vh",
-                padding: 20,
-                display: "flex",
-                flexDirection: "column",
-            }}
-        >
-            <h1>Chat Page</h1>
+        <div className="chat-page">
+            <header className="chat-header">
+                <h1>Chat Page</h1>
+            </header>
 
-            <div
-                style={{
-                    flex: 1,
-                    border: "1px solid #ccc",
-                    padding: 10,
-                    marginBottom: 10,
-                    overflowY: "auto",
-                }}
-            >
+            <div className="chat-body">
                 {messages.map((msg, i) => (
-                    <div key={i}>{msg}</div>
+                    <div key={i} className="chat-message">
+                        {msg}
+                    </div>
                 ))}
             </div>
 
-            <div style={{ display: "flex", gap: 10 }}>
+            <div className="chat-input">
                 <input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Type message"
-                    style={{ flex: 1 }}
+                    placeholder="Type message..."
                 />
                 <button onClick={sendMessage}>Send</button>
             </div>

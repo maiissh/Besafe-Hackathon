@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./ChatInfoPage.css";
 
 export default function ChatInfoPage() {
     const navigate = useNavigate();
-
     const TOTAL_TIME = 5;
     const [countdown, setCountdown] = useState(TOTAL_TIME);
 
@@ -23,19 +23,12 @@ export default function ChatInfoPage() {
     }, [navigate]);
 
     return (
-        <div
-            style={{
-                height: "100vh",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: 24,
-            }}
-        >
-            <h1>Chat Info Page</h1>
-            <p>Game starts in:</p>
-            <h2>{countdown}</h2>
+        <div className="chat-info-page">
+            <div className="info-card">
+                <h1>Chat Info Page</h1>
+                <p>Game starts in:</p>
+                <div className="countdown">{countdown}</div>
+            </div>
         </div>
     );
 }
