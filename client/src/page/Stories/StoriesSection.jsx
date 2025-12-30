@@ -6,27 +6,27 @@ import './StoriesSection.css';
 /* eslint-disable react/prop-types */
 
 /* --- SVG Icons --- */
-const IconSend = ({ className = '' }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+const IconSend = ({ className = '', style }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
     <path d="M22 2L11 13" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     <path d="M22 2L15 22L11 13L2 9L22 2Z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
-const IconShield = ({ className = '' }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+const IconShield = ({ className = '', style }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
     <path d="M12 2L3 5v6c0 5 3.8 9.8 9 11 5.2-1.2 9-6 9-11V5l-9-3z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
-const IconHeart = ({ className = '', fill = "none" }) => (
-  <svg viewBox="0 0 24 24" fill={fill} stroke="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+const IconHeart = ({ className = '', fill = "none", style, stroke }) => (
+  <svg viewBox="0 0 24 24" fill={fill} stroke={stroke || "currentColor"} className={className} style={style} xmlns="http://www.w3.org/2000/svg">
     <path d="M12 21s-7-4.6-9-7.4C1 10.8 3 6 7 6c2 0 3 1.4 5 3.2C15 7.4 16 6 18 6c4 0 6 4.8 4 7.6C19 16.4 12 21 12 21z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
-const IconHandHeart = ({ className = '' }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+const IconHandHeart = ({ className = '', style }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
     <path d="M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     <path d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     <path d="m2 15 6 6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -56,7 +56,6 @@ const IconTrash = ({ className = '' }) => (
 
 /* --- Main Component --- */
 const StoriesSection = () => {
-  // Get user data from localStorage
   const [currentUser, setCurrentUser] = useState({
     firstName: "User",
     fullName: "User Name",
@@ -115,7 +114,6 @@ const StoriesSection = () => {
     "Other"
   ];
 
-  // Load user data from localStorage on component mount
   useEffect(() => {
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -157,7 +155,6 @@ const StoriesSection = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Validation
     if (!formData.story.trim() || !formData.incidentType || !formData.nameVisibility) {
       alert('Please fill in all required fields');
       return;
@@ -205,7 +202,6 @@ const StoriesSection = () => {
     ? stories.filter(story => story.userId === currentUser.userId)
     : stories;
 
-  // Check if form is valid
   const isFormValid = formData.story.trim().length > 0 && 
                       formData.incidentType !== '' && 
                       formData.nameVisibility !== '';
@@ -213,6 +209,42 @@ const StoriesSection = () => {
   return (
     <>
       <Header points={350} streak={7} />
+      
+      {/* Animated Background */}
+      <div className="background-wrapper">
+        <div className="gradient-overlay"></div>
+        
+        {/* Floating Orbs */}
+        <div className="floating-orb orb-pink"></div>
+        <div className="floating-orb orb-purple"></div>
+        <div className="floating-orb orb-blue"></div>
+        
+        {/* Floating Icons */}
+        <div className="floating-icon icon1">
+          <IconShield style={{ width: '3rem', height: '3rem', color: '#c084fc' }} />
+        </div>
+        <div className="floating-icon icon2">
+          <IconHeart style={{ width: '3rem', height: '3rem', color: '#f472b6' }} fill="#f472b6" />
+        </div>
+        <div className="floating-icon icon3">
+          <IconHandHeart style={{ width: '3rem', height: '3rem', color: '#60a5fa' }} />
+        </div>
+        <div className="floating-icon icon4">
+          <IconShield style={{ width: '3rem', height: '3rem', color: '#f472b6' }} />
+        </div>
+        <div className="floating-icon icon5">
+          <IconHeart style={{ width: '3rem', height: '3rem', color: '#c084fc' }} fill="#c084fc" />
+        </div>
+        <div className="floating-icon icon6">
+          <IconHandHeart style={{ width: '3rem', height: '3rem', color: '#f472b6' }} />
+        </div>
+        <div className="floating-icon icon7">
+          <IconShield style={{ width: '3rem', height: '3rem', color: '#60a5fa' }} />
+        </div>
+        <div className="floating-icon icon8">
+          <IconHeart style={{ width: '3rem', height: '3rem', color: '#f472b6' }} fill="#f472b6" />
+        </div>
+      </div>
       
       <div className="stories-section">
         <div className="stories-container">
@@ -262,7 +294,7 @@ const StoriesSection = () => {
                     </div>
                     <h2 className="modal-title">Share Your Experience</h2>
                   </div>
-                  <button onClick={() => setShowForm(false)} className="close-button">
+                  <button type="button" onClick={() => setShowForm(false)} className="close-button">
                     <IconX className="close-icon" />
                   </button>
                 </div>
@@ -312,7 +344,6 @@ const StoriesSection = () => {
                             checked={formData.nameVisibility === 'anonymous'} 
                             onChange={handleChange} 
                             className="radio-input"
-                            required
                           />
                           <div>
                             <div className="radio-title">Anonymous</div>
@@ -327,7 +358,6 @@ const StoriesSection = () => {
                             checked={formData.nameVisibility === 'first'} 
                             onChange={handleChange} 
                             className="radio-input"
-                            required
                           />
                           <div className="radio-content-full">
                             <div className="radio-title">First name only</div>
@@ -342,7 +372,6 @@ const StoriesSection = () => {
                             checked={formData.nameVisibility === 'full'} 
                             onChange={handleChange} 
                             className="radio-input"
-                            required
                           />
                           <div className="radio-content-full">
                             <div className="radio-title">Full name</div>
