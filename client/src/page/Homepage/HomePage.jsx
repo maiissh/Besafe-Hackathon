@@ -18,9 +18,6 @@ import Header from "../../components/Header/Header.jsx";
 import BottomNav from "../../components/BottomNav/BottomNav.jsx";
 import styles from "./HomePage.module.css"
 
-// Loading duration before showing content
-const LOADING_DURATION = 650;
-
 // Game levels configuration
 const LEVELS_CONFIG = [
   { 
@@ -86,7 +83,6 @@ function getInitialStudent() {
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
   const [showSafetyTip, setShowSafetyTip] = useState(true);
   
   // Initialize student state with function to avoid effect warning
@@ -97,11 +93,6 @@ export default function HomePage() {
 
   const levels = useMemo(() => LEVELS_CONFIG, []);
 
-  // Loading timer only
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), LOADING_DURATION);
-    return () => clearTimeout(timer);
-  }, []);
 
   // Handle level click - navigate to game if unlocked
   const handleLevelClick = useCallback((level) => {
@@ -115,15 +106,7 @@ export default function HomePage() {
     setShowSafetyTip(false);
   }, []);
 
-  // Show loading screen
-  if (loading || !student) {
-    return (
-      <div className={styles.loadingContainer}>
-        <Loader2 className={styles.spinner} size={48} />
-        <p className={styles.loadingText}>Loading your journey...</p>
-      </div>
-    );
-  }
+
 
   return (
     <div className={styles.container}>
