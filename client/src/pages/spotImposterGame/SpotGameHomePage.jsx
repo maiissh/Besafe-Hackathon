@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // To move to Page 2 later
 import socketService from 'src/services/socketService.js';
 import Header from 'src/components/Header';
-import 'client\src\styles\SpotGameHomePage.css';
+import 'client/src/styles/SpotGameHomePage.css';
 
 const SpotGameHomePage = () => {
     const navigate = useNavigate();
