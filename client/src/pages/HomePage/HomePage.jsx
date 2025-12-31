@@ -14,8 +14,8 @@ import {
   Award,
   HelpCircle as Help,
 } from "lucide-react";
-import Header from "../../components/Header/Header";
-import BottomNav from "../../components/BottomNav/BottomNav.jsx";
+import Header from "client/src/components/Header/Header";
+import BottomNav from "client/src/components/BottomNav/BottomNav.jsx";
 import styles from "./Home.module.css";
 
 // Configuration constants
