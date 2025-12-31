@@ -20,7 +20,7 @@ import styles from "./Home.module.css";
 
 // Configuration constants
 const LOADING_DURATION = 650;
-const MAX_LEVELS = 3;
+// const MAX_LEVELS = 3;
 
 const LEVELS_CONFIG = [
   { 
