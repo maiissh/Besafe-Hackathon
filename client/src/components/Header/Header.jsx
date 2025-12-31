@@ -1,9 +1,8 @@
 
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 import { Flame, Coins } from "lucide-react";
 import styles from "./Header.module.css";
-
-export default function Header({ points, streak }) {
+export default function Header({  points, streak }) {
   return (
     <header className={styles.header}>
       <div className={styles.headerTop}>
@@ -29,6 +28,7 @@ export default function Header({ points, streak }) {
 }
 
 Header.propTypes = {
-  points: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  streak: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+  points: PropTypes.number.isRequired,
+  streak: PropTypes.number.isRequired,
 };
