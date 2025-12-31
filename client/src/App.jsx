@@ -1,21 +1,13 @@
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/HomePage/HomePage';
-import Register from './pages/Register/Register';
-import './pages/Register/Register.css';
+import {Routes, Route} from 'react-router-dom';
+import Home from './pages/HomePage/HomePage.jsx';
 import styles from './styles/App.module.css';
-import ChatInfoPage from "src/pages/spotImposterGame/ChatInfoPage.jsx"; 
-import ChatPage from "src/pages/spotImposterGame/ChatPage.jsx"; 
-import SpotGameHomePage from 'src/pages/spotImposterGame/SpotGameHomePage.jsx';
+import ChatInfoPage from "./pages/spotImposterGame/ChatInfoPage.jsx"; 
+import ChatPage from "./pages/spotImposterGame/ChatPage.jsx"; 
+import SpotGameHomePage from './pages/spotImposterGame/SpotGameHomePage.jsx';
 
 function App() {
   return (
-    <BrowserRouter>
-      <nav>
-         {/* Using Link satisfies the 'Link' error */}
-         <Link to="/">Home</Link> 
-      </nav>
-
       <main className={styles.main}>
         <Routes>
 
@@ -24,12 +16,11 @@ function App() {
           
           {/* ... other routes ... */}
           <Route path="/home" element={<Home />} />
-          <Route path="/register" element={<Register />} />
+          {/* <Route path="/register" element={<Register />} /> */}
           <Route path="/chat-info" element={<ChatInfoPage />} />
           <Route path="/chat" element={<ChatPage />} />
         </Routes>
       </main>
-    </BrowserRouter>
   );
 }
 

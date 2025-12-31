@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // To move to Page 2 later
-import socketService from 'src/services/socketService.js';
-import Header from 'src/components/Header';
+import socketService from "../../services/socketService.js";
+import Header from '../../components/Header/Header.jsx';
 
-import 'SpotGameHomePage.css';
+import './SpotGameHomePage.css';
 
 const SpotGameHomePage = () => {
     const navigate = useNavigate();
