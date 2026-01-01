@@ -60,7 +60,7 @@ export default function Register() {
       } else {
         setErrors({ emailOrPhone: 'User not found. Please sign up first.', general: 'notfound' });
       }
-    } catch (error) {
+    } catch  {
       setErrors({ general: 'An error occurred. Please try again.' });
     } finally {
       setLoading(false);
@@ -123,7 +123,7 @@ export default function Register() {
       });
       
       setTimeout(() => navigate('/'), 5000);
-    } catch (error) {
+    } catch {
       setErrors({ general: 'Registration failed. Please try again.' });
     } finally {
       setLoading(false);
@@ -256,7 +256,7 @@ function SignInForm({ data, updateField, errors, loading, onSubmit, showPassword
             <AlertCircle style={{ width: '1.25rem', height: '1.25rem', flexShrink: 0 }} />
             <div style={{ flex: 1 }}>
               <p style={{ margin: 0, fontWeight: 600 }}>Account not found</p>
-              <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.813rem' }}>Don't have an account yet? Sign up below to get started.</p>
+              <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.813rem' }}>Don&apos;t have an account yet? Sign up below to get started.</p>
             </div>
           </motion.div>
         )}
@@ -542,6 +542,13 @@ function ReviewItem({ icon: Icon, label, value, color }) {
     </motion.div>
   );
 }
+
+ReviewItem.propTypes = {
+  icon: PropTypes.elementType.isRequired, // 'elementType' is used when passing a component like 'User' or 'MapPin'
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  color: PropTypes.string
+};
 
 function FormField({ icon: Icon, iconColor, label, value, onChange, placeholder, focusClass, error, type = "text", optional = false, maxLength }) {
   return (

@@ -114,21 +114,48 @@ const StoriesSection = () => {
     "Other"
   ];
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   const userData = localStorage.getItem('user');
+  //   if (userData) {
+  //     try {
+  //       const user = JSON.parse(userData);
+  //       setCurrentUser({
+  //         firstName: user.firstName || user.name?.split(' ')[0] || "User",
+  //         fullName: user.fullName || user.name || "User Name",
+  //         userId: user.id || user.email || `user-${Date.now()}`
+  //       });
+  //     } catch (error) {
+  //       console.error('Error loading user data:', error);
+  //     }
+  //   }
+  // }, []);
+
+  // Fix: Initialize state directly from localStorage (Lazy Initialization)
+  const [currentUser, setCurrentUser] = useState(() => {
+    // 1. Try to read data from localStorage
     const userData = localStorage.getItem('user');
+    
+    // 2. If data exists, parse it and use it immediately
     if (userData) {
       try {
         const user = JSON.parse(userData);
-        setCurrentUser({
+        return {
           firstName: user.firstName || user.name?.split(' ')[0] || "User",
           fullName: user.fullName || user.name || "User Name",
           userId: user.id || user.email || `user-${Date.now()}`
-        });
+        };
       } catch (error) {
         console.error('Error loading user data:', error);
       }
     }
-  }, []);
+    
+    // 3. If no data, return the default values
+    return {
+      firstName: "User",
+      fullName: "User Name",
+      userId: "default-user"
+    };
+  });
 
   const handleLike = (id) => {
     const isAlreadyLiked = likedStories.includes(id);
