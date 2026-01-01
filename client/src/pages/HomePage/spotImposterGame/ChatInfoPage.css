@@ -1,5 +1,16 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    /* 🔒 no scroll */
+}
+
+/* Page */
 .chat-info-page {
-    min-height: 100vh;
+    height: 100vh;
+    /* 🔑 fixed height */
     background: linear-gradient(135deg,
             #f6c1d1,
             #e7b6d1,
@@ -7,41 +18,54 @@
             #c9b7e5,
             #cfe7f5,
             #bfd6e6);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* 🔑 top aligned */
 }
 
+/* Container */
 .info-container {
     max-width: 800px;
-    margin: 0 auto;
-    padding: 120px 24px 40px;
+    width: 100%;
+    padding: 32px 24px 24px;
+    /* 🔑 reduced top padding */
     text-align: center;
 }
 
+/* Title */
 .game-title {
     font-size: 32px;
     font-weight: 800;
     color: #374151;
+    margin-bottom: 8px;
 }
 
 .subtitle {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     color: #6b7280;
 }
 
+/* Cards */
 .card {
     background: rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(12px);
     border-radius: 20px;
-    padding: 24px;
-    margin-bottom: 24px;
+    padding: 20px;
+    margin-bottom: 20px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
+/* Topic */
 .topic-text {
     font-size: 22px;
     font-weight: 700;
     color: #c9377d;
+
 }
 
+/* Role */
 .role {
     font-size: 24px;
     font-weight: 800;
@@ -55,8 +79,10 @@
     color: #6b7280;
 }
 
+/* Countdown */
 .countdown-card {
-    margin-top: 32px;
+    margin-top: 16px;
+    /* 🔑 tighter spacing */
     font-size: 18px;
     color: #374151;
 }
@@ -65,4 +91,16 @@
     font-size: 48px;
     font-weight: 900;
     color: #7a5fb8;
+}
+
+/* Center topic inside its card */
+.topic-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* vertical center */
+    align-items: center;
+    /* horizontal center */
+    min-height: 150px;
+    /* gives space to center within */
 }

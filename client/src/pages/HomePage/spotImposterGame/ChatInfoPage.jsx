@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../../../components/Header/Header";
 import "./ChatInfoPage.css";
 
 export default function ChatInfoPage() {
@@ -12,10 +11,9 @@ export default function ChatInfoPage() {
     useEffect(() => {
         const timer = setInterval(() => {
             setCountdown((prev) => {
-                if (prev <= 1) {
+                if (prev === 1) {
                     clearInterval(timer);
                     navigate("/chat");
-                    return 0;
                 }
                 return prev - 1;
             });
@@ -24,13 +22,10 @@ export default function ChatInfoPage() {
         return () => clearInterval(timer);
     }, [navigate]);
 
-
     return (
         <div className="chat-info-page">
-            <Header points={150} streak={5} />
-
             <div className="info-container">
-                <h1 className="game-title">🎭 Chat Game</h1>
+                <h1 className="game-title">🎭 Spot Imposter Game</h1>
                 <p className="subtitle">Read your role and topic carefully!</p>
 
                 <div className="card topic-card">
@@ -43,7 +38,9 @@ export default function ChatInfoPage() {
                 <div className="card role-card">
                     <h3>Your Role</h3>
                     <p className="role innocent">✨ INNOCENT</p>
-                    <p className="role-desc">Find the imposter among your friends!</p>
+                    <p className="role-desc">
+                        Find the imposter among your friends!
+                    </p>
                 </div>
 
                 <div className="countdown-card">
