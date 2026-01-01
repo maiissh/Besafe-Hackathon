@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState, useCallback } from "react";
+import {  useMemo, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  Loader2,
   ShieldCheck,
   MessageCircle,
   Users,

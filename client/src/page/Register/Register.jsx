@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -202,6 +203,12 @@ function FloatingDecoration({ className, duration, delay = 0 }) {
   return <motion.div className={`floating-decoration ${className}`} animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }} transition={{ duration, repeat: Infinity, delay }} />;
 }
 
+FloatingDecoration.propTypes = {
+  className: PropTypes.string,
+  duration: PropTypes.number.isRequired,
+  delay: PropTypes.number
+};
+
 function Header() {
   return (
     <motion.div className="register-header" initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 200 }}>
@@ -228,6 +235,11 @@ function ProgressSteps({ currentStep, totalSteps }) {
     </div>
   );
 }
+
+ProgressSteps.propTypes = {
+  currentStep: PropTypes.number.isRequired,
+  totalSteps: PropTypes.number.isRequired
+};
 
 function SignInForm({ data, updateField, errors, loading, onSubmit, showPassword, setShowPassword }) {
   return (
@@ -257,6 +269,16 @@ function SignInForm({ data, updateField, errors, loading, onSubmit, showPassword
   );
 }
 
+SignInForm.propTypes = {
+  data: PropTypes.object.isRequired,
+  updateField: PropTypes.func.isRequired,
+  errors: PropTypes.object,
+  loading: PropTypes.bool,
+  onSubmit: PropTypes.func.isRequired,
+  showPassword: PropTypes.bool,
+  setShowPassword: PropTypes.func
+};
+
 function SignUpForm({ step, data, updateField, errors, loading, onSubmit, showPassword, setShowPassword, nextStep, prevStep, canProceed, contactMethod, setContactMethod }) {
   return (
     <form onSubmit={onSubmit} className="register-form">
@@ -283,6 +305,22 @@ function SignUpForm({ step, data, updateField, errors, loading, onSubmit, showPa
     </form>
   );
 }
+
+SignUpForm.propTypes = {
+  step: PropTypes.number.isRequired,
+  data: PropTypes.object.isRequired,
+  updateField: PropTypes.func.isRequired,
+  errors: PropTypes.object,
+  loading: PropTypes.bool,
+  onSubmit: PropTypes.func.isRequired,
+  showPassword: PropTypes.bool,
+  setShowPassword: PropTypes.func,
+  nextStep: PropTypes.func.isRequired,
+  prevStep: PropTypes.func.isRequired,
+  canProceed: PropTypes.bool,
+  contactMethod: PropTypes.string,
+  setContactMethod: PropTypes.func
+};
 
 function SignUpStep1({ data, updateField, errors }) {
   return (
@@ -311,6 +349,12 @@ function SignUpStep1({ data, updateField, errors }) {
   );
 }
 
+SignUpStep1.propTypes = {
+  data: PropTypes.object.isRequired,
+  updateField: PropTypes.func.isRequired,
+  errors: PropTypes.object
+};
+
 function SignUpStep2({ data, updateField, errors }) {
   return (
     <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }} className="register-form-section">
@@ -333,6 +377,12 @@ function SignUpStep2({ data, updateField, errors }) {
     </motion.div>
   );
 }
+
+SignUpStep2.propTypes = {
+  data: PropTypes.object.isRequired,
+  updateField: PropTypes.func.isRequired,
+  errors: PropTypes.object
+};
 
 function SignUpStep3({ data, updateField, errors, showPassword, setShowPassword, contactMethod, setContactMethod }) {
   return (
@@ -371,6 +421,16 @@ function SignUpStep3({ data, updateField, errors, showPassword, setShowPassword,
     </motion.div>
   );
 }
+
+SignUpStep3.propTypes = {
+  data: PropTypes.object.isRequired,
+  updateField: PropTypes.func.isRequired,
+  errors: PropTypes.object,
+  showPassword: PropTypes.bool,
+  setShowPassword: PropTypes.func,
+  contactMethod: PropTypes.string,
+  setContactMethod: PropTypes.func
+};
 
 function SignUpStep4({ data, errors }) {
   if (errors.general === 'success') {
@@ -468,6 +528,12 @@ function SignUpStep4({ data, errors }) {
   );
 }
 
+SignUpStep4.propTypes = {
+  data: PropTypes.object.isRequired,
+  errors: PropTypes.object
+};
+
+
 function ReviewItem({ icon: Icon, label, value, color }) {
   return (
     <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="review-item">
@@ -487,6 +553,20 @@ function FormField({ icon: Icon, iconColor, label, value, onChange, placeholder,
   );
 }
 
+FormField.propTypes = {
+  icon: PropTypes.elementType.isRequired,
+  iconColor: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  focusClass: PropTypes.string,
+  error: PropTypes.string,
+  type: PropTypes.string,
+  optional: PropTypes.bool,
+  maxLength: PropTypes.number
+};
+
 function PasswordField({ icon: Icon, iconColor, label, value, onChange, placeholder, focusClass, error, showPassword, setShowPassword }) {
   return (
     <div className="form-field">
@@ -501,3 +581,16 @@ function PasswordField({ icon: Icon, iconColor, label, value, onChange, placehol
     </div>
   );
 }
+
+PasswordField.propTypes = {
+  icon: PropTypes.elementType.isRequired,
+  iconColor: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  focusClass: PropTypes.string,
+  error: PropTypes.string,
+  showPassword: PropTypes.bool.isRequired,
+  setShowPassword: PropTypes.func.isRequired
+};
