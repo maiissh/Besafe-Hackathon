@@ -4,6 +4,10 @@ import Register from './page/Register/Register';
 import './page/Register/Register.css';
 import styles from './styles/App.module.css';
 import StoriesSection from './page/Stories/StoriesSection';
+import SpotGameHomePage from './page/SpotImposterGame/SpotGameHomePage';
+import ChatInfoPage from './page/ChatInfo/ChatInfoPage';
+import ChatPage from './page/Chat/ChatPage';
+
 
 
 function App() {
