@@ -1,26 +1,27 @@
-
-import {Routes, Route} from 'react-router-dom';
-import Home from './pages/HomePage/HomePage.jsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './page/Homepage/HomePage';
+import Register from './page/Register/Register';
+import './page/Register/Register.css';
 import styles from './styles/App.module.css';
-import ChatInfoPage from "./pages/spotImposterGame/ChatInfoPage.jsx"; 
-import ChatPage from "./pages/spotImposterGame/ChatPage.jsx"; 
-import SpotGameHomePage from './pages/spotImposterGame/SpotGameHomePage.jsx';
+import StoriesSection from './page/Stories/StoriesSection';
+
 
 function App() {
   return (
-      <main className={styles.main}>
-        <Routes>
-
-          <Route path="/" element={<SpotGameHomePage />} />
-          <Route path="/game" element={<SpotGameHomePage />} />
-          
-          {/* ... other routes ... */}
-          <Route path="/home" element={<Home />} />
-          {/* <Route path="/register" element={<Register />} /> */}
-          <Route path="/chat-info" element={<ChatInfoPage />} />
-          <Route path="/chat" element={<ChatPage />} />
-        </Routes>
-      </main>
+    <BrowserRouter>
+      <div className={styles.app}>
+        <main className={styles.main}>
+          <Routes>
+            <Route path="/Homepage" element={<Home />} />
+            <Route path="/" element={<Register />} /> 
+            <Route path="/Stories" element={<StoriesSection />} /> 
+            <Route path="/game" element={<SpotGameHomePage />} />
+            <Route path="/chat-info" element={<ChatInfoPage />} />
+            <Route path="/chat" element={<ChatPage />} />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
 

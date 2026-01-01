@@ -1,23 +1,4 @@
-/* ===== Loading State ===== */
-.loadingContainer {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #F6C1D1 0%, #E7B6D1 15%, #D8CFF0 35%, #C9B7E2 55%, #CFE7F5 75%, #BFD6E6 100%);
-}
 
-.spinner {
-  animation: spin 1s linear infinite;
-  color: #C9B7E2;
-  margin-bottom: 1rem;
-}
-
-.loadingText {
-  font-size: 0.875rem;
-  color: #4b5563;
-}
 
 /* ===== Main Container ===== */
 .container {
