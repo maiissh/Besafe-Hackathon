@@ -38,7 +38,7 @@ export default function ChatPage() {
 
     return (
         <div className="chat-page">
-            <ChatHeader topic={chatTopic} coins={0} streak={0} />
+            <ChatHeader topic={chatTopic} points={150} />
 
             <div className="chat-container">
                 {/* Messages */}

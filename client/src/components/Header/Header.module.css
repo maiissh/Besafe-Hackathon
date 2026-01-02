@@ -5,12 +5,14 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(250, 246, 249, 0.1);  /* شفافية كثيرة - كان 0.35 */
+  background: rgba(250, 246, 249, 0.603);
+  /* شفافية كثيرة - كان 0.35 */
   backdrop-filter: blur(10px) saturate(150%);
   -webkit-backdrop-filter: blur(10px) saturate(150%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 2px 4px -1px rgba(201, 183, 226, 0.05);
-  padding: 0.65rem 0;  /* أكبر من 0.30rem - يبين طبيعي */
+  padding: 0.65rem 0;
+  /* أكبر من 0.30rem - يبين طبيعي */
 }
 
 .headerTop {
@@ -19,7 +21,8 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1.5rem;
-  padding: 0 1.25rem;  /* أكبر من 0.1rem */
+  padding: 0 1.25rem;
+  /* أكبر من 0.1rem */
   max-width: 80rem;
   margin: 0 auto;
 }
@@ -129,21 +132,21 @@
   .header {
     padding: 0.5rem 0;
   }
-  
+
   .headerTop {
     gap: 1rem;
     padding: 0 1rem;
   }
-  
+
   .brandTitle {
     font-size: 2rem;
   }
-  
+
   .brandSubtitle {
     font-size: 0.9375rem;
     margin-top: 0.375rem;
   }
-  
+
   .badgesGroup {
     gap: 0.875rem;
   }
@@ -162,7 +165,7 @@
     width: 1.375rem;
     height: 1.375rem;
   }
-  
+
   .coinsIcon {
     width: 1.5rem;
     height: 1.5rem;
@@ -174,25 +177,25 @@
   .header {
     padding: 0.4rem 0;
   }
-  
+
   .headerTop {
     gap: 0.75rem;
     padding: 0 0.75rem;
   }
-  
+
   .brandTitle {
     font-size: 1.625rem;
   }
-  
+
   .brandSubtitle {
     font-size: 0.8125rem;
     margin-top: 0.25rem;
   }
-  
+
   .badgesGroup {
     gap: 0.625rem;
   }
-  
+
   .streakBadge,
   .pointsBadge {
     padding: 0.75rem 1.125rem;
@@ -208,7 +211,7 @@
     width: 1.25rem;
     height: 1.25rem;
   }
-  
+
   .coinsIcon {
     width: 1.375rem;
     height: 1.375rem;
@@ -220,19 +223,19 @@
   .headerTop {
     padding: 0 0.5rem;
   }
-  
+
   .brandTitle {
     font-size: 1.375rem;
   }
-  
+
   .brandSubtitle {
     font-size: 0.75rem;
   }
-  
+
   .badgesGroup {
     gap: 0.5rem;
   }
-  
+
   .streakBadge,
   .pointsBadge {
     padding: 0.625rem 0.875rem;

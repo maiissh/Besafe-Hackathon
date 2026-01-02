@@ -18,7 +18,7 @@
   backdrop-filter: blur(12px);
   border-radius: 1.5rem;
   padding: 1.55rem;
-  box-shadow: 
+  box-shadow:
     0 0 0 1px rgba(201, 183, 226, 0.25),
     0 20px 25px -5px rgba(201, 183, 226, 0.2),
     0 10px 10px -5px rgba(201, 183, 226, 0.15);
@@ -119,15 +119,13 @@
 .gradientOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(246, 193, 209, 0.3) 0%,
-    rgba(231, 182, 209, 0.25) 20%,
-    rgba(216, 207, 240, 0.2) 40%,
-    rgba(201, 183, 226, 0.25) 60%,
-    rgba(207, 231, 245, 0.3) 80%,
-    rgba(191, 214, 230, 0.25) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(246, 193, 209, 0.3) 0%,
+      rgba(231, 182, 209, 0.25) 20%,
+      rgba(216, 207, 240, 0.2) 40%,
+      rgba(201, 183, 226, 0.25) 60%,
+      rgba(207, 231, 245, 0.3) 80%,
+      rgba(191, 214, 230, 0.25) 100%);
 }
 
 .floatingOrb {
@@ -244,7 +242,7 @@
   background: rgba(255, 255, 255, 0.85);
   border-radius: 2rem;
   overflow: hidden;
-  box-shadow: 
+  box-shadow:
     0 0 0 1px rgba(201, 183, 226, 0.15),
     0 20px 25px -5px rgba(0, 0, 0, 0.08),
     0 10px 10px -5px rgba(201, 183, 226, 0.1);
@@ -255,14 +253,12 @@
 }
 
 .welcomeGradientBg {
-  background: linear-gradient(
-    135deg,
-    rgba(246, 193, 209, 0.25) 0%,
-    rgba(231, 182, 209, 0.2) 25%,
-    rgba(216, 207, 240, 0.25) 50%,
-    rgba(207, 231, 245, 0.2) 75%,
-    rgba(191, 214, 230, 0.25) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(246, 193, 209, 0.25) 0%,
+      rgba(231, 182, 209, 0.2) 25%,
+      rgba(216, 207, 240, 0.25) 50%,
+      rgba(207, 231, 245, 0.2) 75%,
+      rgba(191, 214, 230, 0.25) 100%);
   padding: 5rem 2rem;
   position: relative;
   overflow: hidden;
@@ -338,9 +334,12 @@
 }
 
 @keyframes floatBadge {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0) rotate(0deg);
   }
+
   50% {
     transform: translateY(-20px) rotate(10deg);
   }
@@ -422,10 +421,13 @@
 }
 
 @keyframes twinkle {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.3;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.7;
     transform: scale(1.2);
@@ -440,7 +442,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 
+  box-shadow:
     0 10px 30px rgba(201, 183, 226, 0.35),
     0 0 0 8px rgba(201, 183, 226, 0.12);
 }
@@ -480,7 +482,7 @@
   background: rgba(250, 246, 249, 0.95);
   padding: 2rem 2.5rem;
   border-radius: 1.25rem;
-  box-shadow: 
+  box-shadow:
     0 0 0 1px rgba(201, 183, 226, 0.2),
     0 4px 12px rgba(201, 183, 226, 0.15);
 }
@@ -535,7 +537,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  box-shadow: 
+  box-shadow:
     0 0 0 1px rgba(201, 183, 226, 0.2),
     0 8px 20px rgba(201, 183, 226, 0.15);
   border: 2px solid rgba(255, 255, 255, 0.6);
@@ -572,9 +574,12 @@
 }
 
 @keyframes bounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -616,7 +621,7 @@
   padding: 1.25rem 2rem;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(250, 246, 249, 0.5));
   border-radius: 9999px;
-  box-shadow: 
+  box-shadow:
     0 0 0 1px rgba(201, 183, 226, 0.15),
     0 4px 12px rgba(201, 183, 226, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.8);
@@ -655,12 +660,16 @@
 }
 
 @keyframes wiggle {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: rotate(0deg);
   }
+
   25% {
     transform: rotate(-10deg);
   }
+
   75% {
     transform: rotate(10deg);
   }
@@ -673,7 +682,7 @@
   background: rgba(250, 246, 249, 0.85);
   backdrop-filter: blur(12px);
   border-radius: 1.75rem;
-  box-shadow: 
+  box-shadow:
     0 0 0 1px rgba(201, 183, 226, 0.08),
     0 10px 15px -3px rgba(201, 183, 226, 0.1);
   border: 1px solid rgba(250, 246, 249, 0.9);
@@ -762,7 +771,7 @@
   border-radius: 1.25rem;
   padding: 1.75rem;
   border: 1px solid rgba(237, 237, 237, 0.5);
-  box-shadow: 
+  box-shadow:
     0 0 0 1px rgba(201, 183, 226, 0.08),
     0 10px 15px -3px rgba(201, 183, 226, 0.12);
   cursor: pointer;
@@ -771,7 +780,7 @@
 
 .journeyCard:not(.cardLocked):hover {
   transform: translateY(-6px);
-  box-shadow: 
+  box-shadow:
     0 0 0 1px rgba(201, 183, 226, 0.15),
     0 20px 25px -5px rgba(201, 183, 226, 0.2);
 }
@@ -783,7 +792,7 @@
 
 .cardCurrent {
   border-color: rgba(201, 183, 226, 0.4);
-  box-shadow: 
+  box-shadow:
     0 0 0 1px rgba(201, 183, 226, 0.3),
     0 10px 15px -3px rgba(201, 183, 226, 0.3);
 }
@@ -896,7 +905,7 @@
   font-size: 1.125rem;
   background: #e5e7eb;
   color: #6b7280;
-  box-shadow: 
+  box-shadow:
     0 0 0 4px white,
     0 6px 12px rgba(0, 0, 0, 0.12);
 }
@@ -1068,33 +1077,73 @@
 
 /* ===== Animations ===== */
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(30px, -30px); }
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(30px, -30px);
+  }
 }
 
 @keyframes floatDelayed {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-35px, 35px); }
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-35px, 35px);
+  }
 }
 
 @keyframes floatSlow {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(25px, -25px) scale(1.08); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(25px, -25px) scale(1.08);
+  }
 }
 
 @keyframes bounceSlow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-25px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-25px);
+  }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.75; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.75;
+  }
 }
 
 @keyframes slideInRight {
@@ -1102,6 +1151,7 @@
     opacity: 0;
     transform: translateX(100%);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);

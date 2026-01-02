@@ -104,7 +104,7 @@ export default function HomePage() {
   const handleLevelClick = useCallback(
     (level) => {
       if (level.level_number <= student?.currentLevel) {
-        navigate(`/play?level=${level.level_number}`);
+        navigate("/spot-game");
       }
     },
     [navigate, student]
@@ -279,9 +279,8 @@ export default function HomePage() {
                       <button
                         onClick={() => handleLevelClick(level)}
                         disabled={isLocked}
-                        className={`${styles.journeyCard} ${isLocked ? styles.cardLocked : ""} ${
-                          isCurrent ? styles.cardCurrent : ""
-                        } ${isCompleted ? styles.cardCompleted : ""}`}
+                        className={`${styles.journeyCard} ${isLocked ? styles.cardLocked : ""} ${isCurrent ? styles.cardCurrent : ""
+                          } ${isCompleted ? styles.cardCompleted : ""}`}
                         type="button"
                       >
                         <div className={styles.cardHeader}>
@@ -312,9 +311,8 @@ export default function HomePage() {
 
                     <div className={styles.journeyNodeWrapper}>
                       <div
-                        className={`${styles.journeyNode} ${isCompleted ? styles.nodeCompleted : ""} ${
-                          isCurrent ? styles.nodeCurrent : ""
-                        } ${isLocked ? styles.nodeLocked : ""}`}
+                        className={`${styles.journeyNode} ${isCompleted ? styles.nodeCompleted : ""} ${isCurrent ? styles.nodeCurrent : ""
+                          } ${isLocked ? styles.nodeLocked : ""}`}
                       >
                         {isCompleted ? "✓" : level.level_number}
                       </div>

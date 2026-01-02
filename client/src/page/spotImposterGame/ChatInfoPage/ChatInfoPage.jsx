@@ -4,23 +4,21 @@ import "./ChatInfoPage.css";
 
 export default function ChatInfoPage() {
     const navigate = useNavigate();
-
     const TOTAL_TIME = 10;
     const [countdown, setCountdown] = useState(TOTAL_TIME);
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setCountdown((prev) => {
-                if (prev === 1) {
-                    clearInterval(timer);
-                    navigate("/chat");
-                }
-                return prev - 1;
-            });
+        if (countdown === 0) {
+            navigate("/chat");
+            return;
+        }
+
+        const timer = setTimeout(() => {
+            setCountdown((c) => c - 1);
         }, 1000);
 
-        return () => clearInterval(timer);
-    }, [navigate]);
+        return () => clearTimeout(timer);
+    }, [countdown, navigate]);
 
     return (
         <div className="chat-info-page">
