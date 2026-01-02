@@ -6,6 +6,27 @@
   background: linear-gradient(135deg, #F6C1D1 0%, #E7B6D1 15%, #D8CFF0 35%, #C9B7E2 55%, #CFE7F5 75%, #BFD6E6 100%);
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
+/* ===== Language Switcher Wrapper ===== */
+.languageSwitcherWrapper {
+  position: fixed;
+  top: 1.5rem;
+  right: 2rem;
+  z-index: 100;
+}
+
+@media (max-width: 768px) {
+  .languageSwitcherWrapper {
+    top: 1.25rem;
+    right: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .languageSwitcherWrapper {
+    top: 1rem;
+    right: 1rem;
+  }
+}
 
 /* ===== Safety Tip Message - LARGER VERSION ===== */
 .safetyTipMessage {
@@ -919,6 +940,11 @@
 
 /* ===== Responsive Design ===== */
 @media (max-width: 768px) {
+  .languageSwitcherWrapper {
+    top: 1.25rem;
+    right: 1.5rem;
+  }
+
   .journeyLine {
     left: 1.75rem;
     transform: none;
@@ -1013,6 +1039,11 @@
 }
 
 @media (max-width: 480px) {
+  .languageSwitcherWrapper {
+    top: 1rem;
+    right: 1rem;
+  }
+
   .welcomeTitle {
     font-size: 1.625rem;
   }
@@ -1105,5 +1136,50 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+/* ===== RTL Support ===== */
+[dir="rtl"] .safetyTipMessage {
+  right: auto;
+  left: 2rem;
+}
+
+[dir="rtl"] .languageSwitcherWrapper {
+  right: auto;
+  left: 2rem;
+}
+
+[dir="rtl"] .tipCloseBtn {
+  right: auto;
+  left: 1rem;
+}
+
+[dir="rtl"] .characterBubble::before {
+  left: auto;
+  right: 2rem;
+}
+
+[dir="rtl"] .levelTextInfo {
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  [dir="rtl"] .safetyTipMessage {
+    left: 1.5rem;
+  }
+  
+  [dir="rtl"] .languageSwitcherWrapper {
+    left: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  [dir="rtl"] .safetyTipMessage {
+    left: 1rem;
+  }
+  
+  [dir="rtl"] .languageSwitcherWrapper {
+    left: 1rem;
   }
 }
