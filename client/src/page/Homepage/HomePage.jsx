@@ -1,4 +1,4 @@
-import {  useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ShieldCheck,
@@ -15,49 +15,24 @@ import {
 } from "lucide-react";
 import Header from "../../components/Header/Header.jsx";
 import BottomNav from "../../components/BottomNav/BottomNav.jsx";
+import LanguageSwitcher from "../../components/translations/LanguageSwitcher.jsx";
+import { translations, getRandomSafetyTip } from "../../components/translations/translations.js";
 import styles from "./HomePage.module.css";
-
 // Game levels configuration
 const LEVELS_CONFIG = [
   {
     level_number: 1,
-    title: "Cyberbullying",
-    subtitle: "Recognize and respond safely",
     color: "#F6C1D1",
   },
   {
     level_number: 2,
-    title: "Online Harassment",
-    subtitle: "Boundaries and seeking help",
     color: "#C9B7E2",
   },
   {
     level_number: 3,
-    title: "Digital Safety",
-    subtitle: "Complete protection strategies",
     color: "#CFE7F5",
   },
 ];
-
-// Random safety tips that change on each visit
-const SAFETY_TIPS = [
-  "If a conversation feels unsafe, stop and talk to a trusted adult.",
-  "Never share personal information like your address or phone number online.",
-  "Think before you post - once online, it's hard to take back.",
-  "Block and report anyone who makes you feel uncomfortable.",
-  "Use strong passwords and don't share them with anyone.",
-  "Be kind online - treat others how you want to be treated.",
-  "If someone asks to meet in person, always tell an adult first.",
-  "Keep your social media accounts private and only accept friend requests from people you know.",
-  "Screenshots can be saved forever - be careful what you share.",
-  "Trust your instincts - if something feels wrong, it probably is.",
-];
-
-// Helper function to get random safety tip
-function getRandomSafetyTip() {
-  const randomIndex = Math.floor(Math.random() * SAFETY_TIPS.length);
-  return SAFETY_TIPS[randomIndex];
-}
 
 // Helper function to get initial student data
 function getInitialStudent() {
@@ -88,17 +63,51 @@ function getInitialStudent() {
   }
 }
 
+// Get saved language or default to English
+function getInitialLanguage() {
+  try {
+    return localStorage.getItem("besafe_language") || "en";
+  } catch {
+    return "en";
+  }
+}
+
 export default function HomePage() {
   const navigate = useNavigate();
   const [showSafetyTip, setShowSafetyTip] = useState(true);
+  const [currentLang, setCurrentLang] = useState(getInitialLanguage);
 
   // Initialize student state with function to avoid effect warning
   const [student] = useState(() => getInitialStudent());
 
-  // Get random safety tip on component mount
-  const [safetyTip] = useState(() => getRandomSafetyTip());
+  // Get random safety tip based on current language
+  const [safetyTip, setSafetyTip] = useState(() => getRandomSafetyTip(currentLang));
 
   const levels = useMemo(() => LEVELS_CONFIG, []);
+  const t = translations[currentLang] || translations.en;
+
+  // Update safety tip when language changes
+  useEffect(() => {
+    setSafetyTip(getRandomSafetyTip(currentLang));
+  }, [currentLang]);
+
+  // Handle language change
+  const handleLanguageChange = useCallback((newLang) => {
+    setCurrentLang(newLang);
+    try {
+      localStorage.setItem("besafe_language", newLang);
+    } catch (error) {
+      console.error("Failed to save language preference:", error);
+    }
+    
+    // Update document direction for RTL languages
+    document.documentElement.dir = newLang === 'he' || newLang === 'ar' ? 'rtl' : 'ltr';
+  }, []);
+
+  // Set initial document direction
+  useEffect(() => {
+    document.documentElement.dir = currentLang === 'he' || currentLang === 'ar' ? 'rtl' : 'ltr';
+  }, [currentLang]);
 
   // Handle level click - navigate to game if unlocked
   const handleLevelClick = useCallback(
@@ -115,9 +124,29 @@ export default function HomePage() {
     setShowSafetyTip(false);
   }, []);
 
+  // Get level status text
+  const getLevelStatusText = (levelNum) => {
+    if (levelNum === 1) return t.cyberbullyingBasics;
+    if (levelNum === 2) return t.harassmentPrevention;
+    if (levelNum === 3) return t.digitalSafetyMaster;
+    return '';
+  };
+
   return (
     <div className={styles.container}>
-      <Header points={student.points} streak={student.streak} />
+      <Header 
+        points={student.points} 
+        streak={student.streak}
+        lang={currentLang}
+      />
+
+      {/* Language Switcher - Positioned in top right */}
+      <div className={styles.languageSwitcherWrapper}>
+        <LanguageSwitcher
+          currentLang={currentLang}
+          onLanguageChange={handleLanguageChange}
+        />
+      </div>
 
       {showSafetyTip && (
         <div className={styles.safetyTipMessage}>
@@ -135,7 +164,7 @@ export default function HomePage() {
               <Shield size={24} />
             </div>
             <div className={styles.tipTextContent}>
-              <span className={styles.tipTitle}>Safety Tip</span>
+              <span className={styles.tipTitle}>{t.safetyTip}</span>
               <p className={styles.tipText}>{safetyTip}</p>
             </div>
           </div>
@@ -206,10 +235,12 @@ export default function HomePage() {
                 <Star size={32} className={styles.starMainIcon} />
               </div>
 
-              <h2 className={styles.welcomeTitle}>Welcome , {student.name}! 💜</h2>
+              <h2 className={styles.welcomeTitle}>
+                {t.welcome}, {student.name}! 💜
+              </h2>
 
               <p className={styles.welcomeSubtitle}>
-                Keep doing amazing! Keep learning & stay safe online
+                {t.keepDoingAmazing}
               </p>
 
               <div className={styles.levelBadgeBox}>
@@ -218,11 +249,11 @@ export default function HomePage() {
                     <Award size={20} />
                   </div>
                   <div className={styles.levelTextInfo}>
-                    <span className={styles.levelNumber}>Level {student.currentLevel}</span>
+                    <span className={styles.levelNumber}>
+                      {t.level} {student.currentLevel}
+                    </span>
                     <span className={styles.levelStatus}>
-                      {student.currentLevel === 1 && "Cyberbullying Basics"}
-                      {student.currentLevel === 2 && "Harassment Prevention"}
-                      {student.currentLevel === 3 && "Digital Safety Master"}
+                      {getLevelStatusText(student.currentLevel)}
                     </span>
                   </div>
                 </div>
@@ -230,7 +261,7 @@ export default function HomePage() {
 
               <div className={styles.characterSection}>
                 <div className={styles.characterBubble}>
-                  <div className={styles.bubbleText}>You&apos;re doing great girl !</div>
+                  <div className={styles.bubbleText}>{t.youreDoingGreat}</div>
                 </div>
                 <div className={styles.decorativeElements}>
                   <span className={styles.miniIcon1}>🎀</span>
@@ -253,9 +284,9 @@ export default function HomePage() {
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <div>
-              <h3 className={styles.sectionTitle}>Your Learning Journey</h3>
+              <h3 className={styles.sectionTitle}>{t.yourLearningJourney}</h3>
               <p className={styles.sectionSubtitle}>
-                Progress through each level to master digital safety
+                {t.progressThrough}
               </p>
             </div>
           </div>
@@ -269,6 +300,8 @@ export default function HomePage() {
                 const isCurrent = level.level_number === student.currentLevel;
                 const isLocked = level.level_number > student.currentLevel;
                 const isLeft = idx % 2 === 0;
+                
+                const levelData = t.levels[idx];
 
                 return (
                   <div
@@ -288,21 +321,21 @@ export default function HomePage() {
                             {level.level_number}
                           </div>
                           <div>
-                            {isCompleted && <span className={styles.statusCompleted}>✓ Completed</span>}
-                            {isCurrent && <span className={styles.statusCurrent}>In Progress</span>}
-                            {isLocked && <span className={styles.statusLocked}>🔒 Locked</span>}
+                            {isCompleted && <span className={styles.statusCompleted}>{t.completed}</span>}
+                            {isCurrent && <span className={styles.statusCurrent}>{t.inProgress}</span>}
+                            {isLocked && <span className={styles.statusLocked}>{t.locked}</span>}
                           </div>
                         </div>
 
-                        <h4 className={styles.levelTitle}>{level.title}</h4>
-                        <p className={styles.levelSubtitle}>{level.subtitle}</p>
+                        <h4 className={styles.levelTitle}>{levelData.title}</h4>
+                        <p className={styles.levelSubtitle}>{levelData.subtitle}</p>
 
                         <div className={styles.cardFooter}>
                           {isLocked ? (
-                            <span className={styles.lockedText}>Complete previous level to unlock</span>
+                            <span className={styles.lockedText}>{t.completePrevious}</span>
                           ) : (
                             <span className={styles.startText}>
-                              {isCompleted ? "Review" : "Start"} Level <ArrowRight size={16} />
+                              {isCompleted ? t.reviewLevel : t.startLevel} {t.level} <ArrowRight size={16} />
                             </span>
                           )}
                         </div>
@@ -327,7 +360,7 @@ export default function HomePage() {
         </section>
       </main>
 
-      <BottomNav />
+      <BottomNav lang={currentLang} />
     </div>
   );
 }
