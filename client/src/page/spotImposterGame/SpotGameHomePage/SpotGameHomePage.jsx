@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import socketService from "../../../services/socketService.js";
 import Header from "../../../components/Header/Header.jsx";
 import "./SpotGameHomePage.css";
+import { Search, Ghost, MessageCircle, Bot, ShieldQuestion, User, Fingerprint, Eye, Lock, Sparkles } from 'lucide-react';
 const SpotGameHomePage = () => {
   const navigate = useNavigate();
 
@@ -63,6 +64,18 @@ const SpotGameHomePage = () => {
 
   return (
     <div className="game-wrapper">
+      <div className="game-background">
+          <Ghost className="bg-icon icon-ghost" />
+          <Search className="bg-icon icon-search" />
+          <MessageCircle className="bg-icon icon-msg" />
+          <Bot className="bg-icon icon-bot" />
+          <ShieldQuestion className="bg-icon icon-shield" />
+          <User className="bg-icon icon-user" />
+          <Fingerprint className="bg-icon icon-fingerprint" />
+          <Eye className="bg-icon icon-eye" />
+          <Lock className="bg-icon icon-lock" />
+          <Sparkles className="bg-icon icon-sparkles" />
+      </div>
       <Header points={120} streak={5} />
 
       <div className="game-container">
