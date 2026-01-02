@@ -4,7 +4,7 @@ import styles from "./BottomNav.module.css";
 
 const NAV_ITEMS = [
   { to: "/", label: "Home", Icon: Home },
-  { to: "/chat", label: "Chat", Icon: MessageCircle },
+  { to: "/chat", label: "Chat", Icon: MessageCircle }, //need to be renamed to another route name to avoid confusion with spotGameChat page
   { to: "/stories", label: "Stories", Icon: Users },
   { to: "/help", label: "Help", Icon: HelpCircle },
 ];
