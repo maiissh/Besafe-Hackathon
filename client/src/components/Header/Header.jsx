@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Flame, Coins } from "lucide-react";
 import PropTypes from "prop-types";
 import styles from "./Header.module.css";
