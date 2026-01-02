@@ -4,7 +4,8 @@ import styles from './styles/App.module.css';
 import StoriesSection from './page/Stories/StoriesSection';
 import SpotGameHomePage from './page/SpotImposterGame/SpotGameHomePage';  
 import ChatInfoPage from './page/ChatInfoPage/ChatInfoPage';              
-import ChatPage from './page/ChatPage/ChatPage';                         
+import ChatPage from './page/ChatPage/ChatPage';    
+import GetHelp from './page/Gethelp/Gethelp';                     
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/game" element={<SpotGameHomePage />} />
           <Route path="/chat-info" element={<ChatInfoPage />} />
           <Route path="/chat" element={<ChatPage />} />
+          <Route path="/help" element={<GetHelp />} />
         </Routes>
       </main>
     </div>

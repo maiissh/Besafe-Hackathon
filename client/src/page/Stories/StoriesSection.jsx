@@ -215,18 +215,22 @@ const StoriesSection = () => {
   );
 
   const handleLike = (id) => {
+    const isAlreadyLiked = likedStories.includes(id);
+
+    // حدّث الـ likes
+    setStories((prevStories) =>
+      prevStories.map((story) => {
+        if (story.id !== id) return story;
+        const nextLikes = isAlreadyLiked ? Math.max(0, story.likes - 1) : story.likes + 1;
+        return { ...story, likes: nextLikes };
+      })
+    );
+
+    // حدّث الـ likedStories
     setLikedStories((prevLiked) => {
-      const isAlreadyLiked = prevLiked.includes(id);
-
-      setStories((prevStories) =>
-        prevStories.map((story) => {
-          if (story.id !== id) return story;
-          const nextLikes = isAlreadyLiked ? Math.max(0, story.likes - 1) : story.likes + 1;
-          return { ...story, likes: nextLikes };
-        })
-      );
-
-      if (isAlreadyLiked) return prevLiked.filter((storyId) => storyId !== id);
+      if (isAlreadyLiked) {
+        return prevLiked.filter((storyId) => storyId !== id);
+      }
       return [...prevLiked, id];
     });
   };
@@ -336,7 +340,7 @@ const StoriesSection = () => {
         <div className="stories-container">
           <div className="stories-header">
             <div className="header-icon">
-              <IconHeart className="icon-heart" fill="#f472b6" />
+              <IconHeart className="icon-heart" fill="none" stroke="#f472b6" />
             </div>
             <h1 className="main-title">Stories & Experiences</h1>
             <p className="main-description">
@@ -357,7 +361,7 @@ const StoriesSection = () => {
               <p className="card-description">Stories are reviewed to ensure a supportive environment</p>
             </div>
             <div className="safety-card">
-              <IconHeart className="card-icon icon-pink" fill="#f472b6" />
+              <IconHeart className="card-icon icon-pink" fill="none" stroke="#f472b6" />
               <h3 className="card-title">You&apos;re Not Alone</h3>
               <p className="card-description">Learn from others and help empower your peers</p>
             </div>
