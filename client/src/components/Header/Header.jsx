@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Flame, Coins } from "lucide-react";
 import styles from "./Header.module.css";
 
-export default function Header({  points, streak }) {
+export default function Header({ /*studentName,*/ points, streak }) {
   return (
     <header className={styles.header}>
       <div className={styles.headerTop}>
@@ -10,13 +10,14 @@ export default function Header({  points, streak }) {
           <h1 className={styles.brandTitle}>BeSafe</h1>
           <p className={styles.brandSubtitle}>School Guided Online Safety</p>
         </div>
-        
-        {/* Streak & Points Badges - LARGER */}
+
+        {/* Streak & Points */}
         <div className={styles.badgesGroup}>
           <div className={styles.streakBadge}>
             <Flame className={styles.flameIcon} size={28} />
             <span className={styles.badgeValue}>{streak}</span>
           </div>
+
           <div className={styles.pointsBadge}>
             <Coins className={styles.coinsIcon} size={28} />
             <span className={styles.badgeValue}>{points}</span>
@@ -28,6 +29,7 @@ export default function Header({  points, streak }) {
 }
 
 Header.propTypes = {
+  studentName: PropTypes.string,
   points: PropTypes.number.isRequired,
   streak: PropTypes.number.isRequired,
 };

@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './page/Homepage/HomePage';
 import styles from './styles/App.module.css';
 import StoriesSection from './page/Stories/StoriesSection';
-import SpotGameHomePage from './page/SpotImposterGame/SpotGameHomePage';  
+import SpotGameHomePage from './page/spotImposterGame/SpotGameHomePage';  
 import ChatInfoPage from './page/ChatInfoPage/ChatInfoPage';              
 import ChatPage from './page/ChatPage/ChatPage';    
 import GetHelp from './page/Gethelp/Gethelp';                     
