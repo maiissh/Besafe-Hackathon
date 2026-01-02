@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import socketService from "../../../services/socketService.js";
 import Header from "../../../components/Header/Header.jsx";
 import "./SpotGameHomePage.css";
-
 const SpotGameHomePage = () => {
   const navigate = useNavigate();
 
