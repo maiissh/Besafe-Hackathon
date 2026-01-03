@@ -45,10 +45,9 @@ function LanguageSwitcher({ currentLang = 'en', onLanguageChange }) {
         aria-label="Switch language"
         aria-expanded={isOpen}
       >
-        <Globe size={20} className={styles.globeIcon} />
+        <Globe size={22} className={styles.globeIcon} />
         <span className={styles.currentLang}>
           <span className={styles.flag}>{currentLanguage.flag}</span>
-          <span className={styles.langName}>{currentLanguage.nativeName}</span>
         </span>
         <svg
           className={`${styles.chevron} ${isOpen ? styles.chevronUp : ''}`}

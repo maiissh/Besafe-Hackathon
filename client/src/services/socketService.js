@@ -34,6 +34,56 @@ class SocketService {
             this.socket.on(eventName, callback);
         }
     }
+
+    // Remove event listener
+    off(eventName, callback) {
+        if (this.socket) {
+            this.socket.off(eventName, callback);
+        }
+    }
+
+    // Join a game room
+    joinRoom(roomId, playerId = null, playerName = null) {
+        if (!this.socket) {
+            this.connect();
+        }
+        this.emit('join-room', { roomId, playerId, playerName });
+    }
+
+    // Leave a game room
+    leaveRoom(roomId, playerId = null) {
+        if (this.socket) {
+            this.emit('leave-room', { roomId, playerId });
+        }
+    }
+
+    // Send a chat message
+    sendMessage(roomId, message, sender = null, senderId = null) {
+        if (this.socket) {
+            this.emit('send-message', { roomId, message, sender, senderId });
+        }
+    }
+
+    // Start a game
+    startGame(roomId, topic = null) {
+        if (this.socket) {
+            this.emit('start-game', { roomId, topic });
+        }
+    }
+
+    // End a game
+    endGame(roomId) {
+        if (this.socket) {
+            this.emit('end-game', { roomId });
+        }
+    }
+
+    // Get room information
+    getRoomInfo(roomId) {
+        if (this.socket) {
+            this.emit('get-room-info', { roomId });
+        }
+    }
 }
 
 export default new SocketService();

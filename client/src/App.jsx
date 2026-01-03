@@ -1,7 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/HomePage/HomePage';
-import Register from './pages/Register/Register';
-import './pages/Register/Register.css';
+import { Routes, Route } from 'react-router-dom'; 
+import Home from './page/Homepage/HomePage';
 import styles from './styles/App.module.css';
 import StoriesSection from './page/Stories/StoriesSection';
 import SpotGameHomePage from './page/spotImposterGame/SpotGameHomePage/SpotGameHomePage';  
@@ -11,16 +9,18 @@ import GetHelp from './page/Gethelp/Gethelp';
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className={styles.app}>
-        <main className={styles.main}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Register />} />  
-          </Routes>
-        </main>
-      </div>
-    </BrowserRouter>
+    <div className={styles.app}>
+      <main className={styles.main}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Stories" element={<StoriesSection />} /> 
+          <Route path="/spot-game" element={<SpotGameHomePage />} />
+          <Route path="/chat-info" element={<ChatInfoPage />} />
+          <Route path="/chat" element={<ChatPage />} />
+          <Route path="/help" element={<GetHelp />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
 

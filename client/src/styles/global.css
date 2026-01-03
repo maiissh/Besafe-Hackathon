@@ -1,11 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
 html,
 body {
   height: auto;
   overflow-y: auto;
+  font-family: 'Poppins', sans-serif;
   /* ✅ allow scrolling */
 }
 
 #root {
   min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
   /* ✅ page can grow */
+}
+
+* {
+  font-family: 'Poppins', sans-serif;
 }
