@@ -10,7 +10,6 @@ body {
 /* Page */
 .chat-info-page {
     height: 100vh;
-    /* 🔑 fixed height */
     background: linear-gradient(135deg,
             #f6c1d1,
             #e7b6d1,
@@ -21,16 +20,15 @@ body {
 
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    /* 🔑 top aligned */
+    align-items: center;
+    /* ✅ CENTER EVERYTHING */
 }
 
 /* Container */
 .info-container {
     max-width: 800px;
     width: 100%;
-    padding: 32px 24px 24px;
-    /* 🔑 reduced top padding */
+    padding: 24px;
     text-align: center;
 }
 
@@ -62,7 +60,6 @@ body {
     font-size: 22px;
     font-weight: 700;
     color: #c9377d;
-
 }
 
 /* Role */
@@ -82,7 +79,6 @@ body {
 /* Countdown */
 .countdown-card {
     margin-top: 16px;
-    /* 🔑 tighter spacing */
     font-size: 18px;
     color: #374151;
 }
@@ -98,9 +94,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* vertical center */
     align-items: center;
-    /* horizontal center */
     min-height: 150px;
-    /* gives space to center within */
 }

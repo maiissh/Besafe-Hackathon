@@ -1,5 +1,9 @@
+/* ===== Page Wrapper ===== */
 .chat-page {
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
     background: linear-gradient(135deg,
             #f6c1d1,
             #e7b6d1,
@@ -13,10 +17,14 @@
 .chat-container {
     max-width: 900px;
     margin: 0 auto;
+
     padding: 120px 24px 24px;
+    /* space for header */
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 120px);
+
+    flex: 1;
+    /* 🔑 THIS FIXES THE WHITE BACKGROUND */
 }
 
 /* ===== Messages Area ===== */
@@ -57,7 +65,7 @@
     margin-left: auto;
 }
 
-/* ===== Chat Input Area ===== */
+/* ===== Chat Input ===== */
 .chat-input {
     display: flex;
     gap: 12px;
@@ -74,7 +82,7 @@
     font-size: 14px;
 }
 
-/* ===== Send Button (FIXED CENTERING) ===== */
+/* ===== Send Button ===== */
 .chat-input button {
     background: #8b5ba8;
     color: white;
@@ -85,14 +93,12 @@
     font-size: 20px;
     cursor: pointer;
 
-    /* ✅ CENTER THE ARROW PERFECTLY */
     display: flex;
     align-items: center;
     justify-content: center;
     line-height: 1;
 }
 
-/* Optional hover polish (keeps design same) */
 .chat-input button:hover {
     opacity: 0.9;
 }

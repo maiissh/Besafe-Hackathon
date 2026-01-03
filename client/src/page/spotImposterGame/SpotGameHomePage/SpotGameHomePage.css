@@ -21,8 +21,10 @@
     align-items: center;
     font-family: 'Nunito', sans-serif;
     padding-bottom: 2rem;
-    position: relative; /* Needed for absolute positioning of icons */
-    overflow: hidden;   /* Prevents scrollbars if icons float off-screen */
+    position: relative;
+    /* Needed for absolute positioning of icons */
+    overflow: hidden;
+    /* Prevents scrollbars if icons float off-screen */
     z-index: 1;
 }
 
@@ -51,15 +53,19 @@
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* Allows clicks to pass through to the buttons */
-    z-index: -1;          /* Puts icons BEHIND the main content */
+    pointer-events: none;
+    /* Allows clicks to pass through to the buttons */
+    z-index: -1;
+    /* Puts icons BEHIND the main content */
 }
 
 /* 3. General Icon Style */
 .bg-icon {
     position: absolute;
-    opacity: 0.15; /* Low opacity so it's subtle */
-    color: white;  /* Default color, overridden below */
+    opacity: 0.15;
+    /* Low opacity so it's subtle */
+    color: white;
+    /* Default color, overridden below */
 }
 
 /* 4. Individual Icon Customization (Position, Size, Color, Animation) */
@@ -70,7 +76,8 @@
     left: 10%;
     width: 80px;
     height: 80px;
-    color: #6a5acd; /* SlateBlue */
+    color: #6a5acd;
+    /* SlateBlue */
     animation: float 6s ease-in-out infinite;
 }
 
@@ -80,7 +87,8 @@
     right: 15%;
     width: 120px;
     height: 120px;
-    color: #ff69b4; /* HotPink */
+    color: #ff69b4;
+    /* HotPink */
     animation: floatDelayed 7s ease-in-out infinite;
     transform: rotate(-20deg);
 }
@@ -101,7 +109,8 @@
     left: 20%;
     width: 90px;
     height: 90px;
-    color: #4682b4; /* SteelBlue */
+    color: #4682b4;
+    /* SteelBlue */
     animation: floatDelayed 9s ease-in-out infinite;
 }
 
@@ -111,7 +120,8 @@
     left: 5%;
     width: 50px;
     height: 50px;
-    color: #32cd32; /* LimeGreen */
+    color: #32cd32;
+    /* LimeGreen */
     animation: float 10s ease-in-out infinite;
 }
 
@@ -121,7 +131,8 @@
     right: 10%;
     width: 40px;
     height: 40px;
-    color: #dda0dd; /* Plum */
+    color: #dda0dd;
+    /* Plum */
     animation: floatDelayed 5s ease-in-out infinite;
 }
 
@@ -131,7 +142,8 @@
     right: 40%;
     width: 65px;
     height: 65px;
-    color: #20b2aa; /* LightSeaGreen */
+    color: #20b2aa;
+    /* LightSeaGreen */
     animation: float 7.5s ease-in-out infinite reverse;
     opacity: 0.12;
 }
@@ -142,7 +154,8 @@
     left: 45%;
     width: 55px;
     height: 55px;
-    color: #ffa500; /* Orange */
+    color: #ffa500;
+    /* Orange */
     animation: floatDelayed 6.5s ease-in-out infinite;
 }
 
@@ -152,7 +165,8 @@
     left: 8%;
     width: 45px;
     height: 45px;
-    color: #9370db; /* MediumPurple */
+    color: #9370db;
+    /* MediumPurple */
     animation: float 9s ease-in-out infinite;
     transform: rotate(15deg);
 }
@@ -163,19 +177,34 @@
     right: 5%;
     width: 50px;
     height: 50px;
-    color: #ffd700; /* Gold */
+    color: #ffd700;
+    /* Gold */
     animation: floatDelayed 5.5s ease-in-out infinite;
 }
 
 /* 5. Floating Animations */
 @keyframes float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(5deg); }
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
 }
 
 @keyframes floatDelayed {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(20px) rotate(-5deg); }
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(20px) rotate(-5deg);
+    }
 }
 
 /* 3. Typography */
