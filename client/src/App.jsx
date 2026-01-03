@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'; 
 import Home from './page/Homepage/HomePage';
+import Register from './page/Register/Register';
 import styles from './styles/App.module.css';
 import Register from './page/Register/Register';
 import StoriesSection from './page/Stories/StoriesSection';
@@ -13,7 +14,7 @@ function App() {
     <div className={styles.app}>
       <main className={styles.main}>
         <Routes>
-          <Route path="/" element={<Register />} />
+        <Route path="/" element={<Register/>} />
           <Route path="/homepage" element={<Home />} />
           <Route path="/Stories" element={<StoriesSection />} /> 
           <Route path="/spot-game" element={<SpotGameHomePage />} />
