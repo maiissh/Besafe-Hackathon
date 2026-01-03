@@ -44,10 +44,10 @@
 
 .floating-orb {
   position: absolute;
-  width: 28rem;
-  height: 28rem;
+  width: 22.4rem;
+  height: 22.4rem;
   border-radius: 9999px;
-  filter: blur(100px);
+  filter: blur(80px);
   opacity: 0.4;
 }
 
@@ -75,7 +75,10 @@
 /* Main Section */
 .get-help-section {
   position: relative;
-  padding: 10rem 2rem 8rem;
+  padding-top: 1rem;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  padding-bottom: 2rem;
   background: linear-gradient(135deg, 
     rgba(246, 193, 209, 0.3) 0%, 
     rgba(231, 182, 209, 0.3) 15%, 
@@ -84,36 +87,38 @@
     rgba(207, 231, 245, 0.3) 75%, 
     rgba(191, 214, 230, 0.3) 100%
   );
-  backdrop-filter: blur(8px);
-  min-height: calc(100vh - 14rem);
+  backdrop-filter: blur(6.4px);
+  min-height: calc(100vh - 160px);
   z-index: 10;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .get-help-container {
-  max-width: 65rem;
+  max-width: 920px;
   margin: 0 auto;
 }
 
 /* Header */
 .header {
   text-align: center;
-  padding: 0 0 3rem;
+  padding: 0 0 1.2rem;
   animation: fadeInDown 0.8s ease;
 }
 
 .header h1 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 3rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.3rem;
   color: var(--primary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.64rem;
   font-weight: 700;
   letter-spacing: -0.5px;
 }
 
 .subtitle {
-  font-size: 1.2rem;
+  font-size: 0.96rem;
   color: var(--text-dark);
-  max-width: 700px;
+  max-width: 560px;
   margin: 0 auto;
   line-height: 1.6;
   opacity: 0.9;
@@ -121,32 +126,32 @@
 
 /* Options Section */
 .options-section {
-  margin: 3rem 0;
+  margin: 1.6rem 0;
   animation: fadeInUp 1s ease 0.3s backwards;
 }
 
 .section-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 2rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.44rem;
   text-align: center;
   color: var(--text-dark);
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .options-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  max-width: 900px;
+  gap: 1.2rem;
+  max-width: 700px;
   margin: 0 auto;
 }
 
 .option-card {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
-  border: 3px solid rgba(255, 228, 237, 0.6);
-  border-radius: 24px;
-  padding: 3rem 2.5rem;
+  border: 1px solid rgba(255, 228, 237, 0.6);
+  border-radius: 10px;
+  padding: 2rem 1.6rem;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -160,7 +165,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 6px;
+  height: 4px;
   background: linear-gradient(90deg, var(--primary), var(--secondary));
   transform: scaleX(0);
   transition: transform 0.3s ease;
@@ -188,27 +193,27 @@
 }
 
 .option-icon {
-  font-size: 4rem;
-  margin-bottom: 1.5rem;
+  font-size: 2.8rem;
+  margin-bottom: 0.8rem;
   animation: bounce 2s infinite;
 }
 
 .option-card h3 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.8rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.28rem;
   color: var(--text-dark);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.48rem;
 }
 
 .option-card p {
   color: var(--text-light);
-  font-size: 1rem;
+  font-size: 1.04rem;
   line-height: 1.5;
 }
 
 /* Content Sections */
 .content-section {
-  margin: 3rem 0;
+  margin: 1.92rem 0;
   animation: fadeIn 0.5s ease;
 }
 
@@ -216,9 +221,9 @@
 .resources-card {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
-  border-radius: 24px;
-  padding: 3rem;
-  box-shadow: 0 10px 40px var(--shadow);
+  border-radius: 10.24px;
+  padding: 1.28rem 1.024rem;
+  box-shadow: 0 6.4px 25.6px var(--shadow);
   position: relative;
   overflow: hidden;
 }
@@ -230,63 +235,63 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 6px;
+  height: 4px;
   background: linear-gradient(90deg, var(--primary), var(--secondary));
 }
 
 .card-header {
   display: flex;
   align-items: flex-start;
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
+  gap: 0.8rem;
+  margin-bottom: 0.96rem;
 }
 
 .card-icon {
-  width: 70px;
-  height: 70px;
+  width: 38px;
+  height: 38px;
   background: linear-gradient(135deg, var(--primary-light), var(--primary));
-  border-radius: 18px;
+  border-radius: 9px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 19px;
   flex-shrink: 0;
   animation: bounce 2s infinite;
 }
 
 .card-header h2 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 2rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.36rem;
   color: var(--text-dark);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.48rem;
 }
 
 .card-description {
   color: var(--text-light);
   line-height: 1.6;
-  font-size: 1.05rem;
+  font-size: 0.92rem;
 }
 
 /* Form Elements */
 .form-group {
-  margin-bottom: 2rem;
+  margin-bottom: 1.6rem;
 }
 
 .form-group label {
   display: block;
   font-weight: 600;
   color: var(--text-dark);
-  margin-bottom: 0.75rem;
-  font-size: 1rem;
+  margin-bottom: 0.64rem;
+  font-size: 1.04rem;
 }
 
 .form-group select {
   width: 100%;
-  padding: 1rem 1.25rem;
+  padding: 0.88rem 1.12rem;
   border: 2px solid rgba(240, 230, 240, 0.8);
-  border-radius: 14px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1.05rem;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.04rem;
   transition: all 0.3s ease;
   background: rgba(250, 250, 250, 0.8);
   backdrop-filter: blur(5px);
@@ -311,42 +316,42 @@
   border: 3px solid rgba(240, 230, 240, 0.5);
   border-top: 3px solid var(--primary);
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   animation: spin 1s linear infinite;
-  margin: 0 auto 1rem;
+  margin: 0 auto 0.8rem;
 }
 
 /* Counselors Section */
 .counselors-section {
-  margin-top: 2.5rem;
-  padding-top: 2.5rem;
+  margin-top: 1.6rem;
+  padding-top: 1.6rem;
   border-top: 2px dashed rgba(240, 230, 240, 0.8);
 }
 
 .counselors-section h3 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.6rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.12rem;
   color: var(--text-dark);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .counselors-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.8rem;
 }
 
 .counselor-card {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 245, 249, 0.6) 100%);
   backdrop-filter: blur(8px);
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 2px solid rgba(255, 228, 237, 0.6);
+  border-radius: 9.6px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 228, 237, 0.6);
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 0.8rem;
 }
 
 .counselor-card:hover {
@@ -357,14 +362,14 @@
 }
 
 .counselor-avatar {
-  width: 60px;
-  height: 60px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--secondary), #3BB5AC);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26px;
+  font-size: 19px;
   flex-shrink: 0;
 }
 
@@ -375,12 +380,12 @@
 .counselor-name {
   font-weight: 600;
   color: var(--text-dark);
-  margin-bottom: 0.25rem;
-  font-size: 1.1rem;
+  margin-bottom: 0.16rem;
+  font-size: 0.88rem;
 }
 
 .counselor-role {
-  font-size: 0.9rem;
+  font-size: 0.72rem;
   color: var(--text-light);
 }
 
@@ -388,9 +393,9 @@
   background: var(--secondary);
   color: white;
   border: none;
-  padding: 0.65rem 1.5rem;
-  border-radius: 10px;
-  font-size: 0.95rem;
+  padding: 0.48rem 0.96rem;
+  border-radius: 6px;
+  font-size: 0.72rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -408,18 +413,18 @@
 .resources-list {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.04rem;
 }
 
 .resource-item {
   background: linear-gradient(135deg, rgba(255, 240, 245, 0.9) 0%, rgba(255, 228, 240, 0.9) 100%);
   backdrop-filter: blur(10px);
-  border-radius: 18px;
-  padding: 2rem;
-  border-left: 5px solid #FFB5D6;
+  border-radius: 7.68px;
+  padding: 1.024rem;
+  border-left: 2.56px solid #FFB5D6;
   transition: all 0.3s ease;
   display: flex;
-  gap: 1.5rem;
+  gap: 0.64rem;
   align-items: flex-start;
 }
 
@@ -430,7 +435,7 @@
 }
 
 .resource-icon {
-  font-size: 40px;
+  font-size: 24px;
   flex-shrink: 0;
 }
 
@@ -440,34 +445,34 @@
 
 .resource-title {
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.12rem;
   color: var(--text-dark);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .resource-description {
-  font-size: 0.95rem;
+  font-size: 0.96rem;
   color: var(--text-light);
-  margin-bottom: 1rem;
+  margin-bottom: 0.72rem;
   line-height: 1.6;
 }
 
 .resource-contact {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.8rem;
   flex-wrap: wrap;
 }
 
 .emergency-badge {
   background: rgba(255, 245, 245, 0.9);
   color: #E53E3E;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6.4px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.32rem;
   text-decoration: none;
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
@@ -481,13 +486,13 @@
 .info-badge {
   background: rgba(240, 255, 244, 0.9);
   color: #38A169;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6.4px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.32rem;
   text-decoration: none;
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
@@ -502,25 +507,28 @@
 .support-banner {
   background: linear-gradient(135deg, #8092e1 0%, #b693d8 100%);
   color: white;
-  border-radius: 24px;
-  padding: 3rem 2.5rem;
+  border-radius: 12.8px;
+  padding: 1.6rem 1.28rem;
   text-align: center;
-  margin-top: 4rem;
-  box-shadow: 0 10px 40px rgba(116, 136, 226, 0.3);
+  margin-top: 1.6rem;
+  box-shadow: 0 6.4px 25.6px rgba(116, 136, 226, 0.3);
   animation: fadeInUp 1s ease 0.6s backwards;
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .support-banner h3 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 2.2rem;
-  margin-bottom: 1.25rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.44rem;
+  margin-bottom: 0.88rem;
 }
 
 .support-banner p {
-  font-size: 1.15rem;
+  font-size: 0.88rem;
   opacity: 0.95;
-  max-width: 750px;
-  margin: 0 auto 2rem;
+  max-width: 600px;
+  margin: 0 auto 1.04rem;
   line-height: 1.7;
 }
 
@@ -528,13 +536,13 @@
   background: white;
   color: #667EEA;
   border: none;
-  padding: 1rem 2.5rem;
-  border-radius: 12px;
-  font-size: 1.05rem;
+  padding: 0.64rem 1.28rem;
+  border-radius: 7.2px;
+  font-size: 0.88rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3.2px 9.6px rgba(0, 0, 0, 0.1);
 }
 
 .support-btn:hover {
@@ -599,93 +607,97 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .get-help-section {
-    padding: 8rem 1.5rem 6rem;
+    padding: 1rem 0.96rem 1.5rem;
+  }
+
+  .get-help-container {
+    padding-top: 0.5rem;
   }
 
   .header h1 {
-    font-size: 2.2rem;
+    font-size: 1.76rem;
   }
 
   .subtitle {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 
   .options-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 0.8rem;
   }
 
   .option-card {
-    padding: 2.5rem 2rem;
+    padding: 1.28rem 1.12rem;
   }
 
   .option-icon {
-    font-size: 3rem;
+    font-size: 2.24rem;
   }
 
   .school-card,
   .resources-card {
-    padding: 2rem 1.5rem;
+    padding: 1.28rem 1.12rem;
   }
 
   .card-header {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.64rem;
   }
 
   .card-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 28px;
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
   }
 
   .counselor-card {
     flex-direction: column;
     text-align: center;
-    gap: 1rem;
+    gap: 0.64rem;
   }
 
   .resource-item {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.64rem;
   }
 
   .resource-icon {
-    font-size: 32px;
+    font-size: 19px;
   }
 
   .support-banner {
-    padding: 2.5rem 1.5rem;
+    padding: 1.28rem 1.12rem;
   }
 
   .support-banner h3 {
-    font-size: 1.8rem;
+    font-size: 1.15rem;
   }
 
   .support-banner p {
-    font-size: 1rem;
+    font-size: 0.7rem;
   }
 }
 
 @media (max-width: 480px) {
   .get-help-section {
-    padding: 7rem 1rem 5rem;
+    padding: 0.8rem 0.64rem 1rem;
   }
 
   .header h1 {
-    font-size: 1.8rem;
+    font-size: 1.44rem;
   }
 
   .section-title {
-    font-size: 1.5rem;
+    font-size: 1.15rem;
   }
 
   .option-card h3 {
-    font-size: 1.4rem;
+    font-size: 1.02rem;
   }
 
   .card-header h2 {
-    font-size: 1.6rem;
+    font-size: 1.09rem;
   }
 
   .resource-contact {
@@ -693,7 +705,7 @@
   }
 
   .floating-orb {
-    width: 20rem;
-    height: 20rem;
+    width: 12.8rem;
+    height: 12.8rem;
   }
 }

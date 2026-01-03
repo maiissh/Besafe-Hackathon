@@ -1,13 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from "../../components/Header/Header.jsx";
 import BottomNav from "../../components/BottomNav/BottomNav.jsx";
 import './GetHelp.css';
+import studentService from '../../services/studentService.js';
+import helpRequestService from '../../services/helpRequestService.js';
+
+const defaultStudent = { points: 0, streak: 0 };
 
 const GetHelp = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [selectedSchool, setSelectedSchool] = useState('');
   const [showCounselors, setShowCounselors] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [student, setStudent] = useState(defaultStudent);
+  const [currentUser, setCurrentUser] = useState(null);
 
   // بيانات المدارس والمستشارات
   const schoolCounselors = {
@@ -56,9 +62,69 @@ const GetHelp = () => {
     }
   };
 
+  // Load student data on mount
+  useEffect(() => {
+    const loadStudent = async () => {
+      try {
+        const studentData = await studentService.getCurrentStudent();
+        if (studentData) {
+          setStudent({
+            points: studentData.points || 0,
+            streak: studentData.streak || 0
+          });
+          setCurrentUser({
+            id: studentData.id || studentData._id,
+            full_name: studentData.full_name || studentData.name,
+            username: studentData.username
+          });
+        }
+      } catch (error) {
+        console.error('Error loading student:', error);
+      }
+    };
+    loadStudent();
+  }, []);
+
+  // Handle contact with counselor or organization
+  const handleContact = async (contactType, counselorName = null, counselorContact = null, organizationName = null, schoolName = null) => {
+    if (!currentUser || !currentUser.id) {
+      alert('Please sign in to contact support');
+      return;
+    }
+
+    try {
+      const helpRequestData = {
+        userId: currentUser.id,
+        studentName: currentUser.full_name,
+        studentUsername: currentUser.username,
+        contactType: contactType, // 'school', 'national', or 'counselor'
+        schoolName: schoolName || (contactType === 'school' ? selectedSchool : null),
+        counselorName: counselorName || null,
+        counselorContact: counselorContact || null,
+        organizationName: organizationName || null,
+        message: `Student requested contact with ${counselorName || organizationName || 'support'}`
+      };
+
+      await helpRequestService.createHelpRequest(helpRequestData);
+      
+      // Open email client
+      if (counselorContact) {
+        // eslint-disable-next-line react-hooks/immutability
+        window.location.href = `mailto:${counselorContact}`;
+      }
+    } catch (error) {
+      console.error('Error creating help request:', error);
+      // Still open email even if save fails
+      if (counselorContact) {
+        // eslint-disable-next-line react-hooks/immutability
+        window.location.href = `mailto:${counselorContact}`;
+      }
+    }
+  };
+
   return (
-    <>
-      <Header points={350} streak={7} />
+    <div style={{ paddingTop: '80px', paddingBottom: '80px' }}>
+      <Header points={student.points} streak={student.streak} />
       
       {/* Animated Background */}
       <div className="background-wrapper">
@@ -72,7 +138,7 @@ const GetHelp = () => {
       <div className="get-help-section">
         <div className="get-help-container">
           <header className="header">
-            <h1>💝 Get Support & Help</h1>
+            <h1> Get Support & Help 💝</h1>
             <p className="subtitle">
               You&apos;re not alone. Choose how you&apos;d like to get help - from your school or from trusted organizations.
             </p>
@@ -151,9 +217,12 @@ const GetHelp = () => {
                             <div className="counselor-name">{counselor.name}</div>
                             <div className="counselor-role">{counselor.role}</div>
                           </div>
-                          <a href={`mailto:${counselor.contact}`} className="contact-btn">
+                          <button 
+                            className="contact-btn"
+                            onClick={() => handleContact('school', counselor.name, counselor.contact, null, selectedSchool)}
+                          >
                             Contact
-                          </a>
+                          </button>
                         </div>
                       ))}
                     </div>
@@ -186,7 +255,12 @@ const GetHelp = () => {
                         For immediate danger or serious threats
                       </div>
                       <div className="resource-contact">
-                        <a href="tel:100" className="emergency-badge">📞 Call 100</a>
+                        <button 
+                          className="emergency-badge"
+                          onClick={() => handleContact('national', null, null, 'Police Emergency', null)}
+                        >
+                          📞 Call 100
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -199,7 +273,12 @@ const GetHelp = () => {
                         Specialized support for online harassment, cyberbullying, and digital threats
                       </div>
                       <div className="resource-contact">
-                        <a href="tel:105" className="info-badge">📞 Call 105</a>
+                        <button 
+                          className="info-badge"
+                          onClick={() => handleContact('national', null, null, 'Cyber Safety Helpline', null)}
+                        >
+                          📞 Call 105
+                        </button>
                         <span className="info-badge">💬 Available 24/7</span>
                       </div>
                     </div>
@@ -213,7 +292,12 @@ const GetHelp = () => {
                         Confidential counseling and legal support for harassment cases
                       </div>
                       <div className="resource-contact">
-                        <a href="tel:1-800-220-000" className="info-badge">📞 1-800-220-000</a>
+                        <button 
+                          className="info-badge"
+                          onClick={() => handleContact('national', null, null, 'Women\'s Support Center', null)}
+                        >
+                          📞 1-800-220-000
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -226,7 +310,12 @@ const GetHelp = () => {
                         Emotional support and guidance for young people
                       </div>
                       <div className="resource-contact">
-                        <a href="tel:1201" className="info-badge">📞 Call *1201</a>
+                        <button 
+                          className="info-badge"
+                          onClick={() => handleContact('national', null, null, 'Youth Crisis Line', null)}
+                        >
+                          📞 Call *1201
+                        </button>
                         <span className="info-badge">💬 Anonymous</span>
                       </div>
                     </div>
@@ -240,8 +329,18 @@ const GetHelp = () => {
                         Professional guidance for digital safety and protection
                       </div>
                       <div className="resource-contact">
-                        <span className="info-badge">🌐 Online Support</span>
-                        <span className="info-badge">📧 Email Support</span>
+                        <button 
+                          className="info-badge"
+                          onClick={() => handleContact('national', null, null, 'Online Safety Organizations', null)}
+                        >
+                          🌐 Online Support
+                        </button>
+                        <button 
+                          className="info-badge"
+                          onClick={() => handleContact('national', null, null, 'Online Safety Organizations', null)}
+                        >
+                          📧 Email Support
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -264,7 +363,7 @@ const GetHelp = () => {
       </div>
       
       <BottomNav />
-    </>
+    </div>
   );
 };
 

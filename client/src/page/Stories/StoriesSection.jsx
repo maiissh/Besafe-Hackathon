@@ -1,7 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Header from "../../components/Header/Header.jsx";
 import BottomNav from "../../components/BottomNav/BottomNav.jsx";
 import "./StoriesSection.css";
+import storyService from '../../services/storyService.js';
+import studentService from '../../services/studentService.js';
 
 /* eslint-disable react/prop-types */
 
@@ -135,24 +137,13 @@ const IconTrash = ({ className = "" }) => (
   </svg>
 );
 
-const defaultUser = { firstName: "User", fullName: "User Name", userId: "default-user" };
+const defaultUser = { firstName: "User", fullName: "User Name", userId: null };
+const defaultStudent = { points: 0, streak: 0 };
 
 const StoriesSection = () => {
-  const [currentUser] = useState(() => {
-    try {
-      const userData = localStorage.getItem("user");
-      if (!userData) return defaultUser;
-      const user = JSON.parse(userData);
-
-      const firstName = user.firstName || user.name?.split(" ")[0] || "User";
-      const fullName = user.fullName || user.name || "User Name";
-      const userId = user.id || user.email || "default-user";
-
-      return { firstName, fullName, userId };
-    } catch {
-      return defaultUser;
-    }
-  });
+  const [currentUser, setCurrentUser] = useState(defaultUser);
+  const [student, setStudent] = useState(defaultStudent);
+  const [loading, setLoading] = useState(true);
 
   const [showForm, setShowForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -168,38 +159,7 @@ const StoriesSection = () => {
     nameVisibility: "",
   });
 
-  const [stories, setStories] = useState([
-    {
-      id: 1,
-      story:
-        "Someone created a fake Instagram account using my photos and was messaging my friends pretending to be me. It was scary because they knew personal details. I reported it and Instagram took it down within 24 hours.",
-      incidentType: "Impersonation",
-      displayName: "Sarah M.",
-      date: "2 weeks ago",
-      likes: 12,
-      userId: "other-user-1",
-    },
-    {
-      id: 2,
-      story:
-        "I received DMs from someone claiming to be a photographer who wanted to help me build a portfolio. Something felt wrong, so I checked with my parents. It turned out to be a scam. Always trust your gut!",
-      incidentType: "Scams or Fraud",
-      displayName: "Anonymous",
-      date: "1 month ago",
-      likes: 5,
-      userId: "other-user-2",
-    },
-    {
-      id: 3,
-      story:
-        "A classmate was posting mean comments about me on every photo I shared. At first I tried to ignore it, but it got worse. I documented everything and showed a trusted teacher. Speaking up was hard but worth it.",
-      incidentType: "Harassment or Bullying",
-      displayName: "Mira",
-      date: "3 weeks ago",
-      likes: 24,
-      userId: "other-user-3",
-    },
-  ]);
+  const [stories, setStories] = useState([]);
 
   const incidentTypes = useMemo(
     () => [
@@ -214,25 +174,88 @@ const StoriesSection = () => {
     []
   );
 
-  const handleLike = (id) => {
+  // Load current user and stories on mount
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        // Get current student from localStorage or API
+        const studentData = await studentService.getCurrentStudent();
+        if (studentData) {
+          const firstName = studentData.full_name?.split(" ")[0] || studentData.username || "User";
+          const fullName = studentData.full_name || studentData.username || "User Name";
+          setCurrentUser({ 
+            firstName, 
+            fullName, 
+            userId: studentData.id 
+          });
+          // Set student data for Header
+          setStudent({
+            points: studentData.points || 0,
+            streak: studentData.streak || 0
+          });
+        }
+
+        // Load all stories from API
+        const allStories = await storyService.getAllStories();
+        setStories(allStories);
+      } catch (error) {
+        console.error('Error loading data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  const handleLike = async (id) => {
     const isAlreadyLiked = likedStories.includes(id);
 
-    // حدّث الـ likes
-    setStories((prevStories) =>
-      prevStories.map((story) => {
-        if (story.id !== id) return story;
-        const nextLikes = isAlreadyLiked ? Math.max(0, story.likes - 1) : story.likes + 1;
-        return { ...story, likes: nextLikes };
-      })
-    );
-
-    // حدّث الـ likedStories
-    setLikedStories((prevLiked) => {
+    try {
       if (isAlreadyLiked) {
-        return prevLiked.filter((storyId) => storyId !== id);
+        // Unlike story
+        const updatedStory = await storyService.unlikeStory(id);
+        if (updatedStory) {
+          setStories((prevStories) =>
+            prevStories.map((story) =>
+              story.id === id ? updatedStory : story
+            )
+          );
+          setLikedStories((prevLiked) => prevLiked.filter((storyId) => storyId !== id));
+          // Update student points in state
+          const updatedStudentUnliked = await studentService.getCurrentStudent();
+          if (updatedStudentUnliked) {
+            setStudent({
+              points: updatedStudentUnliked.points || 0,
+              streak: updatedStudentUnliked.streak || 0
+            });
+          }
+        }
+      } else {
+        // Like story
+        const updatedStory = await storyService.likeStory(id);
+        if (updatedStory) {
+          setStories((prevStories) =>
+            prevStories.map((story) =>
+              story.id === id ? updatedStory : story
+            )
+          );
+          setLikedStories((prevLiked) => [...prevLiked, id]);
+          // Add points for liking
+          await studentService.addPoints(2, 'Liked a story');
+          // Update student points in state
+          const updatedStudent = await studentService.getCurrentStudent();
+          if (updatedStudent) {
+            setStudent({
+              points: updatedStudent.points || 0,
+              streak: updatedStudent.streak || 0
+            });
+          }
+        }
       }
-      return [...prevLiked, id];
-    });
+    } catch (error) {
+      console.error('Error liking/unliking story:', error);
+    }
   };
 
   const handleDelete = (id) => {
@@ -240,14 +263,22 @@ const StoriesSection = () => {
     setShowDeleteModal(true);
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (!storyToDelete) return;
 
-    setStories((prev) => prev.filter((s) => s.id !== storyToDelete));
-    setLikedStories((prev) => prev.filter((id) => id !== storyToDelete));
-
-    setShowDeleteModal(false);
-    setStoryToDelete(null);
+    try {
+      const success = await storyService.deleteStory(storyToDelete);
+      if (success) {
+        setStories((prev) => prev.filter((s) => s.id !== storyToDelete));
+        setLikedStories((prev) => prev.filter((id) => id !== storyToDelete));
+      }
+    } catch (error) {
+      console.error('Error deleting story:', error);
+      alert('Failed to delete story. Please try again.');
+    } finally {
+      setShowDeleteModal(false);
+      setStoryToDelete(null);
+    }
   };
 
   const cancelDelete = () => {
@@ -255,7 +286,7 @@ const StoriesSection = () => {
     setStoryToDelete(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.story.trim() || !formData.incidentType || !formData.nameVisibility) {
@@ -263,28 +294,50 @@ const StoriesSection = () => {
       return;
     }
 
+    if (!currentUser.userId) {
+      alert("Please sign in to share a story");
+      return;
+    }
+
     let displayName = "Anonymous";
     if (formData.nameVisibility === "full") displayName = currentUser.fullName;
     if (formData.nameVisibility === "first") displayName = currentUser.firstName;
 
-    const newStory = {
-      id: Date.now(),
-      story: formData.story,
-      incidentType: formData.incidentType,
-      displayName,
-      date: "Just now",
-      likes: 0,
-      userId: currentUser.userId,
-    };
+    try {
+      // Save story to backend
+      const newStory = await storyService.createStory({
+        story: formData.story.trim(),
+        incidentType: formData.incidentType,
+        displayName,
+        userId: currentUser.userId
+      });
 
-    setStories((prev) => [newStory, ...prev]);
-    setSubmitted(true);
+      if (newStory) {
+        // Add to local state
+        setStories((prev) => [newStory, ...prev]);
+        setSubmitted(true);
 
-    setTimeout(() => {
-      setFormData({ story: "", incidentType: "", nameVisibility: "" });
-      setSubmitted(false);
-      setShowForm(false);
-    }, 3000);
+        // Add points for writing a story
+        await studentService.addPoints(10, 'Shared a story');
+        // Update student points in state
+        const updatedStudent = await studentService.getCurrentStudent();
+        if (updatedStudent) {
+          setStudent({
+            points: updatedStudent.points || 0,
+            streak: updatedStudent.streak || 0
+          });
+        }
+
+        setTimeout(() => {
+          setFormData({ story: "", incidentType: "", nameVisibility: "" });
+          setSubmitted(false);
+          setShowForm(false);
+        }, 3000);
+      }
+    } catch (error) {
+      console.error('Error creating story:', error);
+      alert('Failed to share story. Please try again.');
+    }
   };
 
   const handleChange = (e) => {
@@ -299,9 +352,21 @@ const StoriesSection = () => {
   const isFormValid =
     formData.story.trim().length > 0 && formData.incidentType !== "" && formData.nameVisibility !== "";
 
+  if (loading) {
+    return (
+      <>
+        <Header points={student.points} streak={student.streak} />
+        <div className="stories-section">
+          <div style={{ padding: '2rem', textAlign: 'center' }}>Loading stories...</div>
+        </div>
+        <BottomNav />
+      </>
+    );
+  }
+
   return (
     <>
-      <Header points={350} streak={7} />
+      <Header points={student.points} streak={student.streak} />
 
       <div className="background-wrapper">
         <div className="gradient-overlay"></div>
@@ -344,8 +409,8 @@ const StoriesSection = () => {
             </div>
             <h1 className="main-title">Stories & Experiences</h1>
             <p className="main-description">
-              A safe space to share your experiences and learn from others. Your voice matters, and your story could help
-              someone else feel less alone.
+              A safe space to share your experiences and learn from others.
+               Your voice matters, and your story could help someone else feel less alone.
             </p>
           </div>
 

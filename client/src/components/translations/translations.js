@@ -21,6 +21,7 @@ export const translations = {
     
     // Welcome Section
     welcome: 'Welcome',
+    welcomeBack: 'Welcome back!',
     keepDoingAmazing: 'Keep doing amazing! Keep learning & stay safe online',
     level: 'Level',
     youreDoingGreat: "You're doing great girl!",
@@ -87,6 +88,7 @@ export const translations = {
     
     // Welcome Section
     welcome: 'ברוכה הבאה',
+    welcomeBack: 'ברוכה השבה!',
     keepDoingAmazing: 'המשיכי כך! המשיכי ללמוד ולהישאר בטוחה באינטרנט',
     level: 'שלב',
     youreDoingGreat: 'את עושה מצוין!',
@@ -153,6 +155,7 @@ export const translations = {
     
     // Welcome Section
     welcome: 'مرحباً',
+    welcomeBack: 'مرحباً بعودتك!',
     keepDoingAmazing: 'استمري في التميز! واصلي التعلم وابقي آمنة على الإنترنت',
     level: 'مستوى',
     youreDoingGreat: 'أنت تقومين بعمل رائع!',

@@ -17,6 +17,7 @@ import Header from "../../components/Header/Header.jsx";
 import BottomNav from "../../components/BottomNav/BottomNav.jsx";
 import LanguageSwitcher from "../../components/translations/LanguageSwitcher.jsx";
 import { translations, getRandomSafetyTip } from "../../components/translations/translations.js";
+import studentService from "../../services/studentService.js";
 import styles from "./HomePage.module.css";
 // Game levels configuration
 const LEVELS_CONFIG = [
@@ -35,10 +36,10 @@ const LEVELS_CONFIG = [
 ];
 
 // Helper function to get initial student data
-function getInitialStudent() {
+async function getInitialStudent() {
   try {
-    const savedStudent = localStorage.getItem("besafe_student");
-    if (savedStudent) return JSON.parse(savedStudent);
+    const student = await studentService.getCurrentStudent();
+    if (student) return student;
 
     const defaultStudent = {
       name: "Guest",
@@ -49,7 +50,7 @@ function getInitialStudent() {
       completedLevels: 0,
     };
 
-    localStorage.setItem("besafe_student", JSON.stringify(defaultStudent));
+    studentService.saveStudentToLocal(defaultStudent);
     return defaultStudent;
   } catch {
     return {
@@ -76,15 +77,90 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [showSafetyTip, setShowSafetyTip] = useState(true);
   const [currentLang, setCurrentLang] = useState(getInitialLanguage);
-
-  // Initialize student state with function to avoid effect warning
-  const [student] = useState(() => getInitialStudent());
+  const [student, setStudent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [welcomeText, setWelcomeText] = useState('');
 
   // Get random safety tip based on current language
   const [safetyTip, setSafetyTip] = useState(() => getRandomSafetyTip(currentLang));
 
   const levels = useMemo(() => LEVELS_CONFIG, []);
   const t = translations[currentLang] || translations.en;
+
+  // Load student data and update daily streak on mount
+  useEffect(() => {
+    const loadStudent = async () => {
+      try {
+        const studentData = await getInitialStudent();
+        setStudent(studentData);
+        
+        // Check for welcome messages
+        const isNewUser = localStorage.getItem('besafe_new_user') === 'true';
+        const isReturningUser = localStorage.getItem('besafe_returning_user') === 'true';
+        const hasExistingStudent = localStorage.getItem('besafe_student') !== null;
+        
+        if (isNewUser) {
+          const username = localStorage.getItem('besafe_new_username') || studentData?.username || studentData?.full_name || '';
+          // Use Arabic welcome for new users
+          if (currentLang === 'ar') {
+            setWelcomeText(`أهلاً وسهلاً بك ${username}! 💜`);
+          } else if (currentLang === 'he') {
+            setWelcomeText(`ברוכה הבאה ${username}! 💜`);
+          } else {
+            setWelcomeText(`Welcome, ${username}! 💜`);
+          }
+          // Remove flag after setting message
+          localStorage.removeItem('besafe_new_user');
+          localStorage.removeItem('besafe_new_username');
+        } else if (isReturningUser || (hasExistingStudent && studentData)) {
+          // Show welcome back for returning users or if student data exists
+          const username = studentData?.username || studentData?.full_name || '';
+          const currentT = translations[currentLang] || translations.en;
+          
+          if (currentLang === 'ar') {
+            setWelcomeText(`أهلاً مجدداً ${username}! 💜`);
+          } else if (currentLang === 'he') {
+            setWelcomeText(`ברוכה השבה ${username}! 💜`);
+          } else {
+            setWelcomeText(`Welcome back, ${username}! 💜`);
+          }
+          
+          // Remove flag after setting message (only if it was set)
+          if (isReturningUser) {
+            localStorage.removeItem('besafe_returning_user');
+          }
+        } else {
+          // Default welcome message (for first-time visitors without account)
+          const currentT = translations[currentLang] || translations.en;
+          setWelcomeText(`${currentT.welcome}, ${studentData?.name || studentData?.username || 'Guest'}! 💜`);
+        }
+        
+        // Update daily streak when page loads
+        if (studentData && studentData.id) {
+          const newStreak = await studentService.updateDailyStreak();
+          if (newStreak !== null) {
+            const updatedStudent = await studentService.getCurrentStudent();
+            setStudent(updatedStudent || studentData);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading student:', error);
+        const defaultStudent = {
+          name: "Guest",
+          points: 0,
+          streak: 0,
+          currentLevel: 1,
+          completedLevels: 0,
+        };
+        setStudent(defaultStudent);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    loadStudent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Update safety tip when language changes
   useEffect(() => {
@@ -112,7 +188,7 @@ export default function HomePage() {
   // Handle level click - navigate to game if unlocked
   const handleLevelClick = useCallback(
     (level) => {
-      if (level.level_number <= student?.currentLevel) {
+      if (student && level.level_number <= student.currentLevel) {
         navigate("/spot-game");
       }
     },
@@ -123,6 +199,15 @@ export default function HomePage() {
   const closeSafetyTip = useCallback(() => {
     setShowSafetyTip(false);
   }, []);
+
+  // Show loading state
+  if (loading || !student) {
+    return (
+      <div className={styles.container}>
+        <div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>
+      </div>
+    );
+  }
 
   // Get level status text
   const getLevelStatusText = (levelNum) => {
@@ -140,13 +225,7 @@ export default function HomePage() {
         lang={currentLang}
       />
 
-      {/* Language Switcher - Positioned in top right */}
-      <div className={styles.languageSwitcherWrapper}>
-        <LanguageSwitcher
-          currentLang={currentLang}
-          onLanguageChange={handleLanguageChange}
-        />
-      </div>
+
 
       {showSafetyTip && (
         <div className={styles.safetyTipMessage}>
@@ -236,7 +315,7 @@ export default function HomePage() {
               </div>
 
               <h2 className={styles.welcomeTitle}>
-                {t.welcome}, {student.name}! 💜
+                {welcomeText || `${t.welcome}, ${student.name}! 💜`}
               </h2>
 
               <p className={styles.welcomeSubtitle}>
@@ -358,6 +437,14 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Language Switcher - At bottom of page content */}
+        <div className={styles.languageSwitcherWrapper}>
+          <LanguageSwitcher
+            currentLang={currentLang}
+            onLanguageChange={handleLanguageChange}
+          />
+        </div>
       </main>
 
       <BottomNav lang={currentLang} />

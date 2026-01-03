@@ -6,13 +6,11 @@
   right: 0;
   z-index: 100;
   background: rgba(250, 246, 249, 0.603);
-  /* شفافية كثيرة - كان 0.35 */
   backdrop-filter: blur(10px) saturate(150%);
   -webkit-backdrop-filter: blur(10px) saturate(150%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 2px 4px -1px rgba(201, 183, 226, 0.05);
-  padding: 0.65rem 0;
-  /* أكبر من 0.30rem - يبين طبيعي */
+  padding: 0.4rem 0;
 }
 
 .headerTop {
@@ -33,7 +31,7 @@
 }
 
 .brandTitle {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   font-weight: 900;
   background: linear-gradient(135deg, #C9377D 0%, #8B5BA8 50%, #5C9AC9 100%);
   -webkit-background-clip: text;
@@ -60,9 +58,9 @@
 }
 
 .brandSubtitle {
-  font-size: 1rem;
+  font-size: 0.75rem;
   color: #4a5568;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
   font-weight: 700;
   text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
 }
@@ -79,9 +77,9 @@
 .pointsBadge {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.75rem;
-  border-radius: 1.25rem;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
   font-weight: 700;
   box-shadow: 0 6px 16px rgba(139, 91, 168, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -108,19 +106,19 @@
 .flameIcon {
   color: #C9377D;
   flex-shrink: 0;
-  width: 1.7rem;
-  height: 1.7rem;
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 .coinsIcon {
   color: #5C9AC9;
   flex-shrink: 0;
-  width: 1.85rem;
-  height: 1.85rem;
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 .badgeValue {
-  font-size: 1.375rem;
+  font-size: 1rem;
   font-weight: 800;
   line-height: 1;
 }
