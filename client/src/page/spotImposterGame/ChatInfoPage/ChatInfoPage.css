@@ -3,7 +3,9 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /*
     /* 🔒 no scroll */
 }
 
@@ -58,9 +60,29 @@ body {
 /* Topic */
 .topic-text {
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 600;
+    /* slightly softer for long text */
     color: #c9377d;
+
+    max-width: 600px;
+    /* controls line length */
+    margin: 0 auto;
+    line-height: 1.4;
+    /* readable spacing */
+    text-wrap: balance;
+    /* nicer line breaks (modern browsers) */
+
+    /*  FORCE FULL TEXT */
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+
+    /* REMOVE LINE CLAMP IF EXISTS */
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    -webkit-box-orient: unset !important;
 }
+
 
 /* Role */
 .role {
