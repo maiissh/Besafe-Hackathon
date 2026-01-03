@@ -115,7 +115,6 @@ export default function HomePage() {
         } else if (isReturningUser || (hasExistingStudent && studentData)) {
           // Show welcome back for returning users or if student data exists
           const username = studentData?.username || studentData?.full_name || '';
-          const currentT = translations[currentLang] || translations.en;
           
           if (currentLang === 'ar') {
             setWelcomeText(`أهلاً مجدداً ${username}! 💜`);
