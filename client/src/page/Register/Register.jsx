@@ -15,7 +15,6 @@ export default function Register() {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [contactMethod, setContactMethod] = useState('email');
-  const [currentLang, setCurrentLang] = useState(localStorage.getItem('besafe_language') || 'en');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   
   const [loginData, setLoginData] = useState({ username: '', password: '' });
@@ -209,11 +208,6 @@ export default function Register() {
     } 
   };
 
-  const handleLanguageChange = (newLang) => {
-    setCurrentLang(newLang);
-    localStorage.setItem('besafe_language', newLang);
-    document.documentElement.dir = newLang === 'he' || newLang === 'ar' ? 'rtl' : 'ltr';
-  };
 
   return (
     <div className="register-page-wrapper">

@@ -2,11 +2,12 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './page/Homepage/HomePage';
 import Register from './page/Register/Register';
 import styles from './styles/App.module.css';
+import Register from './page/Register/Register';
 import StoriesSection from './page/Stories/StoriesSection';
 import SpotGameHomePage from './page/spotImposterGame/SpotGameHomePage/SpotGameHomePage';  
 import ChatInfoPage from './page/spotImposterGame/ChatInfoPage/ChatInfoPage';              
 import ChatPage from './page/spotImposterGame/ChatPage/ChatPage';    
-import GetHelp from './page/Gethelp/Gethelp';                     
+import GetHelp from './page/Gethelp/Gethelp';      
 
 function App() {
   return (
