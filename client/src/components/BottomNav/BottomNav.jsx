@@ -3,9 +3,9 @@ import { Home, MessageCircle, Users, HelpCircle } from "lucide-react";
 import styles from "./BottomNav.module.css";
 
 const NAV_ITEMS = [
-  { to: "/", label: "Home", Icon: Home },
+  { to: "/homepage", label: "Home", Icon: Home },
   { to: "/chat", label: "Chat", Icon: MessageCircle },
-  { to: "/stories", label: "Stories", Icon: Users },
+  { to: "/Stories", label: "Stories", Icon: Users },
   { to: "/help", label: "Help", Icon: HelpCircle },
 ];
 
@@ -29,7 +29,7 @@ export default function BottomNav() {
               aria-label={label}
               aria-current={active ? "page" : undefined}
             >
-              <Icon size={20} />
+              <Icon size={18} />
               <span className={styles.navLabel}>{label}</span>
             </button>
           );
