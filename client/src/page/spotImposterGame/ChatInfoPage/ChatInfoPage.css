@@ -1,0 +1,121 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /*
+    /* 🔒 no scroll */
+}
+
+/* Page */
+.chat-info-page {
+    height: 100vh;
+    background: linear-gradient(135deg,
+            #f6c1d1,
+            #e7b6d1,
+            #d8cff0,
+            #c9b7e5,
+            #cfe7f5,
+            #bfd6e6);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* ✅ CENTER EVERYTHING */
+}
+
+/* Container */
+.info-container {
+    max-width: 800px;
+    width: 100%;
+    padding: 24px;
+    text-align: center;
+}
+
+/* Title */
+.game-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    margin-bottom: 24px;
+    color: #6b7280;
+}
+
+/* Cards */
+.card {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Topic */
+.topic-text {
+    font-size: 22px;
+    font-weight: 600;
+    /* slightly softer for long text */
+    color: #c9377d;
+
+    max-width: 600px;
+    /* controls line length */
+    margin: 0 auto;
+    line-height: 1.4;
+    /* readable spacing */
+    text-wrap: balance;
+    /* nicer line breaks (modern browsers) */
+
+    /*  FORCE FULL TEXT */
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+
+    /* REMOVE LINE CLAMP IF EXISTS */
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    -webkit-box-orient: unset !important;
+}
+
+
+/* Role */
+.role {
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.role.innocent {
+    color: #5c9ac9;
+}
+
+.role-desc {
+    color: #6b7280;
+}
+
+/* Countdown */
+.countdown-card {
+    margin-top: 16px;
+    font-size: 18px;
+    color: #374151;
+}
+
+.countdown {
+    font-size: 48px;
+    font-weight: 900;
+    color: #7a5fb8;
+}
+
+/* Center topic inside its card */
+.topic-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+}

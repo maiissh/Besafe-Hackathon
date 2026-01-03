@@ -1,0 +1,75 @@
+.chat-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(250, 246, 249, 0.603);
+    padding: 16px 28px;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.chat-header-top {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Topic section */
+.chat-topic {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.topic-icon {
+    color: #c9377d;
+}
+
+.topic-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6a5fa8;
+}
+
+.topic-text {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a2744;
+    max-width: 420px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Badges */
+.badges-group {
+    display: flex;
+    gap: 16px;
+}
+
+.timer-badge,
+.points-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 18px;
+    font-weight: 700;
+}
+
+/* Timer */
+.timer-badge {
+    background: #f3e8ff;
+    color: #7a5fb8;
+}
+
+/* Points */
+.points-badge {
+    background: #e2ebf8;
+    color: #4b6cb7;
+}
