@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Header from "../../components/Header/Header.jsx";
 import BottomNav from "../../components/BottomNav/BottomNav.jsx";
-import './GetHelp.css';
+import './Gethelp.css';
 import studentService from '../../services/studentService.js';
 import helpRequestService from '../../services/helpRequestService.js';
 
