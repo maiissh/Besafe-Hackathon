@@ -2,28 +2,38 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ChatInfoPage.css";
 
-const TOPICS = [
-    "Does social media do more harm than good for girls?",
-    "Are traditional gender roles (like “stay-at-home wife”) harmful or empowering?",
-    "Are beauty standards set by society and social media unrealistic and harmful?",
-    "Is “pretty privilege” real, and is it unfair?",
-    "Is friendship loyalty more important than honesty?",
-    "Do grades actually measure intelligence or just memorization and pressure tolerance?"
-];
-
 export default function ChatInfoPage() {
     const navigate = useNavigate();
     const TOTAL_TIME = 10;
+
     const [countdown, setCountdown] = useState(TOTAL_TIME);
-    const [topic] = useState(() => {
-        const randomIndex = Math.floor(Math.random() * TOPICS.length);
-        return TOPICS[randomIndex];
-    });
+    const [topic, setTopic] = useState(null);
 
-
+    // 1️⃣ Fetch random topic from SERVER
     useEffect(() => {
+        async function fetchTopic() {
+            try {
+                const res = await fetch("http://localhost:5000/api/game-chat/topic");
+                const data = await res.json();
+                setTopic(data);
+            } catch (err) {
+                console.error("Failed to fetch topic", err);
+            }
+        }
+
+        fetchTopic();
+    }, []);
+
+    // 2️⃣ Countdown logic (waits until topic exists)
+    useEffect(() => {
+        if (!topic) return;
+
         if (countdown === 0) {
-            navigate("/chat");
+            navigate("/chat", {
+                state: {
+                    topic, // pass topic to ChatPage
+                },
+            });
             return;
         }
 
@@ -32,9 +42,20 @@ export default function ChatInfoPage() {
         }, 1000);
 
         return () => clearTimeout(timer);
-    }, [countdown, navigate]);
+    }, [countdown, navigate, topic]);
 
+    // 3️⃣ Loading guard
+    if (!topic) {
+        return (
+            <div className="chat-info-page">
+                <div className="info-container">
+                    <p>Loading game...</p>
+                </div>
+            </div>
+        );
+    }
 
+    // 4️⃣ UI
     return (
         <div className="chat-info-page">
             <div className="info-container">
@@ -43,7 +64,7 @@ export default function ChatInfoPage() {
 
                 <div className="card topic-card">
                     <h3>Chat Topic</h3>
-                    <p className="topic-text">{topic}</p>
+                    <p className="topic-text">{topic.text}</p>
                 </div>
 
                 <div className="card role-card">

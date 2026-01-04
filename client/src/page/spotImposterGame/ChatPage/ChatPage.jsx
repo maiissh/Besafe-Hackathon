@@ -1,17 +1,32 @@
 import { useState, useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import ChatHeader from "../../../components/Header/ChatHeader";
 import "./ChatPage.css";
 
 export default function ChatPage() {
-    const chatTopic = "What’s your favorite memory from school?";
+    const location = useLocation();
+    const navigate = useNavigate();
 
-    const [messages, setMessages] = useState([
-        { sender: "System", text: `Welcome to the chat! Topic: "${chatTopic}"` },
-        { sender: "Sam", text: "Really? That's cool!" },
-    ]);
+    const topic = location.state?.topic;
+
+    // ✅ Initialize messages lazily from topic (NO effect needed)
+    const [messages, setMessages] = useState(() => {
+        if (!topic) return [];
+        return [
+            { sender: "System", text: `Welcome to the chat! Topic: "${topic.text}"` },
+            { sender: "Sam", text: "Really? That's cool!" },
+        ];
+    });
 
     const [input, setInput] = useState("");
     const messagesEndRef = useRef(null);
+
+    // ✅ Redirect safely INSIDE useEffect (hooks rule safe)
+    useEffect(() => {
+        if (!topic) {
+            navigate("/");
+        }
+    }, [topic, navigate]);
 
     const sendMessage = () => {
         if (!input.trim()) return;
@@ -31,17 +46,19 @@ export default function ChatPage() {
         }
     };
 
-    // Auto-scroll to bottom
+    // ✅ Auto-scroll
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
+    // ✅ Safe render guard AFTER hooks
+    if (!topic) return null;
+
     return (
         <div className="chat-page">
-            <ChatHeader topic={chatTopic} points={150} />
+            <ChatHeader topic={topic.text} points={150} />
 
             <div className="chat-container">
-                {/* Messages */}
                 <div className="chat-messages">
                     {messages.map((msg, index) => (
                         <div
@@ -55,7 +72,6 @@ export default function ChatPage() {
                     <div ref={messagesEndRef} />
                 </div>
 
-                {/* Input */}
                 <div className="chat-input">
                     <input
                         value={input}

@@ -5,8 +5,6 @@ body {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    /*
-    /* 🔒 no scroll */
 }
 
 /* Page */
@@ -23,7 +21,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* ✅ CENTER EVERYTHING */
 }
 
 /* Container */
@@ -59,30 +56,24 @@ body {
 
 /* Topic */
 .topic-text {
-    font-size: 22px;
-    font-weight: 600;
-    /* slightly softer for long text */
-    color: #c9377d;
+    font-size: 16px;
+    font-weight: 500;
+    color: #374151;
 
-    max-width: 600px;
-    /* controls line length */
+    max-width: 620px;
     margin: 0 auto;
-    line-height: 1.4;
-    /* readable spacing */
-    text-wrap: balance;
-    /* nicer line breaks (modern browsers) */
+    line-height: 1.35;
+    text-align: center;
 
-    /*  FORCE FULL TEXT */
-    white-space: normal !important;
+
+
     overflow: visible !important;
     text-overflow: unset !important;
 
-    /* REMOVE LINE CLAMP IF EXISTS */
     display: block !important;
     -webkit-line-clamp: unset !important;
     -webkit-box-orient: unset !important;
 }
-
 
 /* Role */
 .role {
@@ -118,4 +109,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 150px;
+    padding-left: 48px;
+    padding-right: 48px;
+    text-align: center;
 }

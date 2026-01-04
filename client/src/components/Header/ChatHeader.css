@@ -37,13 +37,21 @@
 
 .topic-text {
     margin: 0;
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 16px;
+    /* smaller & cleaner */
+    font-weight: 600;
     color: #1a2744;
-    max-width: 420px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+
+    max-width: 720px;
+    /* allows natural wrapping */
+    line-height: 1.35;
+
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+
+
+    text-align: left;
 }
 
 /* Badges */
