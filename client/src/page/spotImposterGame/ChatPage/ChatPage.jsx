@@ -8,6 +8,7 @@ export default function ChatPage() {
     const navigate = useNavigate();
 
     const topic = location.state?.topic;
+    const points = location.state?.points || 0;
 
     // ✅ Initialize messages lazily from topic (NO effect needed)
     const [messages, setMessages] = useState(() => {
@@ -56,7 +57,7 @@ export default function ChatPage() {
 
     return (
         <div className="chat-page">
-            <ChatHeader topic={topic.text} points={150} />
+            <ChatHeader topic={topic.text} points={points} />
 
             <div className="chat-container">
                 <div className="chat-messages">
