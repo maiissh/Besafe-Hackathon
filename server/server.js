@@ -25,12 +25,6 @@ connectDB();
 const app = express();
 const httpServer = createServer(app);
 
-/* =======================
-   ✅ GLOBAL MIDDLEWARE
-   (ORDER MATTERS)
-======================= */
-
-// ✅ CORS FIRST
 app.use(
   cors({
     origin: process.env.CLIENT_URL || "http://localhost:3000",
@@ -38,15 +32,12 @@ app.use(
   })
 );
 
-// ✅ JSON body parsing
+
 app.use(express.json());
 
-// ✅ Static files
+
 app.use("/images", express.static(path.join(__dirname, "images")));
 
-/* =======================
-   ✅ API ROUTES
-======================= */
 
 app.use("/api/game-chat", gameChatRoutes);
 app.use("/api/students", studentRoutes);
@@ -54,14 +45,11 @@ app.use("/api/levels", levelRoutes);
 app.use("/api/stories", storyRoutes);
 app.use("/api/help-requests", helpRequestRoutes);
 
-// ✅ Health check
+
 app.get("/api/health", (req, res) => {
   res.json({ success: true, message: "Server is running" });
 });
 
-/* =======================
-   ✅ SOCKET.IO
-======================= */
 
 const io = new Server(httpServer, {
   cors: {
@@ -79,9 +67,7 @@ io.on("connection", (socket) => {
   });
 });
 
-/* =======================
-   ✅ START SERVER
-======================= */
+
 
 const PORT = process.env.PORT || 5000;
 httpServer.listen(PORT, () => {

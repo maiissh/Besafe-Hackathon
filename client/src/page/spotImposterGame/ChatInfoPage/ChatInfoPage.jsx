@@ -8,31 +8,42 @@ export default function ChatInfoPage() {
 
     const [countdown, setCountdown] = useState(TOTAL_TIME);
     const [topic, setTopic] = useState(null);
+    const [chatId, setChatId] = useState(null); // ✅ MOVED HERE
 
-    // 1️⃣ Fetch random topic from SERVER
+    // START CHAT on server
     useEffect(() => {
-        async function fetchTopic() {
+        async function startGame() {
             try {
-                const res = await fetch("http://localhost:5000/api/game-chat/topic");
+                const res = await fetch("http://localhost:5000/api/game-chat/start", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
                 const data = await res.json();
-                setTopic(data);
+                // data = { chatId, topic, bots }
+
+                setTopic(data.topic);
+                setChatId(data.chatId);
             } catch (err) {
-                console.error("Failed to fetch topic", err);
+                console.error("Failed to start chat", err);
             }
         }
 
-        fetchTopic();
+        startGame();
     }, []);
 
-    // 2️⃣ Countdown logic (waits until topic exists)
+    // Countdown logic
     useEffect(() => {
-        if (!topic) return;
+        if (!topic || !chatId) return;
 
         if (countdown === 0) {
             navigate("/chat", {
                 state: {
-                    topic, // pass topic to ChatPage
-                },
+                    topic,
+                    chatId
+                }
             });
             return;
         }
@@ -42,10 +53,10 @@ export default function ChatInfoPage() {
         }, 1000);
 
         return () => clearTimeout(timer);
-    }, [countdown, navigate, topic]);
+    }, [countdown, navigate, topic, chatId]);
 
-    // 3️⃣ Loading guard
-    if (!topic) {
+    // Loading guard
+    if (!topic || !chatId) {
         return (
             <div className="chat-info-page">
                 <div className="info-container">
@@ -55,7 +66,7 @@ export default function ChatInfoPage() {
         );
     }
 
-    // 4️⃣ UI
+    // UI
     return (
         <div className="chat-info-page">
             <div className="info-container">
