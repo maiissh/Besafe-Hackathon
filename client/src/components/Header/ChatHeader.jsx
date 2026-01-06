@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import "./ChatHeader.css";
 
 export default function ChatHeader({ topic, points }) {
-    const TOTAL_TIME = 90;
+    const TOTAL_TIME = 120;
     const [timeLeft, setTimeLeft] = useState(TOTAL_TIME);
 
     useEffect(() => {

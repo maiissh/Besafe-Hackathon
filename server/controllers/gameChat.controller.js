@@ -9,8 +9,7 @@ import {
     getChat,
     saveImposterMessageWithWord,
     saveImposterMessageWithoutWord,
-    setLastBot,
-    setLastUserText,
+    setLastBot
 } from "../data/gameChatState.js";
 
 /* =========================
@@ -27,7 +26,7 @@ const openai = new OpenAI({
 function mentionsName(userText, name) {
     if (!userText) return false;
     const t = userText.toLowerCase();
-    const squashed = t.replace(/(.)\1{2,}/g, "$1");
+    const squashed = t.replace(/(.)\1{2,}/g, "$1"); // liiinaaa → lina
     const n = name.toLowerCase();
     const re = new RegExp(`(^|[^a-z])@?${n}([^a-z]|$)`, "i");
     return re.test(squashed);
@@ -37,9 +36,10 @@ function pickRandom(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
-/**
- * Generate ONE bot message
- */
+/* =========================
+   AI MESSAGE GENERATION
+========================= */
+
 async function generateBotMessage({
     topicText,
     botName,
@@ -49,7 +49,7 @@ async function generateBotMessage({
 }) {
     const secretLine =
         isImposter && requiredWord
-            ? `SECRET RULE: include "${requiredWord}" naturally once.`
+            ? `SECRET RULE: You MUST naturally include "${requiredWord}" exactly once.`
             : "";
 
     const systemPrompt = `
@@ -65,7 +65,7 @@ Rules:
 - ONE message only
 - Casual teen tone
 - Short (1–2 sentences)
-- React naturally
+- React naturally (agree / disagree / tease / question)
 
 ${secretLine}
 
@@ -75,6 +75,7 @@ Do NOT:
 - write dialogue
 `.trim();
 
+    // 🧯 Fallback (no API key)
     if (!process.env.OPENAI_API_KEY) {
         const fallback = [
             "wait I kinda agree 😭",
@@ -82,7 +83,9 @@ Do NOT:
             "nahhh fr?",
             "lowkey true tho",
         ];
-        if (isImposter && requiredWord) return `${requiredWord}… honestly same.`;
+        if (isImposter && requiredWord) {
+            return `${requiredWord}… honestly same.`;
+        }
         return pickRandom(fallback);
     }
 
@@ -101,10 +104,16 @@ Do NOT:
    CONTROLLER FUNCTIONS
 ========================= */
 
+/**
+ * GET RANDOM TOPIC
+ */
 export function getRandomTopic(req, res) {
     res.json(pickRandom(CHAT_TOPICS));
 }
 
+/**
+ * START CHAT
+ */
 export function startChat(req, res) {
     const chatId = crypto.randomUUID();
     const topic = pickRandom(CHAT_TOPICS);
@@ -114,7 +123,10 @@ export function startChat(req, res) {
         return res.status(500).json({ error: "Not enough imposter words" });
     }
 
-    const chosenWords = [...allWords].sort(() => 0.5 - Math.random()).slice(0, 3);
+    const chosenWords = [...allWords]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 3);
+
     const botIds = ["bot_1", "bot_2", "bot_3"];
     const imposterBotId = pickRandom(botIds);
 
@@ -133,21 +145,28 @@ export function startChat(req, res) {
 
 /**
  * SEND BOT MESSAGE
+ * - Imposter MUST use a word before 2 minutes
  */
 export async function sendImposterMessage(req, res) {
     try {
         const { chatId, userText } = req.body;
         if (!chatId || !userText) {
-            return res.status(400).json({ error: "chatId and userText required" });
+            return res.status(400).json({
+                error: "chatId and userText required",
+            });
         }
 
         const chat = getChat(chatId);
-        if (!chat) return res.status(404).json({ error: "Chat not found" });
+        if (!chat) {
+            return res.status(404).json({ error: "Chat not found" });
+        }
 
-        setLastUserText(chatId, userText);
+        /* =========================
+           BOT SELECTION
+        ========================= */
 
-        // main responder
         let bot = chat.bots.find(b => mentionsName(userText, b.name));
+
         if (!bot) {
             const candidates = chat.lastBotId
                 ? chat.bots.filter(b => b.id !== chat.lastBotId)
@@ -155,9 +174,36 @@ export async function sendImposterMessage(req, res) {
             bot = pickRandom(candidates);
         }
 
-        const unusedWords = chat.chosenWords.filter(w => !chat.usedWords.includes(w));
-        const requiredWord =
-            bot.type === "imposter" && unusedWords.length ? unusedWords[0] : null;
+        /* =========================
+           ⏱️ IMPOSTER WORD PRESSURE
+        ========================= */
+
+        const CHAT_DURATION = 2 * 60 * 1000; // 2 minutes
+        const elapsed = Date.now() - chat.startedAt;
+        const timeLeft = CHAT_DURATION - elapsed;
+
+        const unusedWords = chat.chosenWords.filter(
+            w => !chat.usedWords.includes(w)
+        );
+
+        let requiredWord = null;
+
+        if (bot.type === "imposter" && unusedWords.length > 0) {
+            if (elapsed < 40_000) {
+                if (Math.random() < 0.15) requiredWord = unusedWords[0];
+            } else if (elapsed < 80_000) {
+                if (Math.random() < 0.4) requiredWord = unusedWords[0];
+            } else if (elapsed < 110_000) {
+                if (Math.random() < 0.7) requiredWord = unusedWords[0];
+            } else if (timeLeft <= 20_000) {
+                // 🚨 FINAL 20 SECONDS → GUARANTEED
+                requiredWord = unusedWords[0];
+            }
+        }
+
+        /* =========================
+           AI RESPONSE
+        ========================= */
 
         const text = await generateBotMessage({
             topicText: chat.topic.text,
@@ -167,6 +213,10 @@ export async function sendImposterMessage(req, res) {
             userText,
         });
 
+        /* =========================
+           SAVE IMPOSTER EVIDENCE
+        ========================= */
+
         if (bot.type === "imposter" && requiredWord) {
             saveImposterMessageWithWord(chatId, requiredWord, text);
         } else if (bot.type === "imposter") {
@@ -175,11 +225,16 @@ export async function sendImposterMessage(req, res) {
 
         setLastBot(chatId, bot.id);
 
-        /* ===== FOLLOW-UPS ===== */
+        /* =========================
+           FOLLOW-UPS (GROUP FEEL)
+        ========================= */
+
         const followUp = [];
-        const followCount = Math.random() < 0.6 ? 1 : Math.random() < 0.3 ? 2 : 0;
+        const followCount =
+            Math.random() < 0.6 ? 1 : Math.random() < 0.3 ? 2 : 0;
 
         let available = chat.bots.filter(b => b.id !== bot.id);
+
         for (let i = 0; i < followCount && available.length; i++) {
             const fb = pickRandom(available);
             available = available.filter(b => b.id !== fb.id);
@@ -210,6 +265,8 @@ export async function sendImposterMessage(req, res) {
         });
     } catch (err) {
         console.error("❌ sendImposterMessage error:", err);
-        res.status(500).json({ error: "Failed to generate bot message" });
+        return res.status(500).json({
+            error: "Failed to generate bot message",
+        });
     }
 }

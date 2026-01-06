@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../../../services/api";
 import "./ChatInfoPage.css";
 
 export default function ChatInfoPage() {
@@ -8,24 +9,16 @@ export default function ChatInfoPage() {
 
     const [countdown, setCountdown] = useState(TOTAL_TIME);
     const [topic, setTopic] = useState(null);
-    const [chatId, setChatId] = useState(null); // ✅ MOVED HERE
+    const [chatId, setChatId] = useState(null);
 
-    // START CHAT on server
+    /* ---------------- START CHAT ON SERVER ---------------- */
+
     useEffect(() => {
         async function startGame() {
             try {
-                const res = await fetch("http://localhost:5000/api/game-chat/start", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-
-                const data = await res.json();
-                // data = { chatId, topic, bots }
-
-                setTopic(data.topic);
-                setChatId(data.chatId);
+                const res = await api.post("/game-chat/start");
+                setTopic(res.data.topic);
+                setChatId(res.data.chatId);
             } catch (err) {
                 console.error("Failed to start chat", err);
             }
@@ -34,28 +27,58 @@ export default function ChatInfoPage() {
         startGame();
     }, []);
 
-    // Countdown logic
+    /* ---------------- COUNTDOWN + WARMUP ---------------- */
+
     useEffect(() => {
         if (!topic || !chatId) return;
 
         if (countdown === 0) {
-            navigate("/chat", {
-                state: {
-                    topic,
-                    chatId
+            (async () => {
+                try {
+                    // 🔥 PRE-WARM AI HERE (HIDDEN FROM USER)
+                    const res = await api.post("/game-chat/imposter-message", {
+                        chatId,
+                        userText: "start the discussion"
+                    });
+
+                    const initialMessages = [
+                        {
+                            sender: res.data.senderName,
+                            text: res.data.text
+                        },
+                        ...(res.data.followUp || []).map(f => ({
+                            sender: f.senderName,
+                            text: f.text
+                        }))
+                    ];
+
+                    navigate("/chat", {
+                        state: {
+                            topic,
+                            chatId,
+                            initialMessages
+                        }
+                    });
+                } catch (err) {
+                    console.error("Warmup failed:", err);
+                    navigate("/chat", {
+                        state: { topic, chatId }
+                    });
                 }
-            });
+            })();
+
             return;
         }
 
         const timer = setTimeout(() => {
-            setCountdown((c) => c - 1);
+            setCountdown(c => c - 1);
         }, 1000);
 
         return () => clearTimeout(timer);
-    }, [countdown, navigate, topic, chatId]);
+    }, [countdown, topic, chatId, navigate]);
 
-    // Loading guard
+    /* ---------------- LOADING GUARD ---------------- */
+
     if (!topic || !chatId) {
         return (
             <div className="chat-info-page">
@@ -66,7 +89,8 @@ export default function ChatInfoPage() {
         );
     }
 
-    // UI
+    /* ---------------- UI (UNCHANGED) ---------------- */
+
     return (
         <div className="chat-info-page">
             <div className="info-container">
