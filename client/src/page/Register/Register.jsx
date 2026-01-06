@@ -437,7 +437,10 @@ export default function Register() {
             
             <div className="mobile-switch">
               <p>Already have an account?</p>
-              <button type="button" id="mobileLoginBtn" onClick={() => setPanelActive(false)}>
+              <button type="button" id="mobileLoginBtn" onClick={() => {
+                setPanelActive(false);
+                setErrors({});
+              }}>
                 Sign In
               </button>
             </div>
@@ -500,7 +503,10 @@ export default function Register() {
             
             <div className="mobile-switch">
               <p>Don&apos;t have an account?</p>
-              <button type="button" id="mobileRegisterBtn" onClick={() => setPanelActive(true)}>
+              <button type="button" id="mobileRegisterBtn" onClick={() => {
+                setPanelActive(true);
+                setErrors({});
+              }}>
                 Sign Up
               </button>
             </div>
@@ -513,7 +519,10 @@ export default function Register() {
             <div className="panel-content panel-content-left">
               <h2>Welcome Back!</h2>
               <p>Stay connected by logging in with your credentials and continue your experience</p>
-              <button className="transparent-btn" onClick={() => setPanelActive(false)}>
+              <button className="transparent-btn" onClick={() => {
+                setPanelActive(false);
+                setErrors({});
+              }}>
                 Sign In
               </button>
             </div>
@@ -521,7 +530,10 @@ export default function Register() {
             <div className="panel-content panel-content-right">
               <h2>Hey There!</h2>
               <p>Begin your amazing journey by creating an account with us today</p>
-              <button className="transparent-btn" onClick={() => setPanelActive(true)}>
+              <button className="transparent-btn" onClick={() => {
+                setPanelActive(true);
+                setErrors({});
+              }}>
                 Sign Up
               </button>
             </div>
