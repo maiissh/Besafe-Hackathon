@@ -9,7 +9,6 @@ class SocketService {
     connect() {
         if (!this.socket) {
             this.socket = io(SOCKET_URL);
-            console.log('Socket connecting...');
         }
         return this.socket;
     }

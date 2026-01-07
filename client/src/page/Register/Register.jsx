@@ -124,11 +124,7 @@ export default function Register() {
         signUpPayload.phone = signupData.phone;
       }
 
-      console.log('Signup payload:', signUpPayload);
-      console.log('API base URL:', api.defaults.baseURL);
-      console.log('Full URL will be:', `${api.defaults.baseURL}/students/signup`);
       const response = await api.post('/students/signup', signUpPayload);
-      console.log('Signup response:', response.data);
 
       if (response.data.success) {
         const student = response.data.data.student;
@@ -143,9 +139,6 @@ export default function Register() {
       }
     } catch (error) {
       console.error('Signup error:', error);
-      console.error('Error response:', error.response);
-      console.error('Error request URL:', error.config?.url);
-      console.error('Full error:', error);
       
       if (error.response?.status === 404) {
         setErrors({ general: 'Server endpoint not found. Please make sure the server is running on port 5000.' });

@@ -91,7 +91,6 @@ class StudentService {
       // Update points in backend
       const updatedStudent = await this.updateProgress(student.id, { points: newPoints });
       
-      console.log(`Added ${points} points. Reason: ${reason}. Total: ${newPoints}`);
       return updatedStudent;
     } catch (error) {
       console.error('Error adding points:', error);

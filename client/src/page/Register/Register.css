@@ -503,112 +503,256 @@ select.error {
   display: none;
 }
 
-/* Responsive Design */
+/* Responsive Design - Same design but smaller */
 @media (max-width: 768px) {
   .register-page-wrapper {
     padding: 10px;
   }
 
   .auth-wrapper {
-    min-height: auto;
     width: 100%;
     max-width: 100%;
-    border-radius: 15px;
-  }
-
-  .auth-form-box {
-    position: static !important;
-    width: 100% !important;
-    transform: none !important;
-    opacity: 1 !important;
-  }
-
-  .login-form-box,
-  .register-form-box {
-    position: static !important;
-    width: 100% !important;
-    left: 0 !important;
-    transform: none !important;
-    opacity: 1 !important;
-    z-index: 1 !important;
-  }
-
-  .register-form-box {
-    display: none;
-  }
-
-  .auth-wrapper.panel-active .login-form-box {
-    display: none;
-  }
-
-  .auth-wrapper.panel-active .register-form-box {
-    display: block;
-  }
-
-  .slide-panel-wrapper {
-    display: none !important;
+    min-height: 500px;
+    transform: scale(0.85);
+    transform-origin: center;
   }
 
   form {
-    padding: 30px 25px;
-    position: static;
-    height: auto;
-  }
-
-  h2 {
-    font-size: 22px;
-    margin-bottom: 15px;
+    padding: 20px 25px;
   }
 
   h1 {
-    font-size: 22px;
+    font-size: 20px;
     margin-bottom: 10px;
+  }
+
+  .login-form-box h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 12px 0 15px;
   }
 
   input,
   select {
-    padding: 12px 15px;
-    font-size: 14px;
+    padding: 9px 12px;
+    font-size: 12px;
+    margin: 5px 0;
+  }
+
+  .login-form-box input {
+    padding: 9px 12px;
+    font-size: 12px;
+    margin: 5px 0;
   }
 
   button {
-    padding: 12px 40px;
-    font-size: 12px;
+    padding: 10px 30px;
+    font-size: 11px;
+    margin-top: 8px;
+  }
+
+  .login-form-box button {
+    padding: 9px 25px;
+    font-size: 11px;
+    margin-top: 8px;
+  }
+
+  .social-links {
+    margin: 12px 0;
   }
 
   .social-links a {
-    height: 40px;
-    width: 40px;
-    margin: 0 5px;
+    height: 35px;
+    width: 35px;
+    margin: 0 6px;
+    font-size: 13px;
+  }
+
+  span {
+    font-size: 11px;
+    margin: 8px 0;
+  }
+
+  .or-text {
+    font-size: 10px;
+    margin: 4px 0 12px 0;
+  }
+
+  .login-form-box span {
+    font-size: 10px;
+    margin: 6px 0;
+  }
+
+  .step-indicator {
+    gap: 8px;
+    margin: 8px 0 12px 0;
+  }
+
+  .step {
+    width: 26px;
+    height: 26px;
+    font-size: 11px;
+  }
+
+  .step.completed {
+    font-size: 13px;
+  }
+
+  .contact-method-toggle,
+  .grade-level-toggle {
+    gap: 8px;
+    margin: 6px 0;
+  }
+
+  .toggle-option {
+    padding: 8px;
+    font-size: 10px;
+    gap: 4px;
+  }
+
+  .form-actions-signup {
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .back-button,
+  .next-button {
+    padding: 10px 20px;
+    font-size: 10px;
+  }
+
+  .password-input-wrapper input {
+    padding-right: 38px;
+  }
+
+  .password-toggle-btn {
+    right: 10px;
+  }
+
+  .error-text {
+    font-size: 10px;
+    margin-top: -3px;
+    margin-bottom: 3px;
+  }
+
+  .error-alert {
+    padding: 8px 12px;
+    font-size: 11px;
+    margin: 8px 0;
+  }
+
+  .panel-content {
+    padding: 0 25px;
   }
 
   .mobile-switch {
-    display: block;
-    margin-top: 20px;
-    color: #C9B7E2;
-    font-size: 14px;
+    display: none;
   }
 
-  .mobile-switch p {
-    margin: 10px 0;
-    font-size: 14px;
-    color: #666;
+  .forgot-password {
+    font-size: 11px;
+    margin: 8px 0;
+  }
+}
+
+/* Extra small devices - Same design but even smaller */
+@media (max-width: 480px) {
+  .auth-wrapper {
+    min-height: 450px;
+    transform: scale(0.75);
+    transform-origin: center;
   }
 
-  .mobile-switch button {
-    background: transparent;
-    color: #C9B7E2;
-    border: 2px solid #C9B7E2;
-    padding: 10px 30px;
-    margin-top: 10px;
-    box-shadow: none;
-    text-transform: none;
-    letter-spacing: 0;
+  form {
+    padding: 18px 20px;
   }
 
-  .mobile-switch button:hover {
-    background: #C9B7E2;
-    color: #fff;
+  h1 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .login-form-box h1 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 11px;
+    line-height: 16px;
+    margin: 10px 0 12px;
+  }
+
+  input,
+  select {
+    padding: 8px 10px;
+    font-size: 11px;
+    margin: 4px 0;
+  }
+
+  .login-form-box input {
+    padding: 8px 10px;
+    font-size: 11px;
+    margin: 4px 0;
+  }
+
+  button {
+    padding: 9px 25px;
+    font-size: 10px;
+    margin-top: 6px;
+  }
+
+  .login-form-box button {
+    padding: 8px 20px;
+    font-size: 10px;
+    margin-top: 6px;
+  }
+
+  .social-links a {
+    height: 32px;
+    width: 32px;
+    margin: 0 4px;
+    font-size: 12px;
+  }
+
+  .step {
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+  }
+
+  .step.completed {
+    font-size: 12px;
+  }
+
+  .toggle-option {
+    padding: 7px;
+    font-size: 9px;
+  }
+
+  .back-button,
+  .next-button {
+    padding: 9px 18px;
+    font-size: 9px;
+  }
+
+  .panel-content {
+    padding: 0 20px;
   }
 }
 
@@ -656,6 +800,55 @@ select.error {
   width: 90%;
   animation: slideUp 0.3s ease;
   cursor: default;
+}
+
+@media (max-width: 768px) {
+  .success-modal {
+    padding: 30px 25px;
+    border-radius: 15px;
+    max-width: 90%;
+  }
+
+  .success-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 40px;
+    margin-bottom: 15px;
+  }
+
+  .success-modal h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .success-modal p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .success-modal {
+    padding: 25px 20px;
+    border-radius: 12px;
+  }
+
+  .success-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 36px;
+    margin-bottom: 12px;
+  }
+
+  .success-modal h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .success-modal p {
+    font-size: 13px;
+    line-height: 18px;
+  }
 }
 
 @keyframes slideUp {

@@ -20,7 +20,7 @@
   flex-wrap: wrap;
   gap: 1.5rem;
   padding: 0 1.25rem;
-  /* أكبر من 0.1rem */
+  /* Larger than 0.1rem */
   max-width: 80rem;
   margin: 0 auto;
 }

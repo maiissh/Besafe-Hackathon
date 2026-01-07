@@ -15,7 +15,7 @@ const GetHelp = () => {
   const [student, setStudent] = useState(defaultStudent);
   const [currentUser, setCurrentUser] = useState(null);
 
-  // بيانات المدارس والمستشارات
+  // School counselors data
   const schoolCounselors = {
     'alsalam-arara': [
       { name: 'Layla Hassan', role: 'School Counselor', contact: 'layla.hassan@school.edu', emoji: '👩‍🏫' },
@@ -144,7 +144,7 @@ const GetHelp = () => {
             </p>
           </header>
 
-          {/* خيارات الدعم الرئيسية */}
+          {/* Main support options */}
           <div className="options-section">
             <h2 className="section-title">Where would you like to get help?</h2>
             
@@ -169,7 +169,7 @@ const GetHelp = () => {
             </div>
           </div>
 
-          {/* قسم المدرسة */}
+          {/* School section */}
           {selectedOption === 'school' && (
             <div className="content-section school-section">
               <div className="school-card">
@@ -232,7 +232,7 @@ const GetHelp = () => {
             </div>
           )}
 
-          {/* قسم الخدمات الخارجية */}
+          {/* External services section */}
           {selectedOption === 'external' && (
             <div className="content-section external-section">
               <div className="resources-card">
@@ -349,7 +349,7 @@ const GetHelp = () => {
             </div>
           )}
 
-          {/* رسالة الدعم */}
+          {/* Support message */}
           <div className="support-banner">
             <h3>Remember: It&apos;s Not Your Fault</h3>
             <p>
