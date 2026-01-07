@@ -19,6 +19,10 @@ import LanguageSwitcher from "../../components/translations/LanguageSwitcher.jsx
 import { translations, getRandomSafetyTip } from "../../components/translations/translations.js";
 import studentService from "../../services/studentService.js";
 import styles from "./HomePage.module.css";
+
+// Import background image for Spot the Imposter card
+import spotImposterBg from '../../assets/spot the imposter game.png';
+
 // Game levels configuration
 const LEVELS_CONFIG = [
   {
@@ -35,32 +39,26 @@ const LEVELS_CONFIG = [
   },
 ];
 
+// Default student object
+const DEFAULT_STUDENT = {
+  name: "Guest",
+  points: 0,
+  streak: 0,
+  coins: 0,
+  currentLevel: 1,
+  completedLevels: 0,
+};
+
 // Helper function to get initial student data
 async function getInitialStudent() {
   try {
     const student = await studentService.getCurrentStudent();
     if (student) return student;
 
-    const defaultStudent = {
-      name: "Guest",
-      points: 0,
-      streak: 0,
-      coins: 0,
-      currentLevel: 1,
-      completedLevels: 0,
-    };
-
-    studentService.saveStudentToLocal(defaultStudent);
-    return defaultStudent;
+    studentService.saveStudentToLocal(DEFAULT_STUDENT);
+    return DEFAULT_STUDENT;
   } catch {
-    return {
-      name: "Guest",
-      points: 0,
-      streak: 0,
-      coins: 0,
-      currentLevel: 1,
-      completedLevels: 0,
-    };
+    return DEFAULT_STUDENT;
   }
 }
 
@@ -144,14 +142,7 @@ export default function HomePage() {
         }
       } catch (error) {
         console.error('Error loading student:', error);
-        const defaultStudent = {
-          name: "Guest",
-          points: 0,
-          streak: 0,
-          currentLevel: 1,
-          completedLevels: 0,
-        };
-        setStudent(defaultStudent);
+        setStudent(DEFAULT_STUDENT);
       } finally {
         setLoading(false);
       }
@@ -239,7 +230,7 @@ export default function HomePage() {
 
           <div className={styles.tipContent}>
             <div className={styles.tipIcon}>
-              <Shield size={24} />
+              <Shield size={20} strokeWidth={2.5} />
             </div>
             <div className={styles.tipTextContent}>
               <span className={styles.tipTitle}>{t.safetyTip}</span>
@@ -391,13 +382,16 @@ export default function HomePage() {
                         onClick={() => handleLevelClick(level)}
                         disabled={isLocked}
                         className={`${styles.journeyCard} ${isLocked ? styles.cardLocked : ""} ${isCurrent ? styles.cardCurrent : ""
-                          } ${isCompleted ? styles.cardCompleted : ""}`}
+                          } ${isCompleted ? styles.cardCompleted : ""} ${level.level_number === 1 ? styles.cardSpotImposter : ""}`}
                         type="button"
+                        style={level.level_number === 1 && spotImposterBg ? {
+                          backgroundImage: `url(${spotImposterBg})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                          backgroundRepeat: 'no-repeat'
+                        } : {}}
                       >
                         <div className={styles.cardHeader}>
-                          <div className={styles.levelBadge} style={{ background: level.color }}>
-                            {level.level_number}
-                          </div>
                           <div>
                             {isCompleted && <span className={styles.statusCompleted}>{t.completed}</span>}
                             {isCurrent && <span className={styles.statusCurrent}>{t.inProgress}</span>}
@@ -413,7 +407,7 @@ export default function HomePage() {
                             <span className={styles.lockedText}>{t.completePrevious}</span>
                           ) : (
                             <span className={styles.startText}>
-                              {isCompleted ? t.reviewLevel : t.startLevel} {t.level} <ArrowRight size={16} />
+                              {isCompleted ? t.reviewLevel : (level.level_number === 1 ? t.startGame : `${t.startLevel} ${t.level}`)} <ArrowRight size={16} />
                             </span>
                           )}
                         </div>

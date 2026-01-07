@@ -38,8 +38,8 @@ export const translations = {
     // Levels
     levels: [
       {
-        title: 'Cyberbullying',
-        subtitle: 'Recognize and respond safely',
+        title: 'Spot the Imposter',
+        subtitle: 'Can you spot risky behavior?',
       },
       {
         title: 'Online Harassment',
@@ -53,10 +53,11 @@ export const translations = {
     
     // Status
     completed: 'Completed',
-    inProgress: 'In Progress',
+    inProgress: 'Enjoy',
     locked: 'Locked',
     completePrevious: 'Complete previous level to unlock',
     startLevel: 'Start',
+    startGame: 'Start the game',
     reviewLevel: 'Review',
     
     // Bottom Nav
@@ -105,8 +106,8 @@ export const translations = {
     // Levels
     levels: [
       {
-        title: 'הטרדה מקוונת',
-        subtitle: 'זיהוי ותגובה בטוחה',
+        title: 'Spot the Imposter',
+        subtitle: 'Can you spot risky behavior?',
       },
       {
         title: 'הטרדה באינטרנט',
@@ -120,10 +121,11 @@ export const translations = {
     
     // Status
     completed: '✓ הושלם',
-    inProgress: 'בתהליך',
+    inProgress: 'Enjoy',
     locked: '🔒 נעול',
     completePrevious: 'השלימי את השלב הקודם כדי לפתוח',
     startLevel: 'התחילי',
+    startGame: 'Start the game',
     reviewLevel: 'סקירה',
     
     // Bottom Nav
@@ -172,8 +174,8 @@ export const translations = {
     // Levels
     levels: [
       {
-        title: 'التنمر الإلكتروني',
-        subtitle: 'التعرف والرد بأمان',
+        title: 'Spot the Imposter',
+        subtitle: 'Can you spot risky behavior?',
       },
       {
         title: 'المضايقات عبر الإنترنت',
@@ -187,10 +189,11 @@ export const translations = {
     
     // Status
     completed: '✓ مكتمل',
-    inProgress: 'قيد التنفيذ',
+    inProgress: 'Enjoy',
     locked: '🔒 مقفل',
     completePrevious: 'أكملي المستوى السابق لفتح هذا',
     startLevel: 'ابدأي',
+    startGame: 'Start the game',
     reviewLevel: 'مراجعة',
     
     // Bottom Nav

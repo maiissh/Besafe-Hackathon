@@ -659,7 +659,7 @@
     flex-shrink: 0 !important;
   }
 
-  /* Share button أكبر على الديسكتوب */
+  /* Share button larger on desktop */
   .share-button {
     padding: 0.875rem 1.4rem;
     bottom: 7rem;
