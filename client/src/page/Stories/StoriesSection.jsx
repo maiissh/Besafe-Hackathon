@@ -242,7 +242,7 @@ const StoriesSection = () => {
           );
           setLikedStories((prevLiked) => [...prevLiked, id]);
           // Add points for liking
-          await studentService.addPoints(2, 'Liked a story');
+          await studentService.addPoints(2);
           // Update student points in state
           const updatedStudent = await studentService.getCurrentStudent();
           if (updatedStudent) {
@@ -318,7 +318,7 @@ const StoriesSection = () => {
         setSubmitted(true);
 
         // Add points for writing a story
-        await studentService.addPoints(10, 'Shared a story');
+        await studentService.addPoints(10);
         // Update student points in state
         const updatedStudent = await studentService.getCurrentStudent();
         if (updatedStudent) {

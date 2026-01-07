@@ -81,7 +81,7 @@ class StudentService {
   }
 
   // Add points to student
-  async addPoints(points, reason = '') {
+  async addPoints(points) {
     try {
       const student = await this.getCurrentStudent();
       if (!student || !student.id) return null;
