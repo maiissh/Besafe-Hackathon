@@ -1,11 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import socketService from "../../../services/socketService.js";
+import studentService from "../../../services/studentService.js";
 import Header from "../../../components/Header/Header.jsx";
 import "./SpotGameHomePage.css";
 import { Search, Ghost, MessageCircle, Bot, ShieldQuestion, User, Fingerprint, Eye, Lock, Sparkles } from 'lucide-react';
 const SpotGameHomePage = () => {
   const navigate = useNavigate();
+
+  const [student, setStudent] = useState({
+    points: 0,
+    streak: 0
+  });
+
+  useEffect(() => {
+    const loadStudent = async () => {
+      try {
+        const studentData = await studentService.getCurrentStudent();
+        if (studentData) {
+          setStudent({
+            points: studentData.points || 0,
+            streak: studentData.streak || 0
+          });
+        }
+      } catch (error) {
+        console.error('Error loading student data:', error);
+      }
+    };
+    loadStudent();
+  }, []);
+
 
   // 1. State for managing which section is visible ('join', 'create', or null)
   const [activeSection, setActiveSection] = useState(null);
@@ -76,7 +100,7 @@ const SpotGameHomePage = () => {
           <Lock className="bg-icon icon-lock" />
           <Sparkles className="bg-icon icon-sparkles" />
       </div>
-      <Header points={120} streak={5} />
+      <Header points={student.points} streak={student.streak} />
 
       <div className="game-container">
 
