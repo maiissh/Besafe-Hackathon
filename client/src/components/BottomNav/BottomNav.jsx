@@ -4,7 +4,7 @@ import styles from "./BottomNav.module.css";
 
 const NAV_ITEMS = [
   { to: "/homepage", label: "Home", Icon: Home },
-  { to: "/chat", label: "Chat", Icon: MessageCircle },
+  { to: "/serena-chat", label: "Chat", Icon: MessageCircle },
   { to: "/Stories", label: "Stories", Icon: Users },
   { to: "/help", label: "Help", Icon: HelpCircle },
 ];

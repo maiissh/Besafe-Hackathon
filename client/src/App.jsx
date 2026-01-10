@@ -6,7 +6,9 @@ import StoriesSection from './page/Stories/StoriesSection';
 import SpotGameHomePage from './page/spotImposterGame/SpotGameHomePage/SpotGameHomePage';  
 import ChatInfoPage from './page/spotImposterGame/ChatInfoPage/ChatInfoPage';              
 import ChatPage from './page/spotImposterGame/ChatPage/ChatPage';    
-import GetHelp from './page/Gethelp/Gethelp';      
+import GetHelp from './page/Gethelp/Gethelp';   
+import Serena from './page/Serena/Serena'   
+
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
           <Route path="/chat-info" element={<ChatInfoPage />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/help" element={<GetHelp />} />
+          <Route path="/serena-chat" element={<Serena />} />
         </Routes>
       </main>
     </div>

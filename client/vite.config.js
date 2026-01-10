@@ -10,7 +10,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    open: true // Automatically open the browser
+    open: true, // Automatically open the browser
+    proxy: {
+  '/api': 'http://localhost:5000'
+}
+
   },
   resolve: {
     alias: {
@@ -19,3 +23,4 @@ export default defineConfig({
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
   }
 })
+

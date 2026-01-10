@@ -1,3 +1,5 @@
+import { detectLanguage, getSystemPromptByLanguage } from './_core/languageDetection.js';
+import { OpenAI } from 'openai';
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
@@ -13,6 +15,8 @@ import studentRoutes from "./routes/students.js";
 import levelRoutes from "./routes/levels.js";
 import storyRoutes from "./routes/stories.js";
 import helpRequestRoutes from "./routes/helpRequests.js";
+import serenaRoutes from "./routes/serena.routes.js";
+
 
 dotenv.config();
 
@@ -24,6 +28,17 @@ connectDB();
 
 const app = express();
 const httpServer = createServer(app);
+
+// --- FIX CORS (To allow your Frontend) ---
+const ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:5173"];
+app.use(
+  cors({
+    origin: ALLOWED_ORIGINS, 
+    credentials: true,
+  })
+);
+
+
 
 app.use(
   cors({
@@ -44,6 +59,51 @@ app.use("/api/students", studentRoutes);
 app.use("/api/levels", levelRoutes);
 app.use("/api/stories", storyRoutes);
 app.use("/api/help-requests", helpRequestRoutes);
+app.use('/api', serenaRoutes);
+
+// Chat endpoint
+app.post('/api/chat', async (req, res) => {
+  try {
+    const { message } = req.body;
+
+    if (!message) {
+      return res.status(400).json({ 
+        error: 'Message is required' 
+      });
+    }
+
+    // كشف اللغة
+    const detectedLanguage = detectLanguage(message);
+    const systemPrompt = getSystemPromptByLanguage(detectedLanguage);
+
+    // استدعاء OpenAI
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+
+    const response = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: message },
+      ],
+    });
+
+    const reply = response.choices[0]?.message?.content || 'Sorry, I could not get a response.';
+
+    res.json({
+      reply,
+      success: true,
+      detectedLanguage,
+    });
+  } catch (error) {
+    console.error('Chat error:', error);
+    res.status(500).json({
+      error: error.message,
+      success: false,
+    });
+  }
+});
 
 
 app.get("/api/health", (req, res) => {

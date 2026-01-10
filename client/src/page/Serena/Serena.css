@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --primary: #8e44ad;
+  --accent: #d946ef;
+  --text-dark: #2e1065;
+  --guardian-blue: #00d2ff;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  background: white;
+}
+
+.serena-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* المنطقة الوسطى للشات */
+.serena-chat-body {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  /* 👇 هام جداً: في حال كان الهيدر لديك من نوع (Fixed) */
+  /* هذا يضمن أن الخلفية تمتد بشكل صحيح */
+  margin-top: 0; 
+}
+
+.app-layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  /* الخلفية المتدرجة */
+  background: linear-gradient(135deg, #F6C1D1 0%, #E7B6D1 15%, #D8CFF0 35%, #C9B7E2 55%, #CFE7F5 75%, #BFD6E6 100%);
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+  width: 280px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4); 
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-direction: column;
+  /* 👇 تعديل: زدنا التباعد العلوي ليظهر السجل تحت الهيدر */
+  padding: 120px 24px 24px 24px; 
+  overflow-y: auto;
+}
+
+.new-chat-btn {
+  background: rgba(255,255,255,0.8); color: var(--primary);
+  border: 1px solid white; padding: 14px; border-radius: 15px;
+  font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-bottom: 30px; transition: 0.2s;
+  flex-shrink: 0;
+}
+.new-chat-btn:hover { background: white; transform: scale(1.02); }
+
+/* تنسيقات الهيستوري كما هي */
+.history-label { font-size: 12px; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 10px; }
+.history-list { flex: 1; overflow-y: auto; }
+.history-item { padding: 12px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.6); border-radius: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+.history-item:hover { background: rgba(255, 255, 255, 0.9); }
+.history-title { font-size: 14px; font-weight: 600; color: #1f2937; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 120px; }
+.history-time { font-size: 11px; color: #666; }
+.delete-btn { background: transparent; border: none; color: #999; font-size: 18px; font-weight: bold; cursor: pointer; padding: 0 6px; }
+
+/* --- MAIN CONTENT --- */
+.main-content {
+  flex: 1; 
+  display: flex; 
+  flex-direction: column; 
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* --- CHAT AREA --- */
+.chat-window { 
+  flex: 1; 
+  overflow-y: auto;
+  display: flex; 
+  flex-direction: column; 
+  scroll-behavior: smooth;
+  
+  /* 👇👇 التعديل الأساسي هنا لحل المشكلة 👇👇 */
+  /* قمنا بزيادة التباعد العلوي (Padding Top) إلى 120px */
+  /* هذا سيجبر أول رسالة على النزول لأسفل بعيداً عن الهيدر */
+  padding: 120px 15% 20px 15%; 
+}
+
+/* بقية التنسيقات (الرسائل، الفقاعات، الأنميشن) */
+.serena-svg { animation: float 4s ease-in-out infinite; filter: drop-shadow(0 5px 10px rgba(142, 68, 173, 0.2)); }
+@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
+.eyes-blink { transform-origin: center; animation: blink 3.5s infinite; }
+@keyframes blink { 0%, 90%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+.antenna-glow { animation: pulse 2s infinite; }
+@keyframes pulse { 0% { fill: #00d2ff; } 50% { fill: #fff; } 100% { fill: #00d2ff; } }
+.halo-pulse { animation: halo 3s infinite; }
+@keyframes halo { 0% { opacity: 0.3; r: 40; } 50% { opacity: 0.6; r: 45; } 100% { opacity: 0.3; r: 40; } }
+
+.message-row { display: flex; gap: 16px; margin-bottom: 24px; }
+.message-row.user { flex-direction: row-reverse; }
+.user-avatar { width: 45px; height: 45px; background: var(--text-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; flex-shrink: 0; }
+
+.bubble {
+  background: rgba(255, 255, 255, 0.9); padding: 16px 20px; border-radius: 18px;
+  border-top-left-radius: 2px; max-width: 80%; font-size: 15px; line-height: 1.5; color: #333;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  white-space: pre-wrap;
+}
+.user .bubble {
+  background: var(--text-dark); color: white; border-top-left-radius: 18px; border-top-right-radius: 2px;
+}
+
+/* --- Footer Input Area --- */
+.footer-input { 
+  padding: 10px 0 20px 0; 
+  background: linear-gradient(to top, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%); 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.notebook-grid { 
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px; 
+  max-width: 600px; width: 90%;
+}
+.notebook-card {
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(5px); border: 1px solid white;
+  padding: 12px 18px; border-radius: 15px; font-size: 13px; font-weight: 600; color: var(--text-dark);
+  cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 10px rgba(0,0,0,0.05); text-align: center;
+}
+.notebook-card:hover { background: white; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(142, 68, 173, 0.15); }
+
+.input-area { 
+  background: white; border-radius: 50px; padding: 8px; display: flex; 
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1); 
+  width: 90%; max-width: 700px;
+}
+.input-area input { flex: 1; border: none; outline: none; padding-left: 20px; font-size: 16px; background: transparent; }
+.send-btn { background: var(--text-dark); color: white; border: none; padding: 12px 30px; border-radius: 30px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+.send-btn:hover { background: var(--accent); }
