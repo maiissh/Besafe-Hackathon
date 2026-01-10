@@ -3,17 +3,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Serena.css';
 
-import Header from '../../components/Header/Header'; 
+import Header from '../../components/Header/Header';
 import studentService from '../../services/studentService';
 
 /* --- 🔗 SERVER LINK --- */
-const API_ENDPOINT = import.meta.env.VITE_SERVER_URL + '/api/chat';
+const API_ENDPOINT = import.meta.env.VITE_SERVER_API_URL + 'api/chat';
 
 const SUGGESTIONS = [
-  "How do I block a bully?", 
-  "Is this link safe?", 
+  "How do I block a bully?",
+  "Is this link safe?",
   "Create a strong password",
-  "Tips for Roblox safety", 
+  "Tips for Roblox safety",
 ];
 
 const WELCOME_MSG = `Hey! I’m Serena 💬
@@ -28,9 +28,9 @@ const SerenaAvatar = ({ size = "large" }) => {
     <svg width={width} height={height} viewBox="0 0 100 100" className="serena-svg">
       <circle cx="50" cy="50" r="45" fill="rgba(255, 255, 255, 0.4)" className="halo-pulse" />
       <circle cx="50" cy="50" r="35" fill="white" stroke="#8e44ad" strokeWidth="2" />
-      <rect x="10" y="40" width="10" height="20" rx="5" fill="#d946ef" /> 
-      <rect x="80" y="40" width="10" height="20" rx="5" fill="#d946ef" /> 
-      <path d="M 15 45 Q 50 -10 85 45" stroke="#d946ef" strokeWidth="4" fill="none" /> 
+      <rect x="10" y="40" width="10" height="20" rx="5" fill="#d946ef" />
+      <rect x="80" y="40" width="10" height="20" rx="5" fill="#d946ef" />
+      <path d="M 15 45 Q 50 -10 85 45" stroke="#d946ef" strokeWidth="4" fill="none" />
       <g className="eyes-blink">
         <ellipse cx="35" cy="50" rx="5" ry="7" fill="#2e1065" />
         <ellipse cx="65" cy="50" rx="5" ry="7" fill="#2e1065" />
@@ -47,16 +47,16 @@ const SerenaAvatar = ({ size = "large" }) => {
 /* --- MAIN COMPONENT --- */
 const Serena = () => {
   const [messages, setMessages] = useState([{ role: 'bot', content: WELCOME_MSG }]);
-  
+
   // الحالة الافتراضية 0 حتى يتم جلب البيانات الحقيقية
-  const [points, setPoints] = useState(0); 
-  const [streak, setStreak] = useState(0);   
-  
+  const [points, setPoints] = useState(0);
+  const [streak, setStreak] = useState(0);
+
   const [history, setHistory] = useState(() => {
     const saved = localStorage.getItem('serena_history');
     return saved ? JSON.parse(saved) : [];
   });
-  
+
   const [activeChatId, setActiveChatId] = useState(null);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -89,10 +89,10 @@ const Serena = () => {
 
   useEffect(() => {
     if (activeChatId) {
-      setHistory(prevHistory => 
-        prevHistory.map(chat => 
-          chat.id === activeChatId 
-            ? { ...chat, savedMessages: messages } 
+      setHistory(prevHistory =>
+        prevHistory.map(chat =>
+          chat.id === activeChatId
+            ? { ...chat, savedMessages: messages }
             : chat
         )
       );
@@ -113,7 +113,7 @@ const Serena = () => {
     e.stopPropagation();
     setHistory(prev => prev.filter(item => item.id !== id));
     if (activeChatId === id) {
-        startNewChat();
+      startNewChat();
     }
   };
 
@@ -133,12 +133,12 @@ const Serena = () => {
     if (!currentChatId) {
       const newId = Date.now();
       const title = text.substring(0, 20) + (text.length > 20 ? "..." : "");
-      
-      const newHistoryItem = { 
-        id: newId, 
-        title: title, 
-        date: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-        savedMessages: updatedMessages 
+
+      const newHistoryItem = {
+        id: newId,
+        title: title,
+        date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        savedMessages: updatedMessages
       };
 
       setHistory(prev => [newHistoryItem, ...prev]);
@@ -149,13 +149,13 @@ const Serena = () => {
       const response = await fetch(API_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text }), 
+        body: JSON.stringify({ message: text }),
       });
 
       if (!response.ok) throw new Error("Server Error");
       const data = await response.json();
       const botReply = data.reply || "Thinking...";
-      
+
       setMessages(prev => [...prev, { role: 'bot', content: botReply }]);
 
     } catch (error) {
@@ -168,7 +168,7 @@ const Serena = () => {
 
   return (
     <div className="serena-page-wrapper">
-      
+
       {/* الهيدر يعرض النقاط الثابتة القادمة من السيرفر */}
       <Header points={points} streak={streak} />
 
@@ -179,13 +179,13 @@ const Serena = () => {
             <div className="history-label">Logs</div>
             <div className="history-list">
               {history.map((h) => (
-                  <div key={h.id} className={`history-item ${activeChatId === h.id ? 'active-chat' : ''}`} onClick={() => loadChat(h)}>
-                    <div className="history-info">
-                        <span className="history-title">{h.title}</span>
-                        <span className="history-date">{h.date}</span>
-                    </div>
-                    <button className="delete-btn" onClick={(e) => deleteHistoryItem(h.id, e)}>×</button>
+                <div key={h.id} className={`history-item ${activeChatId === h.id ? 'active-chat' : ''}`} onClick={() => loadChat(h)}>
+                  <div className="history-info">
+                    <span className="history-title">{h.title}</span>
+                    <span className="history-date">{h.date}</span>
                   </div>
+                  <button className="delete-btn" onClick={(e) => deleteHistoryItem(h.id, e)}>×</button>
+                </div>
               ))}
             </div>
           </aside>
@@ -197,22 +197,22 @@ const Serena = () => {
                   <div className="avatar-wrapper">
                     {m.role === 'user' ? <div className="user-avatar">You</div> : <SerenaAvatar size="small" />}
                   </div>
-                  <div className="bubble" dangerouslySetInnerHTML={{ 
-                    __html: m.content.replace(/\n/g, '<br/>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') 
+                  <div className="bubble" dangerouslySetInnerHTML={{
+                    __html: m.content.replace(/\n/g, '<br/>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
                   }} />
                 </div>
               ))}
               {isLoading && (
                 <div className="message-row bot">
-                   <div className="avatar-wrapper"><SerenaAvatar size="small" /></div>
-                   <div className="bubble">Thinking...</div>
+                  <div className="avatar-wrapper"><SerenaAvatar size="small" /></div>
+                  <div className="bubble">Thinking...</div>
                 </div>
               )}
               <div ref={chatScrollRef} />
             </section>
 
-            <footer className="footer-input"> 
-              {messages.length < 2 && ( 
+            <footer className="footer-input">
+              {messages.length < 2 && (
                 <div className="notebook-grid">
                   {SUGGESTIONS.map(s => (
                     <div key={s} className="notebook-card" onClick={() => handleSend(s)}>{s}</div>
@@ -220,10 +220,10 @@ const Serena = () => {
                 </div>
               )}
               <div className="input-area">
-                <input 
-                  value={input} 
-                  onChange={e => setInput(e.target.value)} 
-                  placeholder="Ask ANYTHING..." 
+                <input
+                  value={input}
+                  onChange={e => setInput(e.target.value)}
+                  placeholder="Ask ANYTHING..."
                   onKeyDown={e => e.key === 'Enter' && handleSend()}
                 />
                 <button className="send-btn" onClick={() => handleSend()}>SEND</button>
