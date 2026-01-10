@@ -3,10 +3,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Serena.css';
 
-// 👇 استيراد الهيدر فقط (تأكدي من المسار الصحيح)
 import Header from '../../components/Header/Header'; 
-
-// ❌ تم حذف استيراد الفوتير
+import studentService from '../../services/studentService';
 
 /* --- 🔗 SERVER LINK --- */
 const API_ENDPOINT = import.meta.env.VITE_SERVER_URL + '/api/chat';
@@ -50,9 +48,9 @@ const SerenaAvatar = ({ size = "large" }) => {
 const Serena = () => {
   const [messages, setMessages] = useState([{ role: 'bot', content: WELCOME_MSG }]);
   
-  // بيانات الهيدر
-  const [points, setPoints] = useState(120); 
-  const [streak, setStreak] = useState(5);   
+  // الحالة الافتراضية 0 حتى يتم جلب البيانات الحقيقية
+  const [points, setPoints] = useState(0); 
+  const [streak, setStreak] = useState(0);   
   
   const [history, setHistory] = useState(() => {
     const saved = localStorage.getItem('serena_history');
@@ -63,6 +61,23 @@ const Serena = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const chatScrollRef = useRef(null);
+
+  // جلب البيانات الحقيقية عند فتح الصفحة
+  useEffect(() => {
+    const fetchStudentData = async () => {
+      try {
+        const student = await studentService.getCurrentStudent();
+        if (student) {
+          setPoints(student.points || 0);
+          setStreak(student.streak || 0);
+        }
+      } catch (error) {
+        console.error("Error fetching student data:", error);
+      }
+    };
+
+    fetchStudentData();
+  }, []);
 
   useEffect(() => {
     chatScrollRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -111,8 +126,8 @@ const Serena = () => {
     setInput('');
     setIsLoading(true);
 
-    // تحديث النقاط
-    setPoints(prev => prev + 5); 
+    // ❌ تم حذف السطر الذي كان يزيد النقاط محلياً (setPoints)
+    // الآن ستبقى النقاط كما جاءت من قاعدة البيانات بالضبط
 
     let currentChatId = activeChatId;
     if (!currentChatId) {
@@ -152,13 +167,11 @@ const Serena = () => {
   };
 
   return (
-    // الغلاف الخارجي
     <div className="serena-page-wrapper">
       
-      {/* 🟢 الهيدر في الأعلى */}
+      {/* الهيدر يعرض النقاط الثابتة القادمة من السيرفر */}
       <Header points={points} streak={streak} />
 
-      {/* 🟡 جسم الشات (يأخذ باقي المساحة) */}
       <div className="serena-chat-body">
         <div className="app-layout">
           <aside className="sidebar">
@@ -198,7 +211,6 @@ const Serena = () => {
               <div ref={chatScrollRef} />
             </section>
 
-            {/* تم دمج مكان الكتابة هنا كفوتير داخلي للشات */}
             <footer className="footer-input"> 
               {messages.length < 2 && ( 
                 <div className="notebook-grid">
@@ -220,9 +232,6 @@ const Serena = () => {
           </main>
         </div>
       </div>
-
-      {/* ❌ لا يوجد فوتير هنا */}
-      
     </div>
   );
 };
