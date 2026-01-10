@@ -22,9 +22,7 @@ export function createChat(chatId, imposterBotId, chosenWords, topic) {
         imposterMessagesWithWord: [],
         imposterMessagesWithoutWord: [],
         lastBotId: null,
-
-        // ⏱️ REQUIRED for 2-minute guarantee
-        startedAt: Date.now()
+        startedAt: Date.now() // ⏱️ REQUIRED
     });
 }
 
