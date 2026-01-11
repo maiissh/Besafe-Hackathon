@@ -155,6 +155,7 @@ export function getGameResults(req, res) {
         imposterBotName: imposterBotName,
         imposterMessagesWithWord: chat.imposterMessagesWithWord,
         imposterMessagesWithoutWord: chat.imposterMessagesWithoutWord,
+        allImposterMessages: chat.allImposterMessages || [], // All imposter messages
     });
 }
 
