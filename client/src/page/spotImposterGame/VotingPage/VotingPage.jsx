@@ -35,9 +35,9 @@ function normalizeMessages(list) {
   if (!Array.isArray(list)) return [];
   return list
     .map((m, idx) => {
-      if (typeof m === "string") return { id: `m_${idx}_${Date.now()}`, text: m };
+      if (typeof m === "string") return { id: `m_${idx}_0`, text: m };
       if (m && typeof m === "object") {
-        const id = m.id ?? m._id ?? `m_${idx}_${Date.now()}`;
+        const id = m.id ?? m._id ?? `m_${idx}_0`;
         const text = m.text ?? String(m);
         return { id: String(id), text: String(text) };
       }
@@ -168,6 +168,19 @@ export default function VotingPage() {
   const [correctMessageAnswers, setCorrectMessageAnswers] = useState([]);
   const [messageCoinsEarned, setMessageCoinsEarned] = useState(0);
 
+  // Get all imposter messages from the game
+  const allImposterMessages = useMemo(() => {
+    // Try to get all messages from results first
+    if (results?.allImposterMessages && Array.isArray(results.allImposterMessages) && results.allImposterMessages.length > 0) {
+      return results.allImposterMessages;
+    }
+    
+    // Fallback to separate arrays
+    const withWord = results?.imposterMessagesWithWord ?? [];
+    const withoutWord = results?.imposterMessagesWithoutWord ?? [];
+    return [...withWord, ...withoutWord];
+  }, [results]);
+
   const imposterMessagesWithWord = useMemo(() => {
     return normalizeMessages(results?.imposterMessagesWithWord ?? []);
   }, [results]);
@@ -176,36 +189,125 @@ export default function VotingPage() {
     return normalizeMessages(results?.imposterMessagesWithoutWord ?? []);
   }, [results]);
 
-  const imposterMessages = useMemo(() => {
-    const demoWith = [
-      { id: "with_demo_1", text: "I totally agree with what everyone is saying here!" },
-      { id: "with_demo_2", text: "Yeah, that makes sense to me too." },
-    ];
-    const demoWithout = [
-      { id: "without_demo_1", text: "I think social media can be both good and bad depending on how you use it." },
-      { id: "without_demo_2", text: "Honestly, I've never really thought about it that way before." },
-      { id: "without_demo_3", text: "My friends and I were just talking about this yesterday!" },
-    ];
+  // Base messages (without shuffle) - pure computation
+  const baseImposterMessages = useMemo(() => {
+    // Use allImposterMessages if available, otherwise use the separate arrays
+    let messagesToUse = [];
+    
+    if (allImposterMessages.length > 0) {
+      // Use all messages from the game
+      messagesToUse = allImposterMessages.map((m, idx) => ({
+        id: m.id || `msg_${idx}_${m.time || 0}`,
+        text: m.text || String(m),
+        hasWord: m.hasWord !== undefined ? m.hasWord : (m.word !== undefined),
+        time: m.time || 0
+      }));
+    } else {
+      // Fallback to demo messages if no real messages
+      const demoWith = [
+        { id: "with_demo_1", text: "I totally agree with what everyone is saying here!" },
+        { id: "with_demo_2", text: "Yeah, that makes sense to me too." },
+      ];
+      const demoWithout = [
+        { id: "without_demo_1", text: "I think social media can be both good and bad depending on how you use it." },
+        { id: "without_demo_2", text: "Honestly, I've never really thought about it that way before." },
+        { id: "without_demo_3", text: "My friends and I were just talking about this yesterday!" },
+      ];
 
-    const withList = imposterMessagesWithWord.length ? imposterMessagesWithWord : demoWith;
-    const withoutList = imposterMessagesWithoutWord.length ? imposterMessagesWithoutWord : demoWithout;
+      const withList = imposterMessagesWithWord.length ? imposterMessagesWithWord : demoWith;
+      const withoutList = imposterMessagesWithoutWord.length ? imposterMessagesWithoutWord : demoWithout;
 
-    const withWord = withList.map((m) => ({
-      id: m.id,
+      const withWord = withList.map((m) => ({
+        id: m.id,
+        text: m.text,
+        hasWord: true,
+      }));
+
+      const withoutWord = withoutList.map((m) => ({
+        id: m.id,
+        text: m.text,
+        hasWord: false,
+      }));
+
+      messagesToUse = [...withWord, ...withoutWord];
+    }
+
+    // Map to final format with sender and isCorrect
+    const formattedMessages = messagesToUse.map((m, idx) => ({
+      id: m.id || `msg_${idx}_${m.time || idx}`,
       text: m.text,
       sender: imposterName,
-      isCorrect: true,
+      isCorrect: m.hasWord === true, // Messages with word are the correct ones (pressure tactics)
     }));
 
-    const withoutWord = withoutList.map((m) => ({
-      id: m.id,
-      text: m.text,
-      sender: imposterName,
-      isCorrect: false,
-    }));
+    // Remove duplicates based on text content and ID
+    const seenTexts = new Set();
+    const seenIds = new Set();
+    const uniqueMessages = [];
+    
+    for (const msg of formattedMessages) {
+      const normalizedText = msg.text.trim().toLowerCase();
+      // Skip if we've seen this text OR this ID before
+      if (!seenTexts.has(normalizedText) && !seenIds.has(msg.id)) {
+        seenTexts.add(normalizedText);
+        seenIds.add(msg.id);
+        uniqueMessages.push(msg);
+      }
+    }
 
-    return [...withWord, ...withoutWord];
-  }, [imposterMessagesWithWord, imposterMessagesWithoutWord, imposterName]);
+    // Separate correct (imposter with word) and incorrect messages
+    const correctMessages = uniqueMessages.filter(m => m.isCorrect);
+    const incorrectMessages = uniqueMessages.filter(m => !m.isCorrect);
+
+    // Select 3 correct (if available) and 2 incorrect (if available)
+    // Use deterministic selection (first N items) instead of random shuffle
+    if (correctMessages.length === 0 && incorrectMessages.length === 0) {
+      return uniqueMessages.slice(0, 5); // Fallback if no messages
+    }
+
+    const selectedCorrect = correctMessages.slice(0, Math.min(3, correctMessages.length));
+    const selectedIncorrect = incorrectMessages.slice(0, Math.min(2, incorrectMessages.length));
+
+    // If we don't have enough, fill with what we have
+    const neededCorrect = 3 - selectedCorrect.length;
+    const neededIncorrect = 2 - selectedIncorrect.length;
+    
+    if (neededCorrect > 0 && incorrectMessages.length > selectedIncorrect.length) {
+      // Fill with incorrect if we don't have enough correct
+      const additionalIncorrect = incorrectMessages.slice(selectedIncorrect.length, selectedIncorrect.length + neededCorrect);
+      selectedIncorrect.push(...additionalIncorrect);
+    } else if (neededIncorrect > 0 && correctMessages.length > selectedCorrect.length) {
+      // Fill with correct if we don't have enough incorrect
+      const additionalCorrect = correctMessages.slice(selectedCorrect.length, selectedCorrect.length + neededIncorrect);
+      selectedCorrect.push(...additionalCorrect);
+    }
+
+    // Combine the final 5 messages (or less if not enough)
+    return [...selectedCorrect, ...selectedIncorrect];
+  }, [allImposterMessages, imposterMessagesWithWord, imposterMessagesWithoutWord, imposterName]);
+
+  // Shuffled messages using useState + useEffect to avoid impure functions in useMemo
+  const [imposterMessages, setImposterMessages] = useState([]);
+
+  useEffect(() => {
+    // Use setTimeout to avoid synchronous setState warning
+    const timeoutId = setTimeout(() => {
+      if (baseImposterMessages.length === 0) {
+        setImposterMessages([]);
+        return;
+      }
+
+      // Shuffle array using Fisher-Yates algorithm
+      const shuffled = [...baseImposterMessages];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      setImposterMessages(shuffled);
+    }, 0);
+    
+    return () => clearTimeout(timeoutId);
+  }, [baseImposterMessages]);
 
   const CORRECT_MESSAGE_IDS = useMemo(() => {
     return imposterMessages.filter((m) => m.isCorrect).map((m) => m.id);
@@ -247,8 +349,7 @@ export default function VotingPage() {
   const messageVotes = useMemo(() => {
     if (results?.messageVotes) return results.messageVotes;
 
-    const totalPlayers = players.length;
-    const totalVotes = totalPlayers * 2;
+    // Only count the user's selected messages, not simulated votes from other players
     const votesDistribution = Array(imposterMessages.length).fill(0);
 
     selectedMessages.forEach((msgId) => {
@@ -256,20 +357,13 @@ export default function VotingPage() {
       if (idx !== -1) votesDistribution[idx]++;
     });
 
-    const remainingVotes = Math.max(0, totalVotes - selectedMessages.length);
-    // Distribute votes evenly instead of randomly
-    for (let i = 0; i < remainingVotes; i++) {
-      const r = i % imposterMessages.length;
-      votesDistribution[r]++;
-    }
-
     return imposterMessages.map((message, index) => ({
       id: message.id,
       text: message.text,
       voteCount: votesDistribution[index],
       isCorrect: message.isCorrect,
     }));
-  }, [results, players.length, imposterMessages, selectedMessages]);
+  }, [results, imposterMessages, selectedMessages]);
 
   /* ================= Handlers ================= */
 
@@ -307,7 +401,7 @@ export default function VotingPage() {
   const handleToggleMessage = (messageId) => {
     setSelectedMessages((prev) => {
       if (prev.includes(messageId)) return prev.filter((id) => id !== messageId);
-      if (prev.length >= 2) return prev;
+      if (prev.length >= 3) return prev;
       return [...prev, messageId];
     });
   };
@@ -534,8 +628,8 @@ export default function VotingPage() {
           <div className="message-voting-container">
             <div className="voting-intro">
               <h2>🔍 Which Messages Look Suspicious?</h2>
-              <p>Select up to 2 messages that seem like pressure tactics</p>
-              <div className="selection-counter">Selected: {selectedMessages.length}/2</div>
+              <p>Select up to 3 messages that seem like pressure tactics</p>
+              <div className="selection-counter">Selected: {selectedMessages.length}/3</div>
             </div>
 
             <div className="messages-list">
