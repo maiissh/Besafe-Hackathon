@@ -5,7 +5,8 @@ import styles from './styles/App.module.css';
 import StoriesSection from './page/Stories/StoriesSection';
 import SpotGameHomePage from './page/spotImposterGame/SpotGameHomePage/SpotGameHomePage';  
 import ChatInfoPage from './page/spotImposterGame/ChatInfoPage/ChatInfoPage';              
-import ChatPage from './page/spotImposterGame/ChatPage/ChatPage';    
+import ChatPage from './page/spotImposterGame/ChatPage/ChatPage';
+import VotingPage from './page/spotImposterGame/VotingPage/VotingPage';    
 import GetHelp from './page/Gethelp/Gethelp';   
 import Serena from './page/Serena/Serena'   
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/spot-game" element={<SpotGameHomePage />} />
           <Route path="/chat-info" element={<ChatInfoPage />} />
           <Route path="/chat" element={<ChatPage />} />
+          <Route path="/voting" element={<VotingPage />} />
           <Route path="/help" element={<GetHelp />} />
           <Route path="/serena-chat" element={<Serena />} />
         </Routes>

@@ -10,21 +10,45 @@ export default function ChatInfoPage() {
     const [countdown, setCountdown] = useState(TOTAL_TIME);
     const [topic, setTopic] = useState(null);
     const [chatId, setChatId] = useState(null);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     /* ---------------- START CHAT ON SERVER ---------------- */
 
     useEffect(() => {
+        let isMounted = true;
+        const timeoutId = setTimeout(() => {
+            if (isMounted) {
+                setError("Connection timeout. Please try again.");
+                setLoading(false);
+            }
+        }, 10000); // 10 second timeout
+
         async function startGame() {
             try {
                 const res = await api.post("/game-chat/start");
-                setTopic(res.data.topic);
-                setChatId(res.data.chatId);
+                if (isMounted) {
+                    setTopic(res.data.topic);
+                    setChatId(res.data.chatId);
+                    setLoading(false);
+                    clearTimeout(timeoutId);
+                }
             } catch (err) {
                 console.error("Failed to start chat", err);
+                if (isMounted) {
+                    setError("Failed to start game. Please try again.");
+                    setLoading(false);
+                    clearTimeout(timeoutId);
+                }
             }
         }
 
         startGame();
+
+        return () => {
+            isMounted = false;
+            clearTimeout(timeoutId);
+        };
     }, []);
 
     /* ---------------- COUNTDOWN + WARMUP ---------------- */
@@ -77,9 +101,34 @@ export default function ChatInfoPage() {
         return () => clearTimeout(timer);
     }, [countdown, topic, chatId, navigate]);
 
-    /* ---------------- LOADING GUARD ---------------- */
+    /* ---------------- LOADING/ERROR GUARD ---------------- */
 
-    if (!topic || !chatId) {
+    if (error) {
+        return (
+            <div className="chat-info-page">
+                <div className="info-container">
+                    <h2>Error</h2>
+                    <p>{error}</p>
+                    <button 
+                        onClick={() => navigate("/spot-game")}
+                        style={{
+                            marginTop: "20px",
+                            padding: "10px 20px",
+                            backgroundColor: "#c9377d",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "8px",
+                            cursor: "pointer"
+                        }}
+                    >
+                        Go Back
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    if (loading || !topic || !chatId) {
         return (
             <div className="chat-info-page">
                 <div className="info-container">
