@@ -6,7 +6,9 @@
   "scripts": {
     "start": "eslint . && node server",
     "dev": "eslint . && nodemon server",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [],
   "author": "",

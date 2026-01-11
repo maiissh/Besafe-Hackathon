@@ -20,8 +20,10 @@ import { translations, getRandomSafetyTip } from "../../components/translations/
 import studentService from "../../services/studentService.js";
 import styles from "./HomePage.module.css";
 
-// Import background image for Spot the Imposter card
+// Import background images for game cards
 import spotImposterBg from '../../assets/spot the imposter game.png';
+import guessEmojiBg from '../../assets/guess the emoji game.png';
+import privacyProtectorBg from '../../assets/privacy protector game.png';
 
 // Game levels configuration
 const LEVELS_CONFIG = [
@@ -382,10 +384,20 @@ export default function HomePage() {
                         onClick={() => handleLevelClick(level)}
                         disabled={isLocked}
                         className={`${styles.journeyCard} ${isLocked ? styles.cardLocked : ""} ${isCurrent ? styles.cardCurrent : ""
-                          } ${isCompleted ? styles.cardCompleted : ""} ${level.level_number === 1 ? styles.cardSpotImposter : ""}`}
+                          } ${isCompleted ? styles.cardCompleted : ""} ${level.level_number === 1 ? styles.cardSpotImposter : ""} ${level.level_number === 2 ? styles.cardGuessEmoji : ""} ${level.level_number === 3 ? styles.cardPrivacyProtector : ""}`}
                         type="button"
                         style={level.level_number === 1 && spotImposterBg ? {
                           backgroundImage: `url(${spotImposterBg})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                          backgroundRepeat: 'no-repeat'
+                        } : level.level_number === 2 && guessEmojiBg ? {
+                          backgroundImage: `url(${guessEmojiBg})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                          backgroundRepeat: 'no-repeat'
+                        } : level.level_number === 3 && privacyProtectorBg ? {
+                          backgroundImage: `url(${privacyProtectorBg})`,
                           backgroundSize: 'cover',
                           backgroundPosition: 'center',
                           backgroundRepeat: 'no-repeat'
@@ -404,7 +416,9 @@ export default function HomePage() {
 
                         <div className={styles.cardFooter}>
                           {isLocked ? (
-                            <span className={styles.lockedText}>{t.completePrevious}</span>
+                            <span className={styles.lockedText}>
+                              {(level.level_number === 2 || level.level_number === 3) ? t.comingSoon : t.completePrevious}
+                            </span>
                           ) : (
                             <span className={styles.startText}>
                               {isCompleted ? t.reviewLevel : (level.level_number === 1 ? t.startGame : `${t.startLevel} ${t.level}`)} <ArrowRight size={16} />

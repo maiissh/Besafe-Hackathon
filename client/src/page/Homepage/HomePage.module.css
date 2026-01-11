@@ -859,6 +859,60 @@
   z-index: 1;
 }
 
+/* Guess the Emoji Card with Background Image */
+.cardGuessEmoji {
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.cardGuessEmoji::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(250, 246, 249, 0.7) 0%, 
+    rgba(250, 246, 249, 0.6) 50%, 
+    rgba(250, 246, 249, 0.7) 100%);
+  z-index: 0;
+  border-radius: 0.8rem;
+}
+
+.cardGuessEmoji > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Privacy Protector Card with Background Image */
+.cardPrivacyProtector {
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.cardPrivacyProtector::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(250, 246, 249, 0.7) 0%, 
+    rgba(250, 246, 249, 0.6) 50%, 
+    rgba(250, 246, 249, 0.7) 100%);
+  z-index: 0;
+  border-radius: 0.8rem;
+}
+
+.cardPrivacyProtector > * {
+  position: relative;
+  z-index: 1;
+}
+
 .journeyCard:not(.cardLocked):hover {
   transform: translateY(-6px);
   box-shadow:
