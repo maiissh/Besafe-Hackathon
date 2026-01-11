@@ -705,18 +705,3 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
 }
-
-/* ============================================
-   FIX: Prevent click-through selecting 2 cards
-   ============================================ */
-
-/* Only the card itself should receive clicks */
-.message-voting-card {
-    position: relative;
-    pointer-events: auto;
-}
-
-/* All inner elements must NOT receive clicks */
-.message-voting-card * {
-    pointer-events: none;
-}
