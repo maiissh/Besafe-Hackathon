@@ -21,6 +21,7 @@ export function createChat(chatId, imposterBotId, chosenWords, topic) {
         usedWords: [],
         imposterMessagesWithWord: [],
         imposterMessagesWithoutWord: [],
+        allImposterMessages: [], // Store ALL imposter messages (both with and without word)
         lastBotId: null,
         startedAt: Date.now() // ⏱️ REQUIRED
     });
@@ -43,10 +44,17 @@ export function saveImposterMessageWithWord(chatId, word, text) {
         chat.usedWords.push(word);
     }
 
-    chat.imposterMessagesWithWord.push({
+    const messageObj = {
         word,
         text,
         time: Date.now()
+    };
+
+    chat.imposterMessagesWithWord.push(messageObj);
+    // Also save to allImposterMessages
+    chat.allImposterMessages.push({
+        ...messageObj,
+        hasWord: true
     });
 }
 
@@ -54,8 +62,15 @@ export function saveImposterMessageWithoutWord(chatId, text) {
     const chat = chats.get(chatId);
     if (!chat) return;
 
-    chat.imposterMessagesWithoutWord.push({
+    const messageObj = {
         text,
         time: Date.now()
+    };
+
+    chat.imposterMessagesWithoutWord.push(messageObj);
+    // Also save to allImposterMessages
+    chat.allImposterMessages.push({
+        ...messageObj,
+        hasWord: false
     });
 }
