@@ -35,9 +35,10 @@ function normalizeMessages(list) {
   if (!Array.isArray(list)) return [];
   return list
     .map((m, idx) => {
-      if (typeof m === "string") return { id: `m_${idx}_${Date.now()}`, text: m };
+      if (typeof m === "string") return { id: `m_${idx}`, text: m };
+
       if (m && typeof m === "object") {
-        const id = m.id ?? m._id ?? `m_${idx}_${Date.now()}`;
+        const id = m.id ?? m._id ?? `m_${idx}`;
         const text = m.text ?? String(m);
         return { id: String(id), text: String(text) };
       }
@@ -45,6 +46,7 @@ function normalizeMessages(list) {
     })
     .filter(Boolean);
 }
+
 
 // Default student object
 const DEFAULT_STUDENT = {
@@ -365,7 +367,7 @@ export default function VotingPage() {
               <p style={{ marginBottom: "24px", color: "#6b7280" }}>
                 Please start a game to see voting results.
               </p>
-              <button 
+              <button
                 onClick={() => navigate("/spot-game")}
                 style={{
                   padding: "12px 24px",
@@ -425,7 +427,6 @@ export default function VotingPage() {
             </div>
           </div>
 
-          <BottomNav />
         </>
       );
     }
@@ -465,8 +466,6 @@ export default function VotingPage() {
             </button>
           </div>
         </div>
-
-        <BottomNav />
       </>
     );
   }
@@ -490,13 +489,12 @@ export default function VotingPage() {
                 {imposterMessages.map((message) => (
                   <div
                     key={message.id}
-                    className={`message-result-card ${
-                      isCorrectMessage(message.id)
-                        ? "correct"
-                        : isWrongMessage(message.id)
+                    className={`message-result-card ${isCorrectMessage(message.id)
+                      ? "correct"
+                      : isWrongMessage(message.id)
                         ? "wrong"
                         : "neutral"
-                    }`}
+                      }`}
                   >
                     <div className="message-result-header">
                       <span className="message-sender">{message.sender}</span>
@@ -520,7 +518,6 @@ export default function VotingPage() {
             </div>
           </div>
 
-          <BottomNav />
         </>
       );
     }
@@ -542,9 +539,8 @@ export default function VotingPage() {
               {imposterMessages.map((message) => (
                 <div
                   key={message.id}
-                  className={`message-voting-card ${
-                    selectedMessages.includes(message.id) ? "selected" : ""
-                  }`}
+                  className={`message-voting-card ${selectedMessages.includes(message.id) ? "selected" : ""
+                    }`}
                   onClick={() => handleToggleMessage(message.id)}
                 >
                   <div className="message-header">
@@ -568,7 +564,6 @@ export default function VotingPage() {
           </div>
         </div>
 
-        <BottomNav />
       </>
     );
   }
@@ -637,9 +632,8 @@ export default function VotingPage() {
                       <div className="message-preview">{message.text}</div>
                       <div className="vote-bar-wrapper">
                         <div
-                          className={`vote-bar message-bar ${
-                            message.isCorrect ? "correct-message-bar" : ""
-                          }`}
+                          className={`vote-bar message-bar ${message.isCorrect ? "correct-message-bar" : ""
+                            }`}
                           style={{ width: `${percentage}%` }}
                         >
                           <span className="vote-count">
@@ -674,7 +668,7 @@ export default function VotingPage() {
           </div>
         </div>
 
-        <BottomNav />
+
       </>
     );
   }

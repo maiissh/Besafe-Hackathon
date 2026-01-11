@@ -21,15 +21,13 @@ body {
 .gradient-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(246, 193, 209, 0.3) 0%,
-        rgba(231, 182, 209, 0.25) 20%,
-        rgba(216, 207, 240, 0.2) 40%,
-        rgba(201, 183, 226, 0.25) 60%,
-        rgba(207, 231, 245, 0.3) 80%,
-        rgba(191, 214, 230, 0.25) 100%
-    );
+    background: linear-gradient(135deg,
+            rgba(246, 193, 209, 0.3) 0%,
+            rgba(231, 182, 209, 0.25) 20%,
+            rgba(216, 207, 240, 0.2) 40%,
+            rgba(201, 183, 226, 0.25) 60%,
+            rgba(207, 231, 245, 0.3) 80%,
+            rgba(191, 214, 230, 0.25) 100%);
 }
 
 .floating-orb {
@@ -64,18 +62,39 @@ body {
 
 /* Animations */
 @keyframes float {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(30px, -30px); }
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(30px, -30px);
+    }
 }
 
 @keyframes floatDelayed {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(-35px, 35px); }
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-35px, 35px);
+    }
 }
 
 @keyframes floatSlow {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(25px, -25px) scale(1.08); }
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(25px, -25px) scale(1.08);
+    }
 }
 
 .voting-page,
@@ -84,14 +103,13 @@ body {
     position: relative;
     min-height: 100vh;
     padding: 10rem 2rem 8rem;
-    background: linear-gradient(135deg, 
-        rgba(246, 193, 209, 0.3) 0%, 
-        rgba(231, 182, 209, 0.3) 15%, 
-        rgba(216, 207, 240, 0.3) 35%, 
-        rgba(201, 183, 226, 0.3) 55%, 
-        rgba(207, 231, 245, 0.3) 75%, 
-        rgba(191, 214, 230, 0.3) 100%
-    );
+    background: linear-gradient(135deg,
+            rgba(246, 193, 209, 0.3) 0%,
+            rgba(231, 182, 209, 0.3) 15%,
+            rgba(216, 207, 240, 0.3) 35%,
+            rgba(201, 183, 226, 0.3) 55%,
+            rgba(207, 231, 245, 0.3) 75%,
+            rgba(191, 214, 230, 0.3) 100%);
     backdrop-filter: blur(8px);
     z-index: 10;
 }
@@ -674,17 +692,31 @@ body {
         flex-wrap: wrap;
         min-height: auto;
     }
-    
+
     .vote-bar-container {
         max-width: 120px;
     }
-    
+
     .vote-bar-wrapper {
         height: 130px;
     }
-    
+
     .players-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
+/* ============================================
+   FIX: Prevent click-through selecting 2 cards
+   ============================================ */
+
+/* Only the card itself should receive clicks */
+.message-voting-card {
+    position: relative;
+    pointer-events: auto;
+}
+
+/* All inner elements must NOT receive clicks */
+.message-voting-card * {
+    pointer-events: none;
+}
