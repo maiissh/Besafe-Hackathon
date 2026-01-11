@@ -15,9 +15,12 @@ import {
 /* =========================
    🔐 OPENAI SETUP
 ========================= */
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
+let openai = null;
+if (process.env.OPENAI_API_KEY) {
+    openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+    });
+}
 
 /* =========================
    Helpers
@@ -75,7 +78,7 @@ Do NOT:
 - write dialogue
 `.trim();
 
-    if (!process.env.OPENAI_API_KEY) {
+    if (!openai || !process.env.OPENAI_API_KEY) {
         const fallback = [
             "wait I kinda agree 😭",
             "idk that feels off tbh",
@@ -127,6 +130,31 @@ export function startChat(req, res) {
             { id: "bot_2", name: "Noor" },
             { id: "bot_3", name: "Maya" },
         ],
+    });
+}
+
+export function getGameResults(req, res) {
+    const { chatId } = req.params;
+    const chat = getChat(chatId);
+
+    if (!chat) {
+        return res.status(404).json({ error: "Chat not found" });
+    }
+
+    const imposterBot = chat.bots.find(b => b.id === chat.imposterBotId);
+    const imposterBotName = imposterBot?.name || "Unknown";
+
+    res.json({
+        chatId,
+        topic: chat.topic,
+        players: chat.bots,
+        bots: chat.bots,
+        imposterId: chat.imposterBotId,
+        imposterBotId: chat.imposterBotId,
+        imposterName: imposterBotName,
+        imposterBotName: imposterBotName,
+        imposterMessagesWithWord: chat.imposterMessagesWithWord,
+        imposterMessagesWithoutWord: chat.imposterMessagesWithoutWord,
     });
 }
 

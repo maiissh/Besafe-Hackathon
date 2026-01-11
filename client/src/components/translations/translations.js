@@ -42,12 +42,12 @@ export const translations = {
         subtitle: 'Can you spot risky behavior?',
       },
       {
-        title: 'Online Harassment',
-        subtitle: 'Boundaries and seeking help',
+        title: 'Guess the Emoji',
+        subtitle: 'Guess the emoji that represents the message meaning',
       },
       {
-        title: 'Digital Safety',
-        subtitle: 'Complete protection strategies',
+        title: 'Privacy Protector',
+        subtitle: 'Protect your personal information and privacy online',
       },
     ],
     
@@ -56,6 +56,7 @@ export const translations = {
     inProgress: 'Enjoy',
     locked: 'Locked',
     completePrevious: 'Complete previous level to unlock',
+    comingSoon: 'Coming soon - under development',
     startLevel: 'Start',
     startGame: 'Start the game',
     reviewLevel: 'Review',
@@ -110,12 +111,12 @@ export const translations = {
         subtitle: 'Can you spot risky behavior?',
       },
       {
-        title: 'הטרדה באינטרנט',
-        subtitle: 'גבולות ובקשת עזרה',
+        title: 'נחש את האימוג\'י',
+        subtitle: 'נחש את האימוג\'י שמשקף את המשמעות של ההודעה',
       },
       {
-        title: 'בטיחות דיגיטלית',
-        subtitle: 'אסטרטגיות הגנה מלאות',
+        title: 'מגן הפרטיות',
+        subtitle: 'הגן על המידע האישי והפרטיות שלך באינטרנט',
       },
     ],
     
@@ -124,6 +125,7 @@ export const translations = {
     inProgress: 'Enjoy',
     locked: '🔒 נעול',
     completePrevious: 'השלימי את השלב הקודם כדי לפתוח',
+    comingSoon: 'בקרוב - תחת פיתוח',
     startLevel: 'התחילי',
     startGame: 'Start the game',
     reviewLevel: 'סקירה',
@@ -178,12 +180,12 @@ export const translations = {
         subtitle: 'Can you spot risky behavior?',
       },
       {
-        title: 'المضايقات عبر الإنترنت',
-        subtitle: 'الحدود وطلب المساعدة',
+        title: 'خمن الإيموجي',
+        subtitle: 'خمن الإيموجي الذي يمثل معنى الرسالة',
       },
       {
-        title: 'السلامة الرقمية',
-        subtitle: 'استراتيجيات الحماية الكاملة',
+        title: 'حامي الخصوصية',
+        subtitle: 'احمي معلوماتك الشخصية وخصوصيتك على الإنترنت',
       },
     ],
     
@@ -192,6 +194,7 @@ export const translations = {
     inProgress: 'Enjoy',
     locked: '🔒 مقفل',
     completePrevious: 'أكملي المستوى السابق لفتح هذا',
+    comingSoon: 'قريباً - تحت التطوير',
     startLevel: 'ابدأي',
     startGame: 'Start the game',
     reviewLevel: 'مراجعة',

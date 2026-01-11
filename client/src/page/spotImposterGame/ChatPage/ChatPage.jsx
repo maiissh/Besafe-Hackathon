@@ -28,6 +28,8 @@ export default function ChatPage() {
     const [input, setInput] = useState("");
 
     const messagesEndRef = useRef(null);
+    const TOTAL_GAME_TIME = 120; // 2 minutes in seconds
+    const [timeLeft, setTimeLeft] = useState(TOTAL_GAME_TIME);
 
     /* ---------------- GUARD ---------------- */
 
@@ -36,6 +38,49 @@ export default function ChatPage() {
             navigate("/");
         }
     }, [location.state, topic, chatId, navigate]);
+
+    /* ---------------- TIMER & GAME END ---------------- */
+
+    useEffect(() => {
+        if (timeLeft <= 0) {
+            // Game ended - get results and navigate to voting
+            const endGame = async () => {
+                try {
+                    const res = await api.get(`/game-chat/results/${chatId}`);
+                    const results = res.data;
+
+                    // Save to localStorage as backup
+                    localStorage.setItem("spotImposterResults", JSON.stringify(results));
+
+                    // Navigate to voting page with results
+                    navigate("/voting", { state: results });
+                } catch (err) {
+                    console.error("Failed to get game results:", err);
+                    // Navigate anyway with basic data
+                    navigate("/voting", {
+                        state: {
+                            topic,
+                            chatId,
+                            bots: [
+                                { id: "bot_1", name: "Lina" },
+                                { id: "bot_2", name: "Noor" },
+                                { id: "bot_3", name: "Maya" },
+                            ],
+                        }
+                    });
+                }
+            };
+
+            endGame();
+            return;
+        }
+
+        const timer = setInterval(() => {
+            setTimeLeft((prev) => prev - 1);
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [timeLeft, chatId, topic, navigate]);
 
     /* ---------------- USER SEND ---------------- */
 
