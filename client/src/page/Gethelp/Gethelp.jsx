@@ -348,7 +348,7 @@ const GetHelp = () => {
                   <div className="resource-item">
                     <div className="resource-icon">🛡️</div>
                     <div className="resource-content">
-                      <div className="resource-title">עמותת מא'את (Project Maat)</div>
+                      <div className="resource-title">עמותת מא&apos;את (Project Maat)</div>
                       <div className="resource-description">
                         עמותה שחושפת עברייני מין ברשת. זיהוי פוגעים, בניית תיק ראיות, ומיצוי זכויות. 
                         Organization that exposes online sexual offenders. Identification of perpetrators, evidence building, and legal support.

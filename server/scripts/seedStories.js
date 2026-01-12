@@ -19,7 +19,7 @@ const newStories = [
   {
     story: "A person I didn't know started commenting inappropriate things on all my posts. I blocked them, but they created another account. I learned to make my account private and only accept requests from people I actually know. Safety first!",
     incidentType: "Harassment or Bullying",
-    displayName: "Khalid J.",
+    displayName: "Layla H.",
     likes: 26
   },
   {
