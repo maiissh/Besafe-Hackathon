@@ -3,10 +3,13 @@ import Story from '../models/Story.js';
 // Get all stories
 export const getAll = async (req, res) => {
   try {
+    // Get ALL stories without any filters
     const stories = await Story.find({})
       .sort({ createdAt: -1 }) // Newest first
       .populate('userId', 'username full_name')
       .lean();
+    
+    console.log(`[getAll] Found ${stories.length} stories in database`);
     
     // Format date for display
     const formattedStories = stories.map(story => {
@@ -122,15 +125,20 @@ export const create = async (req, res) => {
     };
     
     const newStory = await Story.create(storyData);
+    console.log(`[create] Story created successfully: ${newStory._id}, userId: ${newStory.userId}`);
+    
+    // Format the response with userId as string
+    const formattedStory = {
+      ...newStory.toObject(),
+      id: newStory._id.toString(),
+      userId: newStory.userId.toString(),
+      date: 'Just now'
+    };
     
     res.status(201).json({
       success: true,
       message: 'Story created successfully',
-      data: {
-        ...newStory.toObject(),
-        id: newStory._id.toString(),
-        date: 'Just now'
-      }
+      data: formattedStory
     });
   } catch (error) {
     res.status(500).json({
