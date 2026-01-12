@@ -344,6 +344,38 @@ const GetHelp = () => {
                       </div>
                     </div>
                   </div>
+
+                  <div className="resource-item">
+                    <div className="resource-icon">🛡️</div>
+                    <div className="resource-content">
+                      <div className="resource-title">עמותת מא'את (Project Maat)</div>
+                      <div className="resource-description">
+                        עמותה שחושפת עברייני מין ברשת. זיהוי פוגעים, בניית תיק ראיות, ומיצוי זכויות. 
+                        Organization that exposes online sexual offenders. Identification of perpetrators, evidence building, and legal support.
+                      </div>
+                      <div className="resource-contact">
+                        <a 
+                          href="https://projectmaat.com" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="info-badge"
+                          style={{ textDecoration: 'none', display: 'inline-block' }}
+                          onClick={() => handleContact('national', null, null, 'Project Maat', null)}
+                        >
+                          🌐 Visit Website
+                        </a>
+                        <button 
+                          className="info-badge"
+                          onClick={() => {
+                            handleContact('national', null, null, 'Project Maat', null);
+                            window.location.href = 'tel:0503424737';
+                          }}
+                        >
+                          📞 050-342-4737
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
