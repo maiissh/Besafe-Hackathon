@@ -8,7 +8,10 @@
     "dev": "eslint . && nodemon server",
     "lint": "eslint .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "delete-story": "node scripts/deleteStory.js",
+    "seed-stories": "node scripts/seedStories.js",
+    "find-stories": "node scripts/findStories.js"
   },
   "keywords": [],
   "author": "",

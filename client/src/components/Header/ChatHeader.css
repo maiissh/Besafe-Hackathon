@@ -17,6 +17,34 @@
     align-items: center;
 }
 
+.besafe-logo-text {
+    font-size: 1.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #C9377D 0%, #8B5BA8 50%, #5C9AC9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+    letter-spacing: -0.04em;
+    filter: drop-shadow(0 2px 8px rgba(139, 91, 168, 0.3));
+    cursor: pointer;
+    display: inline-block;
+    user-select: none;
+    z-index: 1000;
+    position: relative;
+    outline: none;
+}
+
+.besafe-logo-text:focus {
+    outline: none;
+}
+
+.chat-header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
 /* Topic section */
 .chat-topic {
     display: flex;

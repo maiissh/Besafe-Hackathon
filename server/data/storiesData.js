@@ -31,10 +31,110 @@ let stories = [
     likes: 24,
     date: "3 weeks ago",
     createdAt: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 4,
+    story: "I got a message from someone claiming to be a friend asking for money urgently. They said their account was hacked. I called my friend directly and found out it was a scam. Always verify through another channel before sending money!",
+    incidentType: "Scams or Fraud",
+    displayName: "Maya K.",
+    userId: 4,
+    likes: 18,
+    date: "5 days ago",
+    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 5,
+    story: "Someone was sending me screenshots of my private messages and threatening to share them. I immediately changed all my passwords, enabled two-factor authentication, and reported the account. Privacy settings matter!",
+    incidentType: "Privacy Violation",
+    displayName: "Omar R.",
+    userId: 5,
+    likes: 31,
+    date: "4 days ago",
+    createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 6,
+    story: "A stranger kept creating new accounts to message me after I blocked them. I learned to report each account and never respond. My school counselor helped me understand this was harassment. You don't have to deal with this alone.",
+    incidentType: "Harassment or Bullying",
+    displayName: "Layla H.",
+    userId: 6,
+    likes: 27,
+    date: "6 days ago",
+    createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 7,
+    story: "I received a message from an account that looked exactly like my best friend's profile, but something felt off. I asked them a question only my real friend would know, and they couldn't answer. It was an impersonation account trying to get personal info.",
+    incidentType: "Impersonation",
+    displayName: "Yusuf A.",
+    userId: 7,
+    likes: 15,
+    date: "3 days ago",
+    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 8,
+    story: "A random person kept sending me friend requests and messages asking where I go to school and where I live. I never responded and blocked them immediately. I also told my parents. Remember: never share personal information with strangers online!",
+    incidentType: "Unwanted Contact",
+    displayName: "Noor S.",
+    userId: 8,
+    likes: 22,
+    date: "2 days ago",
+    createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 9,
+    story: "I noticed someone was using my pictures to create fake profiles on different social media platforms. I reported all of them and changed my privacy settings to friends only. It's important to regularly check if your photos are being misused online.",
+    incidentType: "Fake Accounts",
+    displayName: "Rania M.",
+    userId: 9,
+    likes: 19,
+    date: "1 week ago",
+    createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 10,
+    story: "A person I didn't know started commenting inappropriate things on all my posts. I blocked them, but they created another account. I learned to make my account private and only accept requests from people I actually know. Safety first!",
+    incidentType: "Harassment or Bullying",
+    displayName: "Khalid J.",
+    userId: 10,
+    likes: 26,
+    date: "5 days ago",
+    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 11,
+    story: "I received a message saying I won a prize and needed to click a link to claim it. It looked suspicious, so I asked my older sibling. They told me it was a phishing scam. Never click links from unknown sources, even if they promise something good!",
+    incidentType: "Scams or Fraud",
+    displayName: "Sara A.",
+    userId: 11,
+    likes: 33,
+    date: "4 days ago",
+    createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 12,
+    story: "Someone I thought was my friend online started asking for my passwords and personal details. I felt uncomfortable and told my parents. They helped me understand this was a red flag. Real friends never ask for passwords!",
+    incidentType: "Privacy Violation",
+    displayName: "Ahmed F.",
+    userId: 12,
+    likes: 28,
+    date: "3 days ago",
+    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 13,
+    story: "A stranger sent me a message pretending to be from my school's admin team, asking for my student ID and home address. I checked with the school office first and found out it was fake. Always verify official requests through proper channels!",
+    incidentType: "Impersonation",
+    displayName: "Fatima L.",
+    userId: 13,
+    likes: 21,
+    date: "6 days ago",
+    createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString()
   }
 ];
 
-let nextId = 4;
+let nextId = 14;
 
 // Get all stories
 export const getAllStories = () => {
