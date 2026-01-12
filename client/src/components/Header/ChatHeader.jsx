@@ -1,11 +1,9 @@
 import { Coins, MessageCircle, Clock } from "lucide-react";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./ChatHeader.css";
 
 export default function ChatHeader({ topic, points }) {
-    const navigate = useNavigate();
     const TOTAL_TIME = 120;
     const [timeLeft, setTimeLeft] = useState(TOTAL_TIME);
 
