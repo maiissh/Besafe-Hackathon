@@ -30,7 +30,13 @@ export const getAll = async (req, res) => {
         ...story,
         id: story._id.toString(),
         userId: story.userId?._id ? story.userId._id.toString() : (story.userId?.toString() || story.userId),
-        date: dateStr
+        date: dateStr,
+        likes: story.likes || 0,
+        story: story.story,
+        incidentType: story.incidentType,
+        displayName: story.displayName,
+        createdAt: story.createdAt,
+        updatedAt: story.updatedAt
       };
     });
     
