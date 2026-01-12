@@ -208,6 +208,18 @@ const StoriesSection = () => {
     };
 
     loadData();
+
+    // Refresh stories every 10 seconds to show new stories from other users
+    const refreshInterval = setInterval(async () => {
+      try {
+        const allStories = await storyService.getAllStories();
+        setStories(allStories);
+      } catch (error) {
+        console.error('Error refreshing stories:', error);
+      }
+    }, 10000); // Refresh every 10 seconds
+
+    return () => clearInterval(refreshInterval);
   }, []);
 
   const handleLike = async (id) => {
@@ -218,11 +230,9 @@ const StoriesSection = () => {
         // Unlike story
         const updatedStory = await storyService.unlikeStory(id);
         if (updatedStory) {
-          setStories((prevStories) =>
-            prevStories.map((story) =>
-              story.id === id ? updatedStory : story
-            )
-          );
+          // Reload all stories to get updated like counts
+          const allStories = await storyService.getAllStories();
+          setStories(allStories);
           setLikedStories((prevLiked) => prevLiked.filter((storyId) => storyId !== id));
           // Update student points in state
           const updatedStudentUnliked = await studentService.getCurrentStudent();
@@ -237,11 +247,9 @@ const StoriesSection = () => {
         // Like story
         const updatedStory = await storyService.likeStory(id);
         if (updatedStory) {
-          setStories((prevStories) =>
-            prevStories.map((story) =>
-              story.id === id ? updatedStory : story
-            )
-          );
+          // Reload all stories to get updated like counts
+          const allStories = await storyService.getAllStories();
+          setStories(allStories);
           setLikedStories((prevLiked) => [...prevLiked, id]);
           // Add points for liking
           await studentService.addPoints(2);
@@ -315,8 +323,9 @@ const StoriesSection = () => {
       });
 
       if (newStory) {
-        // Add to local state
-        setStories((prev) => [newStory, ...prev]);
+        // Reload all stories from server to ensure everyone sees the new story
+        const allStories = await storyService.getAllStories();
+        setStories(allStories);
         setSubmitted(true);
 
         // Add points for writing a story

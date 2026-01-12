@@ -12,7 +12,8 @@
     "delete-story": "node scripts/deleteStory.js",
     "seed-stories": "node scripts/seedStories.js",
     "find-stories": "node scripts/findStories.js",
-    "check-stories": "node scripts/checkStories.js"
+    "check-stories": "node scripts/checkStories.js",
+    "update-story-names": "node scripts/updateStoryNames.js"
   },
   "keywords": [],
   "author": "",
