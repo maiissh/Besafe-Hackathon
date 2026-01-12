@@ -709,7 +709,8 @@ export default function VotingPage() {
 
             <div className="analytics-section">
               <h2 className="analytics-title">📝 Message Voting Analysis</h2>
-              <p className="analytics-subtitle">How many votes each message received</p>
+              <p className="analytics-subtitle">How many votes each mes
+                sage received</p>
 
               <div className="message-votes-chart">
                 {messageVotes.map((message, index) => {
