@@ -26,6 +26,7 @@ export const getAll = async (req, res) => {
       return {
         ...story,
         id: story._id.toString(),
+        userId: story.userId?._id ? story.userId._id.toString() : (story.userId?.toString() || story.userId),
         date: dateStr
       };
     });
