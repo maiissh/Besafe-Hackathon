@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import "./ChatHeader.css";
 
-export default function ChatHeader({ topic, points }) {
+
+export default function ChatHeader({ topic, /*points*/ }) {
     const TOTAL_TIME = 120;
     const [timeLeft, setTimeLeft] = useState(TOTAL_TIME);
 
@@ -44,7 +45,7 @@ export default function ChatHeader({ topic, points }) {
 
                     <div className="points-badge">
                         <Coins size={22} />
-                        <span>{points}</span>
+                        <span>{"166"}</span>
                     </div>
                 </div>
             </div>
