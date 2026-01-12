@@ -4,11 +4,28 @@ import styles from "./Header.module.css";
 
 
 export default function Header({ /*studentName,*/ points, streak }) {
+  const handleBeSafeClick = () => {
+    window.location.href = "/homepage";
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.headerTop}>
         <div className={styles.branding}>
-          <h1 className={styles.brandTitle}>BeSafe</h1>
+          <h1 
+            className={styles.brandTitle}
+            onClick={handleBeSafeClick}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                handleBeSafeClick();
+              }
+            }}
+            aria-label="Go to homepage"
+          >
+            BeSafe
+          </h1>
           <p className={styles.brandSubtitle}>School Guided Online Safety</p>
         </div>
 

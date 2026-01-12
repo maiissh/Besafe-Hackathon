@@ -206,6 +206,18 @@ const StoriesSection = () => {
     };
 
     loadData();
+
+    // Refresh stories every 10 seconds to show new stories from other users
+    const refreshInterval = setInterval(async () => {
+      try {
+        const allStories = await storyService.getAllStories();
+        setStories(allStories);
+      } catch (error) {
+        console.error('Error refreshing stories:', error);
+      }
+    }, 10000); // Refresh every 10 seconds
+
+    return () => clearInterval(refreshInterval);
   }, []);
 
   const handleLike = async (id) => {
@@ -216,11 +228,9 @@ const StoriesSection = () => {
         // Unlike story
         const updatedStory = await storyService.unlikeStory(id);
         if (updatedStory) {
-          setStories((prevStories) =>
-            prevStories.map((story) =>
-              story.id === id ? updatedStory : story
-            )
-          );
+          // Reload all stories to get updated like counts
+          const allStories = await storyService.getAllStories();
+          setStories(allStories);
           setLikedStories((prevLiked) => prevLiked.filter((storyId) => storyId !== id));
           // Update student points in state
           const updatedStudentUnliked = await studentService.getCurrentStudent();
@@ -235,11 +245,9 @@ const StoriesSection = () => {
         // Like story
         const updatedStory = await storyService.likeStory(id);
         if (updatedStory) {
-          setStories((prevStories) =>
-            prevStories.map((story) =>
-              story.id === id ? updatedStory : story
-            )
-          );
+          // Reload all stories to get updated like counts
+          const allStories = await storyService.getAllStories();
+          setStories(allStories);
           setLikedStories((prevLiked) => [...prevLiked, id]);
           // Add points for liking
           await studentService.addPoints(2);
@@ -313,8 +321,9 @@ const StoriesSection = () => {
       });
 
       if (newStory) {
-        // Add to local state
-        setStories((prev) => [newStory, ...prev]);
+        // Reload all stories from server to ensure everyone sees the new story
+        const allStories = await storyService.getAllStories();
+        setStories(allStories);
         setSubmitted(true);
 
         // Add points for writing a story
@@ -346,8 +355,13 @@ const StoriesSection = () => {
   };
 
   const displayedStories = showMyStories
-    ? stories.filter((story) => story.userId === currentUser.userId)
-    : stories;
+    ? stories.filter((story) => {
+        // Convert both to strings for comparison
+        const storyUserId = story.userId?.toString() || story.userId;
+        const currentUserId = currentUser.userId?.toString() || currentUser.userId;
+        return storyUserId === currentUserId;
+      })
+    : stories; // Show ALL stories in Community Stories, regardless of userId
 
   const isFormValid =
     formData.story.trim().length > 0 && formData.incidentType !== "" && formData.nameVisibility !== "";
@@ -444,7 +458,11 @@ const StoriesSection = () => {
                 className={`toggle-button ${showMyStories ? "toggle-active" : ""}`}
                 onClick={() => setShowMyStories(true)}
               >
-                My Stories ({stories.filter((s) => s.userId === currentUser.userId).length})
+                My Stories ({stories.filter((s) => {
+                  const storyUserId = s.userId?.toString() || s.userId;
+                  const currentUserId = currentUser.userId?.toString() || currentUser.userId;
+                  return storyUserId === currentUserId;
+                }).length})
               </button>
             </div>
 
@@ -461,7 +479,10 @@ const StoriesSection = () => {
               <div className="stories-list">
                 {displayedStories.map((story) => {
                   const isLikedByMe = likedStories.includes(story.id);
-                  const isMyStory = story.userId === currentUser.userId;
+                  // Convert both to strings for comparison
+                  const storyUserId = story.userId?.toString() || story.userId;
+                  const currentUserId = currentUser.userId?.toString() || currentUser.userId;
+                  const isMyStory = storyUserId === currentUserId;
 
                   return (
                     <div key={story.id} className="story-card">

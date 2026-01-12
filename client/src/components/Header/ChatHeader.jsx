@@ -24,15 +24,38 @@ export default function ChatHeader({ topic, /*points*/ }) {
         return `${mins}:${secs.toString().padStart(2, "0")}`;
     };
 
+    const handleBeSafeClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("BeSafe clicked, navigating to homepage");
+        window.location.href = "/homepage";
+    };
+
     return (
         <header className="chat-header">
             <div className="chat-header-top">
-                {/* LEFT: Topic */}
-                <div className="chat-topic">
-                    <MessageCircle className="topic-icon" />
-                    <div>
-                        <h1 className="topic-title">Chat Topic</h1>
-                        <p className="topic-text">{topic}</p>
+                {/* LEFT: BeSafe Logo + Topic */}
+                <div className="chat-header-left">
+                    <span
+                        onClick={handleBeSafeClick}
+                        className="besafe-logo-text"
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                handleBeSafeClick(e);
+                            }
+                        }}
+                        aria-label="Go to homepage"
+                    >
+                        BeSafe
+                    </span>
+                    <div className="chat-topic">
+                        <MessageCircle className="topic-icon" />
+                        <div>
+                            <h1 className="topic-title">Chat Topic</h1>
+                            <p className="topic-text">{topic}</p>
+                        </div>
                     </div>
                 </div>
 
