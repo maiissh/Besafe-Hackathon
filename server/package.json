@@ -11,7 +11,8 @@
     "test:watch": "vitest",
     "delete-story": "node scripts/deleteStory.js",
     "seed-stories": "node scripts/seedStories.js",
-    "find-stories": "node scripts/findStories.js"
+    "find-stories": "node scripts/findStories.js",
+    "check-stories": "node scripts/checkStories.js"
   },
   "keywords": [],
   "author": "",

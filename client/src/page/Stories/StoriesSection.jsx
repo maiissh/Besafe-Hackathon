@@ -197,6 +197,8 @@ const StoriesSection = () => {
 
         // Load all stories from API
         const allStories = await storyService.getAllStories();
+        console.log('Loaded stories:', allStories.length);
+        console.log('Stories data:', allStories);
         setStories(allStories);
       } catch (error) {
         console.error('Error loading data:', error);
@@ -346,8 +348,18 @@ const StoriesSection = () => {
   };
 
   const displayedStories = showMyStories
-    ? stories.filter((story) => story.userId === currentUser.userId)
-    : stories;
+    ? stories.filter((story) => {
+        // Convert both to strings for comparison
+        const storyUserId = story.userId?.toString() || story.userId;
+        const currentUserId = currentUser.userId?.toString() || currentUser.userId;
+        return storyUserId === currentUserId;
+      })
+    : stories; // Show ALL stories in Community Stories, regardless of userId
+  
+  // Debug log
+  console.log('showMyStories:', showMyStories);
+  console.log('Total stories:', stories.length);
+  console.log('Displayed stories:', displayedStories.length);
 
   const isFormValid =
     formData.story.trim().length > 0 && formData.incidentType !== "" && formData.nameVisibility !== "";
@@ -444,7 +456,11 @@ const StoriesSection = () => {
                 className={`toggle-button ${showMyStories ? "toggle-active" : ""}`}
                 onClick={() => setShowMyStories(true)}
               >
-                My Stories ({stories.filter((s) => s.userId === currentUser.userId).length})
+                My Stories ({stories.filter((s) => {
+                  const storyUserId = s.userId?.toString() || s.userId;
+                  const currentUserId = currentUser.userId?.toString() || currentUser.userId;
+                  return storyUserId === currentUserId;
+                }).length})
               </button>
             </div>
 
@@ -461,7 +477,10 @@ const StoriesSection = () => {
               <div className="stories-list">
                 {displayedStories.map((story) => {
                   const isLikedByMe = likedStories.includes(story.id);
-                  const isMyStory = story.userId === currentUser.userId;
+                  // Convert both to strings for comparison
+                  const storyUserId = story.userId?.toString() || story.userId;
+                  const currentUserId = currentUser.userId?.toString() || currentUser.userId;
+                  const isMyStory = storyUserId === currentUserId;
 
                   return (
                     <div key={story.id} className="story-card">
