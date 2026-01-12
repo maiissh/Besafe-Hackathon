@@ -14,7 +14,8 @@
     "find-stories": "node scripts/findStories.js",
     "check-stories": "node scripts/checkStories.js",
     "update-story-names": "node scripts/updateStoryNames.js",
-    "show-all-stories": "node scripts/showAllStories.js"
+    "show-all-stories": "node scripts/showAllStories.js",
+    "test-stories-api": "node scripts/testStoriesAPI.js"
   },
   "keywords": [],
   "author": "",
