@@ -6,11 +6,11 @@ An interactive educational application designed to teach girls how to handle onl
 
 Watch our demo video to see the app in action:
 
-**📹 [Watch Demo Video](https://raw.githubusercontent.com/maiissh/Besafe-Hackathon/main/client/public/demo-video.mp4)**
+[![BeSafe Demo](https://img.shields.io/badge/▶-Watch%20Demo%20Video-red?style=for-the-badge)](https://raw.githubusercontent.com/maiissh/Besafe-Hackathon/main/client/public/demo-video.mp4)
 
-*Click the link above to watch the demo video. The video will open in a new tab.*
+**Direct link:** [Watch Video](https://raw.githubusercontent.com/maiissh/Besafe-Hackathon/main/client/public/demo-video.mp4)
 
-> **Alternative:** If the video doesn't play, you can also [download it directly](./client/public/demo-video.mp4).
+> **💡 Tip:** Right-click the link and select "Open in new tab" for best viewing experience. Some browsers may offer to download the video - in that case, right-click and "Save link as" to download and watch locally.
 
 ## 📋 Table of Contents
 
