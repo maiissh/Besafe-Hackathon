@@ -5,12 +5,16 @@ const storyService = {
   async getAllStories() {
     try {
       const response = await api.get('/stories');
+      console.log('[storyService] API Response:', response.data);
       if (response.data.success) {
+        console.log('[storyService] Returning', response.data.data.length, 'stories');
         return response.data.data;
       }
+      console.warn('[storyService] API returned success=false');
       return [];
     } catch (error) {
-      console.error('Error fetching stories:', error);
+      console.error('[storyService] Error fetching stories:', error);
+      console.error('[storyService] Error details:', error.response?.data || error.message);
       return [];
     }
   },

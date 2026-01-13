@@ -10,6 +10,12 @@ export const getAll = async (req, res) => {
       .lean();
     
     console.log(`[getAll] Found ${stories.length} stories in database`);
+    console.log(`[getAll] Stories data:`, stories.map(s => ({ 
+      id: s._id.toString(), 
+      displayName: s.displayName, 
+      userId: s.userId?._id?.toString() || s.userId?.toString() || s.userId,
+      likes: s.likes 
+    })));
     
     // Format date for display
     const formattedStories = stories.map(story => {
@@ -26,11 +32,29 @@ export const getAll = async (req, res) => {
       else if (diffDays < 30) dateStr = '3 weeks ago';
       else dateStr = `${Math.floor(diffDays / 7)} weeks ago`;
       
+      // Ensure userId is always a string
+      let userIdString = null;
+      if (story.userId) {
+        if (story.userId._id) {
+          userIdString = story.userId._id.toString();
+        } else if (typeof story.userId === 'object' && story.userId.toString) {
+          userIdString = story.userId.toString();
+        } else if (typeof story.userId === 'string') {
+          userIdString = story.userId;
+        }
+      }
+      
       return {
         ...story,
         id: story._id.toString(),
-        userId: story.userId?._id ? story.userId._id.toString() : (story.userId?.toString() || story.userId),
-        date: dateStr
+        userId: userIdString || story.userId,
+        date: dateStr,
+        likes: story.likes || 0,
+        story: story.story,
+        incidentType: story.incidentType,
+        displayName: story.displayName,
+        createdAt: story.createdAt,
+        updatedAt: story.updatedAt
       };
     });
     
@@ -108,11 +132,11 @@ export const create = async (req, res) => {
   try {
     const { story, incidentType, displayName, userId } = req.body;
     
-    // Validation
-    if (!story || !incidentType || !displayName || !userId) {
+    // Validation - userId is now optional (stories can be public)
+    if (!story || !incidentType || !displayName) {
       return res.status(400).json({
         success: false,
-        message: 'Missing required fields: story, incidentType, displayName, userId'
+        message: 'Missing required fields: story, incidentType, displayName'
       });
     }
     
@@ -120,18 +144,18 @@ export const create = async (req, res) => {
       story: story.trim(),
       incidentType,
       displayName,
-      userId,
+      userId: userId || null, // Allow null for public stories
       likes: 0
     };
     
     const newStory = await Story.create(storyData);
-    console.log(`[create] Story created successfully: ${newStory._id}, userId: ${newStory.userId}`);
+    console.log(`[create] Story created successfully: ${newStory._id}, userId: ${newStory.userId || 'null (public)'}`);
     
-    // Format the response with userId as string
+    // Format the response with userId as string (or null)
     const formattedStory = {
       ...newStory.toObject(),
       id: newStory._id.toString(),
-      userId: newStory.userId.toString(),
+      userId: newStory.userId ? newStory.userId.toString() : null,
       date: 'Just now'
     };
     

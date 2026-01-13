@@ -197,6 +197,7 @@ const StoriesSection = () => {
 
         // Load all stories from API
         const allStories = await storyService.getAllStories();
+        console.log('[StoriesSection] Loaded stories:', allStories.length, allStories);
         setStories(allStories);
       } catch (error) {
         console.error('Error loading data:', error);
@@ -357,11 +358,15 @@ const StoriesSection = () => {
   const displayedStories = showMyStories
     ? stories.filter((story) => {
         // Convert both to strings for comparison
-        const storyUserId = story.userId?.toString() || story.userId;
-        const currentUserId = currentUser.userId?.toString() || currentUser.userId;
+        const storyUserId = story.userId?.toString() || story.userId || null;
+        const currentUserId = currentUser.userId?.toString() || currentUser.userId || null;
         return storyUserId === currentUserId;
       })
     : stories; // Show ALL stories in Community Stories, regardless of userId
+  
+  console.log('[StoriesSection] displayedStories count:', displayedStories.length, 'showMyStories:', showMyStories);
+  console.log('[StoriesSection] All stories count:', stories.length);
+  console.log('[StoriesSection] Current user:', currentUser);
 
   const isFormValid =
     formData.story.trim().length > 0 && formData.incidentType !== "" && formData.nameVisibility !== "";

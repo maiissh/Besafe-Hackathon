@@ -13,7 +13,10 @@
     "seed-stories": "node scripts/seedStories.js",
     "find-stories": "node scripts/findStories.js",
     "check-stories": "node scripts/checkStories.js",
-    "update-story-names": "node scripts/updateStoryNames.js"
+    "update-story-names": "node scripts/updateStoryNames.js",
+    "show-all-stories": "node scripts/showAllStories.js",
+    "test-stories-api": "node scripts/testStoriesAPI.js",
+    "make-stories-public": "node scripts/makeStoriesPublic.js"
   },
   "keywords": [],
   "author": "",

@@ -20,7 +20,8 @@ const storySchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Student',
-    required: true
+    required: false, // Stories can be public (no userId) or user-specific
+    default: null
   },
   likes: {
     type: Number,
