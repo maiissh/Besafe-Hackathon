@@ -29,20 +29,24 @@ connectDB();
 const app = express();
 const httpServer = createServer(app);
 
-// --- FIX CORS (To allow your Frontend) ---
-const ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:5173"];
-app.use(
-  cors({
-    origin: ALLOWED_ORIGINS, 
-    credentials: true,
-  })
-);
-
-
+// --- CORS Configuration ---
+const ALLOWED_ORIGINS = [
+  "http://localhost:3000", 
+  "http://localhost:5173",
+  process.env.CLIENT_URL
+].filter(Boolean); // Remove undefined values
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (ALLOWED_ORIGINS.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   })
 );
@@ -113,14 +117,59 @@ app.get("/api/health", (req, res) => {
 
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: ALLOWED_ORIGINS, // Use the same CORS origins
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
 
+// Socket.io event handlers
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
+
+  // Handle room joining
+  socket.on("join-room", (data) => {
+    const { roomId, playerId, playerName } = data;
+    socket.join(roomId);
+    console.log(`User ${socket.id} joined room ${roomId}`);
+    socket.to(roomId).emit("user-joined", { playerId, playerName });
+  });
+
+  // Handle room leaving
+  socket.on("leave-room", (data) => {
+    const { roomId, playerId } = data;
+    socket.leave(roomId);
+    console.log(`User ${socket.id} left room ${roomId}`);
+    socket.to(roomId).emit("user-left", { playerId });
+  });
+
+  // Handle sending messages
+  socket.on("send-message", (data) => {
+    const { roomId, message, sender, senderId } = data;
+    console.log(`Message in room ${roomId} from ${sender}: ${message}`);
+    socket.to(roomId).emit("new-message", { message, sender, senderId });
+  });
+
+  // Handle game start
+  socket.on("start-game", (data) => {
+    const { roomId, topic } = data;
+    console.log(`Game started in room ${roomId} with topic: ${topic}`);
+    io.to(roomId).emit("game-started", { topic });
+  });
+
+  // Handle game end
+  socket.on("end-game", (data) => {
+    const { roomId } = data;
+    console.log(`Game ended in room ${roomId}`);
+    io.to(roomId).emit("game-ended");
+  });
+
+  // Handle getting room info
+  socket.on("get-room-info", (data) => {
+    const { roomId } = data;
+    // You can implement room info logic here
+    socket.emit("room-info", { roomId, players: [] });
+  });
 
   socket.on("disconnect", () => {
     console.log(`User disconnected: ${socket.id}`);

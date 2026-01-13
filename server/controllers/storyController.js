@@ -132,11 +132,11 @@ export const create = async (req, res) => {
   try {
     const { story, incidentType, displayName, userId } = req.body;
     
-    // Validation
-    if (!story || !incidentType || !displayName || !userId) {
+    // Validation - userId is now optional (stories can be public)
+    if (!story || !incidentType || !displayName) {
       return res.status(400).json({
         success: false,
-        message: 'Missing required fields: story, incidentType, displayName, userId'
+        message: 'Missing required fields: story, incidentType, displayName'
       });
     }
     
@@ -144,18 +144,18 @@ export const create = async (req, res) => {
       story: story.trim(),
       incidentType,
       displayName,
-      userId,
+      userId: userId || null, // Allow null for public stories
       likes: 0
     };
     
     const newStory = await Story.create(storyData);
-    console.log(`[create] Story created successfully: ${newStory._id}, userId: ${newStory.userId}`);
+    console.log(`[create] Story created successfully: ${newStory._id}, userId: ${newStory.userId || 'null (public)'}`);
     
-    // Format the response with userId as string
+    // Format the response with userId as string (or null)
     const formattedStory = {
       ...newStory.toObject(),
       id: newStory._id.toString(),
-      userId: newStory.userId.toString(),
+      userId: newStory.userId ? newStory.userId.toString() : null,
       date: 'Just now'
     };
     
