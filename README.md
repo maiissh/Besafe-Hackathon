@@ -46,6 +46,11 @@ cd server
 npm install
 ```
 
+**Note:** If you encounter errors, make sure `eslint` and `nodemon` are installed:
+```bash
+npm install -D eslint nodemon
+```
+
 ### 3. Install Client Dependencies
 
 ```bash
