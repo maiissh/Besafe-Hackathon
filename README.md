@@ -2,8 +2,19 @@
 
 An interactive educational application designed to teach girls how to handle online risks and protect themselves on the internet.
 
+## 🎥 Demo Video
+
+Watch our demo video to see the app in action:
+
+**📹 [Watch Demo Video](https://raw.githubusercontent.com/maiissh/Besafe-Hackathon/main/client/public/demo-video.mp4)**
+
+*Click the link above to watch the demo video. The video will open in a new tab.*
+
+> **Alternative:** If the video doesn't play, you can also [download it directly](./client/public/demo-video.mp4).
+
 ## 📋 Table of Contents
 
+- [Demo Video](#-demo-video)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Configuration](#configuration)
