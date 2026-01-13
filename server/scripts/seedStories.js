@@ -1,6 +1,5 @@
 import dotenv from 'dotenv';
 import Story from '../models/Story.js';
-import Student from '../models/Student.js';
 import connectDB from '../config/database.js';
 
 dotenv.config();
@@ -43,21 +42,6 @@ const newStories = [
 ];
 
 try {
-  // Find or create a default user for stories (or use existing users)
-  let defaultUser = await Student.findOne();
-  
-  if (!defaultUser) {
-    // Create a default user if none exists
-    defaultUser = await Student.create({
-      full_name: "Default User",
-      username: "default_user",
-      email: "default@example.com",
-      password: "default_password_hash", // In production, this should be hashed
-      grade_level: "middle"
-    });
-    console.log('Created default user for stories');
-  }
-
   // Check which stories already exist (by story text)
   const existingStories = await Story.find({});
   const existingStoryTexts = new Set(existingStories.map(s => s.story.trim().toLowerCase()));
@@ -74,14 +58,14 @@ try {
       continue;
     }
 
-    // Create the story
+    // Create the story as public (no userId) - visible to everyone
     await Story.create({
       ...storyData,
-      userId: defaultUser._id,
+      userId: null, // Public story, visible to all users
       likes: storyData.likes || 0
     });
 
-    console.log(`✓ Added story from ${storyData.displayName} (${storyData.incidentType})`);
+    console.log(`✓ Added public story from ${storyData.displayName} (${storyData.incidentType})`);
     addedCount++;
   }
 

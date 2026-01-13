@@ -1,134 +1,365 @@
-# QueenB X AppsFlyer - BeSafe Hackathon 2026
+# BeSafe - Online Safety Education gaming App for girls
 
-This project template is designed for junior developers aimed at gaining hands-on experience in full-stack development. 
-This project includes a Node.js server with Express and a React client (powered by Vite), providing an opportunity to engage in frontend development, backend development, and API integration.
-Specifically the template is a full-stack MERN application for managing a library of rubber ducks - but you can modify it and build a library application of your choice.
+An interactive educational application designed to teach girls how to handle online risks and protect themselves on the internet.
 
-## Introduction
-This template includes a simple feature to display a random rubber duck from example READ ONLY database. 
-This feature demonstrates the integration of the frontend with the backend and can be used to test if your setup is working correctly.
+## 📋 Table of Contents
 
-1. Client:
-   - The home page contains a button labeled `Show Random Duck`.
-   - When clicked, this button sends a request to the backend to fetch a random rubber duck.
-   - The details of the random rubber duck, including its name and image, are displayed on the page.
-2. Backend:
-   - The server has an endpoint `/api/rubberDucks/random` that selects a random rubber duck from the database and returns its details in the response.
-   - The server contains more endpoints, but without corresponding implementation in the client. These endpoints are to set example of more types of requests.
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Running the Application](#running-the-application)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Troubleshooting](#troubleshooting)
 
-## Installation
+## 🛠️ Prerequisites
 
-### Prerequisites
+Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/en) 
-  - Version 20.x or higher required (latest LTS recommended)
-- `npm` (will be typically installed automatically when you install Node.js above)
-  -  Version 10.x or higher required (get the latest by running `npm install -g npm@latest --no-optional`)
+1. **Node.js** - Version 20.x or higher
+   - Download: [https://nodejs.org/](https://nodejs.org/)
+   - Verify installation: `node --version`
 
-### Clone the Repository
-To get started with this project, you need to clone the repository to your local machine. Follow these steps:
-1. Create a project from this repository by clicking on `Use this template` -> `Create a new repository` (more info [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)) - only ONCE per project
-1. Clone the new Repository: https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
+2. **npm** - Usually installed with Node.js
+   - Verify installation: `npm --version`
+   - Update npm: `npm install -g npm@latest`
+
+3. **MongoDB** - Database
+   - Download: [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community)
+   - Or use MongoDB Atlas (cloud): [https://www.mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas)
+
+**Note:** All other dependencies (OpenAI, franc, etc.) will be installed automatically when you run `npm install`. You don't need to install them separately.
+
+## 📦 Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd Besafe-Hackathon
+```
+
+### 2. Install Server Dependencies
+
+```bash
+cd server
+npm install
+```
+
+### 3. Install Client Dependencies
+
+```bash
+cd ../client
+npm install
+```
+
+## ⚙️ Configuration
 
 ### Server Setup
-1. Navigate to the server directory: `cd server`
-1. Install server dependencies: `npm install`
+
+1. Navigate to the `server` directory:
+```bash
+cd server
+```
+
+2. Create a `.env` file 
+```bash
+# Windows
+copy .env.example .env
+
+# Mac/Linux
+cp .env.example .env
+```
+
+3. Open the `.env` file and fill in the following values:
+
+```env
+# MongoDB Connection
+# For local MongoDB:
+MONGODB_URI=mongodb://localhost:27017/besafe
+
+# For MongoDB Atlas (cloud):
+# MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/besafe
+
+# Server Port
+PORT=5000
+
+# Client URL (Frontend URL)
+CLIENT_URL=http://localhost:3000
+
+# OpenAI API Key (Optional - for chat features)
+# The app will work without this, but chat features will have limited functionality
+OPENAI_API_KEY=your_openai_api_key_here
+```
 
 ### Client Setup
-1. Navigate to the client directory: `cd ../client`
-1. Install client dependencies: `npm install`
 
-## Configuration
+1. Navigate to the `client` directory:
+```bash
+cd client
+```
 
-### Environment Variables
-Environment variables are used to configure your application without hardcoding sensitive information into your code. For this project, you need to set up the following environment variables in `.env` files located both in the `server` directory and `client` directory.
+2. Create a `.env` file (if it doesn't exist):
+```bash
+# Windows
+copy .env.example .env
 
-#### Configure the Backend (server)
+# Mac/Linux
+cp .env.example .env
+```
 
-Make a copy of the `.env.example` file under the `server` folder and name it `.env`. This file contains the following environment variables (you don't need to touch them at this point):
-   - `CLIENT_URL` - this should match the URL of the client, which is what you'll see at the address bar of your browser after running your client (via `npm start`).
-   - `PORT` - This variable defines the port on which your Express server will run. By default, this is set to `5000`, but you can change it to any available port number.
+3. Open the `.env` file and fill in the following values:
 
-#### Configure the Frontend (client)
+```env
+# Server API URL
+VITE_SERVER_API_URL=http://localhost:5000
+```
 
-Make a copy of the `.env.example` file under the `client` folder and name it `.env`. 
-This file contains the following environment variable (you don't need to touch them at this point):
+## 🚀 Running the Application
 
-* `VITE_SERVER_API_URL`: This variable contains the URL of your backend API. It tells your client where to send requests to interact with the server. By default, this should be set to http://localhost:5000/, but you should change it to match your server's actual URL if different (where 5000 is the `PORT` you defined in the server `.env` file above).
+### Correct Order to Run:
 
-## Usage
+#### 1. Start MongoDB
 
-This section explains how to use the application once it’s set up and configured. Follow these steps to interact with both the client and server components of the application.
+**If using local MongoDB:**
+- Make sure MongoDB is running on your machine
+- Usually runs automatically after installation
 
-### Start the Server
-1. Open a terminal in the root folder of the cloned repository, and navigate to the `server` directory: `cd server`
-1. Start the Express server in development mode: `npm run dev`
-   - By default, the server will run on `http://localhost:5000` (see configuration section above)
+**If using MongoDB Atlas:**
+- No need to start anything, just ensure `MONGODB_URI` is correct in `.env` file
 
-### Run the Client
-1. Open a **new** terminal in the root folder of the cloned repository, and navigate to the `client` directory: `cd client`
+#### 2. Start the Server
 
-2. Run the Frontend Client: `npm run dev`
-   - A new browser window with the client application should open (if you close the tab, you can return to it by navigating to http://localhost:3000/ by default)
+Open a **new Terminal/PowerShell**:
 
-### Test the Application
+```bash
+cd server
+npm run dev
+```
 
-   - Click the `Show Random Duck` button to retrieve a random duck from the database and display its details on the screen.
-   - This feature helps verify that your frontend can communicate with the backend. If you see the random duck's details displayed on the page, your setup is working properly.
-   - You may also use an API client (like [Postman](https://www.postman.com/)) to directly test your API endpoints.
+You should see:
+```
+Server is running on port 5000
+Socket.io server is ready
+MongoDB Connected
+```
 
-**Please report any issues or provide feedback for further improvements!**
+#### 3. Start the Client
 
-### Stopping the Servers
+Open **another new Terminal/PowerShell**:
 
-- **Stop the Express Server**: In the terminal where the server is running, press `Ctrl + C` to stop the server.
-- **Stop the React Client**: In the terminal where the client is running, press `Ctrl + C` to stop the client.
+```bash
+cd client
+npm run dev
+```
 
-### Troubleshooting
+You should see:
+```
+VITE v5.x.x  ready in xxx ms
 
-Ensure backend and frontend configurations (`.env` files) are correct.
+➜  Local:   http://localhost:3000/
+```
 
-- **Server Issues**:
-  - Ensure that the React development server is running and that you have no conflicting applications using port 3000.
-  - Check the terminal for error messages 
+#### 4. Open the Application
 
-- **Client Issues**:
-  - Check the browser dev tools console for errors if the client is not displaying correctly (recommended: https://reactjs.org/link/react-devtools).
-  - Check the browser dev tools network logs for failed requests
+Open your browser and navigate to:
+```
+http://localhost:3000
+```
 
-## Project Structure
+## ✨ Features
 
-### Client Directory (`client/`)
-Contains the React (Vite) frontend application.
-- `package.json`: Lists the client-side dependencies and scripts for managing the React application.
-- `.env`: Stores environment variables like the API endpoint URL.
-- `index.html`: Main HTML page hosting all the React components of the application (frontend entry point)
-- `public/`: static assets that do not need to be processed by Vite's build pipeline. These files are copied as-is to the build output directory. In our case, the HTML's favicon.
-- `src/`: Contains the source code for the React application.
-   - `assets/`: assets that are part of the source code and need to be processed by Vite's build pipeline. This includes images, fonts, and other files that might be imported into your JS or CSS files. In our case, the QueenB summer camp logo.
-   - `components/`: Reusable UI components such as buttons, forms, and other elements.
-   - `context/`: Contains the React context for the ducks, responsible for pulling the current duck from the API
-   - `pages/`: Page components that represent different routes in the application.
-   - `services/`: Services for making API calls and handling business logic.
-   - `styles/`: CSS and styling files for the application.
-   - `App.jsx`: The main React component that sets up routing and renders the application.
-   - `index.jsx`: The entry point for the React application, responsible for rendering the App component into the DOM.
-      
-### Server Directory (`server/`)
-Contains the Node.js / Express backend application.
-- `package.json`: Lists the server-side dependencies and scripts for managing the Node.js application.
-- `.env`: Stores environment variables like database connection strings and server port.
-- `server.js`: The main server file that sets up Express, connects to the database, and starts the server (backend entry point).
-- `controllers/`: Contains the logic for handling API requests and responses.
-- `data/`: Contains the initial duck data (readonly database)
-- `images/`: Contains the duck images referenced by the duck data above
-- `routes/`: Defines the API endpoints and maps them to controller functions.
+### 1. **Spot the Imposter Game** 🕵️
+- Interactive game to teach children how to spot fake accounts
+- Chat with AI-powered bots
+- Voting system to identify the imposter
 
-## Best practices & Teamwork
-[Full guide](BestPractices.md)
+### 2. **Stories & Experiences** 📖
+- Share stories and experiences
+- Public stories visible to everyone
+- Like system
 
-## Support
+### 3. **Serena Chat** 💬
+- Intelligent chat assistant with AI
+- Supports Arabic and English
+- Online safety tips and advice
 
-For any issues please contact us via [mail](mailto:queenb.community@gmail.com) or open an issue.
+### 4. **Get Help** 🆘
+- Request help in emergency situations
+- Send help requests
+- Notification system
 
-**Happy Coding! :)**
+### 5. **Levels & Points** 🎮
+- Points and badges system
+- Different levels
+- Progress tracking
+
+## 📁 Project Structure
+
+```
+Besafe-Hackathon/
+├── client/                 # Frontend (React + Vite)
+│   ├── src/
+│   │   ├── components/    # Reusable components
+│   │   ├── page/          # Application pages
+│   │   ├── services/      # API services
+│   │   └── styles/        # CSS files
+│   ├── package.json
+│   └── .env
+│
+├── server/                 # Backend (Node.js + Express)
+│   ├── controllers/       # Business logic
+│   ├── routes/            # API routes
+│   ├── models/            # Database models
+│   ├── data/              # Static data
+│   ├── scripts/           # Helper scripts
+│   ├── config/            # Database configuration
+│   ├── server.js          # Server entry point
+│   ├── package.json
+│   └── .env
+│
+└── README.md
+```
+
+## 🔧 Troubleshooting
+
+### Issue: Server won't start
+
+**Solution:**
+1. Make sure MongoDB is running
+2. Check the `.env` file in the `server` directory
+3. Ensure port 5000 is not in use:
+   ```bash
+   # Windows
+   netstat -ano | findstr :5000
+   
+   # Mac/Linux
+   lsof -i :5000
+   ```
+
+### Issue: Client won't start
+
+**Solution:**
+1. Check the `.env` file in the `client` directory
+2. Make sure `VITE_SERVER_API_URL` is correct
+3. Ensure port 3000 is not in use:
+   ```bash
+   # Windows
+   netstat -ano | findstr :3000
+   
+   # Mac/Linux
+   lsof -i :3000
+   ```
+
+### Issue: Chat not working
+
+**Solution:**
+1. The chat will work with basic functionality even without `OPENAI_API_KEY`
+2. For full AI chat features, add `OPENAI_API_KEY` to server `.env` file (optional)
+3. Check that the Server is running on the correct port
+4. Open Browser Console (F12) to check for errors
+5. Verify Socket.io connection:
+   - Open Network tab in DevTools
+   - Look for WebSocket connections
+
+### Issue: Database connection failed
+
+**Solution:**
+1. Check `MONGODB_URI` in `.env` file
+2. Make sure MongoDB is running:
+   ```bash
+   # Windows
+   mongod --version
+   
+   # Mac/Linux
+   mongod --version
+   ```
+3. If using MongoDB Atlas, make sure:
+   - Your IP address is added to whitelist
+   - Username and password are correct
+
+### Issue: Stories not showing
+
+**Solution:**
+1. Run the seed stories script:
+   ```bash
+   cd server
+   npm run seed-stories
+   ```
+2. Make sure stories are public:
+   ```bash
+   npm run make-stories-public
+   ```
+
+### Issue: ESLint Errors
+
+**Solution:**
+1. Run:
+   ```bash
+   npm run lint
+   ```
+2. Or ignore errors in scripts:
+   - Errors in `scripts/` can be ignored
+
+## 📝 Useful Scripts
+
+### Server Scripts
+
+```bash
+# Add new stories
+npm run seed-stories
+
+# Make stories public
+npm run make-stories-public
+
+# Show all stories
+npm run show-all-stories
+
+# Delete a story
+npm run delete-story
+
+# Test stories API
+npm run test-stories-api
+```
+
+## 🛑 Stopping the Application
+
+- **Stop Server**: Press `Ctrl + C` in the server terminal
+- **Stop Client**: Press `Ctrl + C` in the client terminal
+
+## 📚 Additional Resources
+
+- [React Documentation](https://react.dev/)
+- [Express.js Documentation](https://expressjs.com/)
+- [MongoDB Documentation](https://docs.mongodb.com/)
+- [Socket.io Documentation](https://socket.io/docs/)
+- [Vite Documentation](https://vitejs.dev/)
+
+
+## 👥 About This Project
+
+This project was developed by our team as part of the BeSafe Hackathon 2026. It is an educational gaming application designed specifically for girls to learn about online safety and protect themselves from digital risks.
+
+**Team Members:**
+- [@hebafarhan](https://github.com/hebafarhan)
+- [@karenseh](https://github.com/karenseh)
+- [@noranal](https://github.com/noranal)
+- [@RaneemEassa](https://github.com/RaneemEassa)
+- [@salmaj141](https://github.com/salmaj141)
+- [@maiissh](https://github.com/maiissh)
+
+*This project was created by our team for the BeSafe Hackathon 2026.*
+
+## 📄 License
+
+This project is part of BeSafe Hackathon 2026 
+
+## 📧 Support
+
+For help or inquiries:
+- Open an Issue on GitHub
+- Or email us at: queenb.community@gmail.com
+
+---
+
+**Happy Coding! 🚀**
