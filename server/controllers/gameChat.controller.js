@@ -12,9 +12,7 @@ import {
     setLastBot
 } from "../data/gameChatState.js";
 
-/* =========================
-   🔐 OPENAI SETUP
-========================= */
+
 let openai = null;
 if (process.env.OPENAI_API_KEY) {
     openai = new OpenAI({
@@ -22,9 +20,7 @@ if (process.env.OPENAI_API_KEY) {
     });
 }
 
-/* =========================
-   Helpers
-========================= */
+
 
 function mentionsName(userText, name) {
     if (!userText) return false;
@@ -39,9 +35,6 @@ function pickRandom(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
-/* =========================
-   AI MESSAGE GENERATION
-========================= */
 
 async function generateBotMessage({
     topicText,
@@ -100,9 +93,6 @@ Do NOT:
     return text.split("\n")[0] || "lol what 😭";
 }
 
-/* =========================
-   CONTROLLERS
-========================= */
 
 export function getRandomTopic(req, res) {
     res.json(pickRandom(CHAT_TOPICS));
@@ -159,9 +149,7 @@ export function getGameResults(req, res) {
     });
 }
 
-/* =========================
-   USER-TRIGGERED MESSAGE
-========================= */
+
 export async function sendImposterMessage(req, res) {
     const { chatId, userText } = req.body;
     if (!chatId || !userText) {
@@ -271,9 +259,7 @@ export async function sendImposterMessage(req, res) {
     });
 }
 
-/* =========================
-   🤖 AUTONOMOUS BOT MESSAGE
-========================= */
+
 export async function autonomousBotMessage(req, res) {
     const { chatId } = req.body;
     if (!chatId) return res.status(400).json({ error: "chatId required" });

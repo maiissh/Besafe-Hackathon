@@ -21,7 +21,7 @@ export default function ChatPage() {
     const points = location.state?.points || 0;
     const chatId = location.state?.chatId;
 
-    // ✅ messages are READY on first render
+
     const [messages, setMessages] = useState(
         location.state?.initialMessages || []
     );

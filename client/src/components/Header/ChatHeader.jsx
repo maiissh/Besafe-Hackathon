@@ -68,7 +68,7 @@ export default function ChatHeader({ topic, /*points*/ }) {
 
                     <div className="points-badge">
                         <Coins size={22} />
-                        <span>{"166"}</span>
+                        <span>{"189"}</span>
                     </div>
                 </div>
             </div>

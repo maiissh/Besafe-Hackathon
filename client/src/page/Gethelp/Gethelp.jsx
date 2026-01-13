@@ -50,7 +50,7 @@ const GetHelp = () => {
   const handleSchoolSelect = (e) => {
     const school = e.target.value;
     setSelectedSchool(school);
-    
+
     if (school) {
       setLoading(true);
       setTimeout(() => {
@@ -106,7 +106,7 @@ const GetHelp = () => {
       };
 
       await helpRequestService.createHelpRequest(helpRequestData);
-      
+
       // Open email client
       if (counselorContact) {
         // eslint-disable-next-line react-hooks/immutability
@@ -125,7 +125,7 @@ const GetHelp = () => {
   return (
     <div style={{ paddingTop: '80px', paddingBottom: '80px' }}>
       <Header points={student.points} streak={student.streak} />
-      
+
       {/* Animated Background */}
       <div className="background-wrapper">
         <div className="gradient-overlay"></div>
@@ -133,7 +133,7 @@ const GetHelp = () => {
         <div className="floating-orb orb-purple"></div>
         <div className="floating-orb orb-blue"></div>
       </div>
-      
+
       {/* Get Help Section */}
       <div className="get-help-section">
         <div className="get-help-container">
@@ -147,9 +147,9 @@ const GetHelp = () => {
           {/* Main support options */}
           <div className="options-section">
             <h2 className="section-title">Where would you like to get help?</h2>
-            
+
             <div className="options-grid">
-              <button 
+              <button
                 className={`option-card ${selectedOption === 'school' ? 'active' : ''}`}
                 onClick={() => handleOptionSelect('school')}
               >
@@ -158,7 +158,7 @@ const GetHelp = () => {
                 <p>Connect with counselors at your school</p>
               </button>
 
-              <button 
+              <button
                 className={`option-card ${selectedOption === 'external' ? 'active' : ''}`}
                 onClick={() => handleOptionSelect('external')}
               >
@@ -185,8 +185,8 @@ const GetHelp = () => {
 
                 <div className="form-group">
                   <label htmlFor="school-select">Select Your School</label>
-                  <select 
-                    id="school-select" 
+                  <select
+                    id="school-select"
                     value={selectedSchool}
                     onChange={handleSchoolSelect}
                   >
@@ -217,7 +217,7 @@ const GetHelp = () => {
                             <div className="counselor-name">{counselor.name}</div>
                             <div className="counselor-role">{counselor.role}</div>
                           </div>
-                          <button 
+                          <button
                             className="contact-btn"
                             onClick={() => handleContact('school', counselor.name, counselor.contact, null, selectedSchool)}
                           >
@@ -255,7 +255,7 @@ const GetHelp = () => {
                         For immediate danger or serious threats
                       </div>
                       <div className="resource-contact">
-                        <button 
+                        <button
                           className="emergency-badge"
                           onClick={() => handleContact('national', null, null, 'Police Emergency', null)}
                         >
@@ -273,7 +273,7 @@ const GetHelp = () => {
                         Specialized support for online harassment, cyberbullying, and digital threats
                       </div>
                       <div className="resource-contact">
-                        <button 
+                        <button
                           className="info-badge"
                           onClick={() => handleContact('national', null, null, 'Cyber Safety Helpline', null)}
                         >
@@ -292,7 +292,7 @@ const GetHelp = () => {
                         Confidential counseling and legal support for harassment cases
                       </div>
                       <div className="resource-contact">
-                        <button 
+                        <button
                           className="info-badge"
                           onClick={() => handleContact('national', null, null, 'Women\'s Support Center', null)}
                         >
@@ -310,7 +310,7 @@ const GetHelp = () => {
                         Emotional support and guidance for young people
                       </div>
                       <div className="resource-contact">
-                        <button 
+                        <button
                           className="info-badge"
                           onClick={() => handleContact('national', null, null, 'Youth Crisis Line', null)}
                         >
@@ -329,13 +329,13 @@ const GetHelp = () => {
                         Professional guidance for digital safety and protection
                       </div>
                       <div className="resource-contact">
-                        <button 
+                        <button
                           className="info-badge"
                           onClick={() => handleContact('national', null, null, 'Online Safety Organizations', null)}
                         >
                           🌐 Online Support
                         </button>
-                        <button 
+                        <button
                           className="info-badge"
                           onClick={() => handleContact('national', null, null, 'Online Safety Organizations', null)}
                         >
@@ -348,15 +348,15 @@ const GetHelp = () => {
                   <div className="resource-item">
                     <div className="resource-icon">🛡️</div>
                     <div className="resource-content">
-                      <div className="resource-title">עמותת מא'את (Project Maat)</div>
+                      <div className="resource-title">עמותת מאאת (Project Maat)</div>
                       <div className="resource-description">
-                        עמותה שחושפת עברייני מין ברשת. זיהוי פוגעים, בניית תיק ראיות, ומיצוי זכויות. 
+                        עמותה שחושפת עברייני מין ברשת. זיהוי פוגעים, בניית תיק ראיות, ומיצוי זכויות.
                         Organization that exposes online sexual offenders. Identification of perpetrators, evidence building, and legal support.
                       </div>
                       <div className="resource-contact">
-                        <a 
-                          href="https://projectmaat.com" 
-                          target="_blank" 
+                        <a
+                          href="https://projectmaat.com"
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="info-badge"
                           style={{ textDecoration: 'none', display: 'inline-block' }}
@@ -364,7 +364,7 @@ const GetHelp = () => {
                         >
                           🌐 Visit Website
                         </a>
-                        <button 
+                        <button
                           className="info-badge"
                           onClick={() => {
                             handleContact('national', null, null, 'Project Maat', null);
@@ -385,15 +385,15 @@ const GetHelp = () => {
           <div className="support-banner">
             <h3>Remember: It&apos;s Not Your Fault</h3>
             <p>
-              Whatever you&apos;re experiencing, it&apos;s important to know that it&apos;s not your fault. 
-              You deserve to feel safe online and offline. Reaching out for help is a sign of 
+              Whatever you&apos;re experiencing, it&apos;s important to know that it&apos;s not your fault.
+              You deserve to feel safe online and offline. Reaching out for help is a sign of
               strength, not weakness.
             </p>
             <button className="support-btn">💬 Start Confidential Chat</button>
           </div>
         </div>
       </div>
-      
+
       <BottomNav />
     </div>
   );
