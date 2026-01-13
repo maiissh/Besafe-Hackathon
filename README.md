@@ -341,12 +341,13 @@ npm run test-stories-api
 This project was developed by our team as part of the BeSafe Hackathon 2026. It is an educational gaming application designed specifically for girls to learn about online safety and protect themselves from digital risks.
 
 **Team Members:**
+- [@maiissh](https://github.com/maiissh)
 - [@hebafarhan](https://github.com/hebafarhan)
 - [@karenseh](https://github.com/karenseh)
 - [@noranal](https://github.com/noranal)
 - [@RaneemEassa](https://github.com/RaneemEassa)
 - [@salmaj141](https://github.com/salmaj141)
-- [@maiissh](https://github.com/maiissh)
+
 
 *This project was created by our team for the BeSafe Hackathon 2026.*
 

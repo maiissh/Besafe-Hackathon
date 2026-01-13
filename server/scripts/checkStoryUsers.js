@@ -1,6 +1,5 @@
 import dotenv from 'dotenv';
 import Story from '../models/Story.js';
-import Student from '../models/Student.js';
 import connectDB from '../config/database.js';
 
 dotenv.config();
