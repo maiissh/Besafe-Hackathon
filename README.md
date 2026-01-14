@@ -375,7 +375,7 @@ This project is part of BeSafe Hackathon 2026
 
 For help or inquiries:
 - Open an Issue on GitHub
-- Or email us at: queenb.community@gmail.com
+- Or email us at: maisabushande@gmail.com
 
 ---
 
