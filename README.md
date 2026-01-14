@@ -2,6 +2,28 @@
 
 An interactive educational application designed to teach girls how to handle online risks and protect themselves on the internet.
 
+🎭 Spot Imposter – Web Safety Chat Game for Teens
+
+Spot Imposter is an educational web-based game designed to teach teenagers how to recognize unsafe and manipulative behavior in online conversations.
+
+The game simulates a realistic group chat where multiple participants discuss a common topic. One participant is secretly assigned as the Imposter and is instructed to subtly use harmful or problematic online phrases (such as social pressure, normalization of harassment, or privacy violations) without getting caught.
+
+The other participants must:
+
+Pay attention to the conversation
+
+Identify suspicious messages
+
+Detect who the Imposter is before time runs out
+
+After the chat phase, players vote on:
+
+Who they believe the Imposter is
+
+Which messages contained harmful or unsafe tactics
+
+The goal is to promote digital awareness, critical thinking, and online safety through interactive gameplay rather than lectures.
+
 ## 🎥 Demo Video
 
 Watch our demo video to see the app in action:
@@ -370,12 +392,6 @@ This project was developed by our team as part of the BeSafe Hackathon 2026. It 
 ## 📄 License
 
 This project is part of BeSafe Hackathon 2026 
-
-## 📧 Support
-
-For help or inquiries:
-- Open an Issue on GitHub
-- Or email us at: maisabushande@gmail.com
 
 ---
 
