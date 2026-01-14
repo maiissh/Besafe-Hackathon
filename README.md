@@ -146,13 +146,18 @@ Server not starting — MongoDB running, env correct, port 5000
 Client not starting — env correct, port 3000
 Chat limited — missing OpenAI key
 
-##👥 TEAM
+## 👥 TEAM
 
 @maiissh
+
 @hebafarhan
+
 @karenseh
+
 @noranal
+
 @RaneemEassa
+
 @salmaj141
 
 ## 📄 LICENSE
