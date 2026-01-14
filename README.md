@@ -45,6 +45,7 @@ Watch our demo video to see the app in action:
 - [Project Structure](#project-structure)
 - [Troubleshooting](#troubleshooting)
 
+<<<<<<< HEAD
 ## 🛠️ Prerequisites
 
 Before you begin, ensure you have the following installed:
@@ -208,9 +209,21 @@ http://localhost:3000
 ## ✨ Features
 
 ### 1. **Spot the Imposter Game** 🕵️
-- Interactive game to teach children how to spot fake accounts
-- Chat with AI-powered bots
-- Voting system to identify the imposter
+- 🎭 Spot Imposter – Web Safety Chat Game for Teens
+
+Spot Imposter is an educational web-based game designed to teach teenagers how to recognize unsafe and manipulative behavior in online conversations.
+
+The game simulates a realistic group chat where multiple participants discuss a common topic. One participant is secretly assigned as the Imposter and is instructed to subtly use harmful or problematic online phrases (such as social pressure, normalization of harassment, or privacy violations) without getting caught.
+
+The other participants must:
+Pay attention to the conversation
+Identify suspicious messages
+Detect who the Imposter is before time runs out
+After the chat phase, players vote on:
+Who they believe the Imposter is
+Which messages contained harmful or unsafe tactics
+
+
 
 ### 2. **Stories & Experiences** 📖
 - Share stories and experiences
@@ -396,3 +409,5 @@ This project is part of BeSafe Hackathon 2026
 ---
 
 **Happy Coding! 🚀**
+=======
+>>>>>>> 8ad22851a0182092939233a6899bcc873cea70ad
